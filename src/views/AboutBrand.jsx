@@ -1,19 +1,75 @@
 
 import React, { Component } from "react";
-import { Grid, Row, Col, Table } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+import { Grid, Row, Col, Table, FormGroup, ControlLabel, FormControl } from "react-bootstrap";
+import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
 import Card from "components/Card/Card.jsx";
 import { UserCard } from "components/UserCard/UserCard.jsx";
-import { thArray, tdArray, brands } from "variables/Variables.jsx";
+// import { thArray, tdArray, brands } from "variables/Variables.jsx";
 
 
 import Button from "components/CustomButton/CustomButton.jsx";
 
-import avatar from "assets/img/brands/levis.jpg";
-import banner from "assets/img/brands/Flex-HomeBanner-1.jpg";
+// import avatar from "assets/img/brands/levis.jpg";
+// import banner from "assets/img/brands/Flex-HomeBanner-1.jpg";
 
 class TableList extends Component {
+
+  state={
+    brandName: 'Levis',
+    brandType: 'Clothing Brand',
+    brandDesc: "Levi Strauss Co. is an American clothing company known worldwide for its Levi's brand of denim jeans. It was founded in May 1853,",
+    brandImg: '/static/media/levis.59e763b8.jpg',
+    brandBanner: 'https://bellomag.files.wordpress.com/2014/01/versace-jeans-spring-summer-2014-01.jpg',
+    uploadedBrandImg: [],
+    uploadedBrandBannerImg: [],
+    brandAddress: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
+    brandContactNum1 : '123456',
+    brandContactNum2 : '654321',
+    error : false
+  }
+
+
+ editBrandHandle = (e) => {
+   e.preventDefault();
+    const name = e.target.brandName.value;
+    const type = e.target.brandType.value;
+    const desc = e.target.brandDescription.value;
+    const addr = e.target.brandAddress.value;
+    const num1 = e.target.brandContact1.value;
+    const num2 = e.target.brandContact2.value;
+
+    
+    
+   name === '' || type === ''  || desc === '' || addr === '' || num1 === '' || num2 === '' ? this.setState({error : true}) :   
+
+  this.setState({
+    brandName: name,
+    brandType: type,
+    brandDesc: desc,    
+    brandAddress: addr,
+    brandContactNum1 : num1,
+    brandContactNum2 : num2,    
+    error : false
+   });
+
+}
+
+HandleDPUploadImage = (e) => {     
+   this.setState({
+     uploadedBrandImg: e.target.files[0]
+   }, ()=>{ console.log(this.state.uploadedBrandImg)})
+}
+
+HandleBannerUploadImage = (e) => {     
+   this.setState({
+     uploadedBrandBannerImg: e.target.files[0]
+   }, ()=>{ console.log(this.state.uploadedBrandBannerImg)})
+}
+
   render() {
+    const formError = this.state.error = false ? 'Please fill all of the fields' : ''
     return (
       <div className="content">
         <Grid fluid>
@@ -21,28 +77,16 @@ class TableList extends Component {
             <Col md={12}>
             <div className="brands-banner">
               <UserCard                  
-                  bgImage={banner}
-                  avatar={avatar}
-                  name="Levis"
-                  userName="Clothing Brand"
+                  bgImage={this.state.brandBanner}
+                  avatar={this.state.brandImg}
+                  name={this.state.brandName}
+                  userName={this.state.brandType}
                   description={
                     <span>                    
-                      Levi Strauss Co. is an American clothing company known worldwide for its Levi's brand of denim jeans. It was founded in May 1853                     
+                      {this.state.brandDesc}
                     </span>
                   }
-                  socials={
-                    <div>
-                      <Button simple>
-                        <i className="fa fa-facebook-square" />
-                      </Button>
-                      <Button simple>
-                        <i className="fa fa-twitter" />
-                      </Button>
-                      <Button simple>
-                        <i className="fa fa-google-plus-square" />
-                      </Button>
-                    </div>
-                  }
+                  
                 />
                 </div>
             </Col>
@@ -52,45 +96,121 @@ class TableList extends Component {
                 category="Below are the contact details"
                 ctTableFullWidth
                 ctTableResponsive
-                content={
-                  // <Table striped hover>
-                  //   <thead>
-                  //     <tr>
-                  //       {thArray.map((prop, key) => {
-                  //         return <th key={key}>{prop}</th>;
-                  //       })}
-                  //     </tr>
-                  //   </thead>
-                  //   <tbody>
-                  //     {tdArray.map((prop, key) => {
-                  //       return (
-                  //         <tr key={key}>
-                  //           {prop.map((prop, key) => {
-                  //             return <td key={key}>{prop}</td>;
-                  //           })}
-                  //         </tr>
-                  //       );
-                  //     })}
-                  //   </tbody>
-                  // </Table>
+                content={                  
                   <ul className="address">
-                    <li><p>Santa Monica Beach ,California</p></li>
-                    <li><p><a href="tel:123456">123456</a></p></li>
-                    <li><p><a href="tel:7891011">7891011</a></p></li>
+                    <li><p>{this.state.brandAddress}</p></li>
+                    <li><p><a href={`tel:`+this.state.brandContactNum1}>{this.state.brandContactNum1}</a></p></li>
+                    <li><p><a href={`tel:`+this.state.brandContactNum2}>{this.state.brandContactNum2}</a></p></li>
                   </ul>
                 }
               />
             </Col>
 
             <Col md={6}>
-              <Card                
-                title="Location"                
-                ctTableFullWidth
-                ctTableResponsive
+            <Card
+                title="Edit Profile"
+                category={formError}
                 content={
-                  <div className="map-location">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26458.815957753388!2d-118.5151381031819!3d34.009174659513555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2a4d753e7d5f1%3A0x1730c10394bec38!2sSanta%20Monica%20Beach!5e0!3m2!1sen!2s!4v1583073687315!5m2!1sen!2s" frameBorder="0"></iframe> 
-                  </div>
+                  <form onSubmit={this.editBrandHandle}>
+                    <FormInputs
+                      ncols={["col-md-6", "col-md-6"]}
+                      properties={[                        
+                        {
+                          label: "Brand name",
+                          type: "text",
+                          bsClass: "form-control",
+                          placeholder: "My Brand",
+                          defaultValue: "",
+                          name:"brandName",
+                          onChange: this.editBrandName
+                        },
+                        {
+                          label: "Brand type",
+                          type: "text",
+                          bsClass: "form-control",
+                          placeholder: "Clothing Brand",
+                          name:"brandType"
+                        }
+                      ]}
+                    />                     
+                    <FormInputs
+                      ncols={["col-md-12"]}
+                      properties={[
+                        {
+                          label: "Adress",
+                          type: "text",
+                          bsClass: "form-control",
+                          placeholder: "Home Adress",
+                          name:"brandAddress",
+                          defaultValue:""
+                        }
+                      ]}
+                    />
+                    <FormInputs
+                      ncols={["col-md-6", "col-md-6"]}
+                      properties={[
+                        {
+                          label: "Contact Number",
+                          type: "number",
+                          bsClass: "form-control",
+                          placeholder: "Number",
+                          name:"brandContact1",
+                          defaultValue: ""
+                        },
+                        {
+                          label: "Second Contact Number (Optional)",
+                          type: "number",
+                          bsClass: "form-control",
+                          placeholder: "Number",
+                          name:"brandContact2",
+                          defaultValue: ""
+                        }                      
+                      ]}
+                    />
+                    <Row>
+                      <Col md={6}>
+                      <ControlLabel>Brand Image</ControlLabel>
+                        <input type="file" onChange={this.HandleDPUploadImage}/>  
+                      </Col>
+                      <Col md={6}>
+                      <ControlLabel>Brand Banner Image</ControlLabel>
+                        <input type="file" onChange={this.HandleBannerUploadImage}/>
+                      </Col>
+                    </Row>
+                    {/* <FormInputs
+                      ref={this.HandleUploadImage}
+                      ncols={["col-md-6"]}
+                      properties={[
+                        {
+                          label: "Brand Picture",
+                          type: "file",
+                          bsClass: "form-control",   
+                          name:"brandPicture",                       
+                          placeholder: "Upload picture",
+                          defaultValue: ""
+                        }                   
+                      ]}
+                    /> */}
+                    <Row>
+                      <Col md={12}>
+                        <FormGroup controlId="formControlsTextarea">
+                          <ControlLabel>Brand Description</ControlLabel>
+                          <FormControl
+                            rows="5"
+                            componentClass="textarea"
+                            bsClass="form-control"
+                            name="brandDescription"
+                            placeholder="Here can be your description"
+                            defaultValue=""
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Button bsStyle="info" pullRight fill type="submit">
+                      Update Profile
+                    </Button>
+                    <div className="clearfix" />
+                  </form>
                 }
               />
             </Col>

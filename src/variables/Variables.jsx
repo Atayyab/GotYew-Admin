@@ -321,6 +321,47 @@ const OrdersData = [
     itemSize:"M"
   }
 ]
+const TransactionData = [
+  {
+    id:32,
+    userName: "Jesse",
+    Date: "08-03-2020",
+    Remaining: "$782.00",
+    Transfered: "600",
+    Picture: "https://lateinvoicetips.com/wp-content/uploads/2020/01/invoicing.jpg",
+    orderStatus: "ordered",
+    cultCut: "182",
+    itemQuantity: "2",  
+    itemName:"Black Hoodie",
+    itemSize:"L"
+  },
+  {
+    id:52,
+    userName: "Jesse",
+    Date: "16-03-2020",
+    Remaining: "$882.00",
+    Transfered: "400",
+    Picture: "https://lateinvoicetips.com/wp-content/uploads/2020/01/invoicing.jpg",
+    orderStatus: "ordered",
+    cultCut: "182",
+    itemQuantity: "2",  
+    itemName:"Black Hoodie",
+    itemSize:"L"
+  },
+  {
+    id:22,
+    userName: "Jesse",
+    Date: "25-03-2020",
+    Remaining: "$382.00",
+    Transfered: "200",
+    Picture: "https://lateinvoicetips.com/wp-content/uploads/2020/01/invoicing.jpg",
+    orderStatus: "ordered",
+    cultCut: "182",
+    itemQuantity: "2",  
+    itemName:"Black Hoodie",
+    itemSize:"L"
+  },
+]
 
 
 //
@@ -651,7 +692,8 @@ module.exports = {
   tdArray, // For tables (TableList view)
   iconsArray, // For icons (Icons view)
   brands,
-  OrdersData, // for orders  
+  OrdersData, // for orders 
+  TransactionData, //transactions history 
   dataPie,
   legendPie,
   dataSales,
