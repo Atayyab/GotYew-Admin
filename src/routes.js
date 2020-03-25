@@ -20,12 +20,15 @@ import UserProfile from "views/UserProfile.jsx";
 import TableList from "views/TableList.jsx";
 import Typography from "views/Typography.jsx";
 import Icons from "views/Icons.jsx";
-import Maps from "views/Maps.jsx";
 import AboutBrand from "views/AboutBrand.jsx";
 import Orders from "views/Orders.jsx";
 import Transaction from "views/Transaction.jsx";
 import Notifications from "views/Notifications.jsx";
-import Upgrade from "views/Upgrade.jsx";
+import SuperBrand from "views/SuperBrand.jsx";
+import SuperApprovedBrands from "views/SuperApprovedBrands.jsx";
+import SuperUnapprovedBrands from "views/SuperUnapprovedBrands.jsx";
+import SuperAllBrands from "views/SuperAllBrands.jsx";
+
 
 const dashboardRoutes = [
   {
@@ -33,28 +36,64 @@ const dashboardRoutes = [
     name: "About Brand",
     icon: "pe-7s-news-paper",
     component: AboutBrand,
-    layout: "/admin"
+    layout: "/admin",
+    type: 'vendor'
   },
   {
     path: "/dashboard",
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard,
-    layout: "/admin"
+    layout: "/admin",
+    type: 'vendor'
   },
   {
     path: "/orders",
     name: "Orders",
     icon: "pe-7s-server",
     component: Orders,
-    layout: "/admin"
+    layout: "/admin",
+    type: 'vendor'
   },
   {
     path: "/transaction-history",
     name: "Transaction History",
     icon: "pe-7s-graph2",
     component: Transaction,
-    layout: "/admin"
+    layout: "/admin",
+    type: 'vendor'
+  },
+  {
+    path: "/superbrand",
+    name: "Brand",
+    icon: "pe-7s-network",
+    component: SuperBrand,
+    layout: "/admin",
+    type: ''
+  },
+  {
+    path: "/superbrandsapproved",
+    name: "brands-approved",
+    icon: "pe-7s-network",
+    component: SuperApprovedBrands,
+    layout: "/admin",
+    type: 'superAdmin'
+  },
+  {
+    path: "/superbrandsunapproved",
+    name: "brands-unapproved",
+    icon: "pe-7s-network",
+    component: SuperUnapprovedBrands,
+    layout: "/admin",
+    type: 'superAdmin'
+  },
+  {
+    path: "/superbrandsall",
+    name: "brands-all",
+    icon: "pe-7s-network",
+    component: SuperAllBrands,
+    layout: "/admin",
+    type: 'superAdmin'
   },
   // {
   //   path: "/user",
@@ -77,13 +116,13 @@ const dashboardRoutes = [
   //   component: Typography,
   //   layout: "/admin"
   // },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   icon: "pe-7s-science",
-  //   component: Icons,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/icons",
+    name: "Icons",
+    icon: "pe-7s-science",
+    component: Icons,
+    layout: "/admin"
+  },
   // {
   //   path: "/maps",
   //   name: "Maps",
@@ -98,6 +137,6 @@ const dashboardRoutes = [
   //   component: Notifications,
   //   layout: "/admin"
   // }
-];
+]
 
 export default dashboardRoutes;

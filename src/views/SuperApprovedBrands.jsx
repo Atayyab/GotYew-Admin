@@ -1,12 +1,11 @@
 import React from 'react'
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card";
-import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import {TransactionData} from 'variables/Variables'
 
 
 
-class TransactionHistory extends React.Component{  
+class SuperApprovedBrands extends React.Component{  
     
     state = {
         TotalEarned : 10500,    
@@ -22,41 +21,12 @@ class TransactionHistory extends React.Component{
 
        return(
         <div className="content">
-            <Grid fluid>
-                <Row>
-                <Col lg={4} sm={6}>
-                <StatsCard
-                    bigIcon={<i className="pe-7s-server text-warning" />}
-                    statsText="Total Earned"
-                    statsValue={`$${this.state.TotalEarned}`}
-                    statsIcon={<i className="fa fa-refresh" />}
-                    statsIconText="Last Month"
-                />
-                </Col>
-                <Col lg={4} sm={6}>
-                <StatsCard
-                    bigIcon={<i className="pe-7s-wallet text-success" />}
-                    statsText="Total Transfered"
-                    statsValue={`$${this.state.TotalTransfered}`}
-                    statsIcon={<i className="fa fa-calendar-o" />}
-                    statsIconText="Last Month"
-                />
-                </Col>
-                <Col lg={4} sm={6}>
-                <StatsCard
-                    bigIcon={<i className="pe-7s-graph1 text-danger" />}
-                    statsText="Total Remaining"
-                    statsValue={`$${this.state.TotalRemaining}`}
-                    statsIcon={<i className="fa fa-clock-o" />}
-                    statsIconText="Last Month"
-                />
-                </Col>
-                </Row>
+            <Grid fluid>                                
                 <Row>
                     <Col md={12}>
                     <Card
-                        title="Transactions"
-                        category="Below is the History"
+                        title="Approved Brands"
+                        category="Below are Approved Brands"
                         ctTableFullWidth
                         ctTableResponsive
                         content={
@@ -79,7 +49,7 @@ class TransactionHistory extends React.Component{
                                              <td>{trans.Remaining}</td>
                                              <td>{trans.Transfered}</td>
                                              <td>{trans.Date}</td>
-                                             <td><img className="transaction-img" src={trans.Picture} alt="transaction slip"/></td>                                             
+                                             <td><img className="transaction-img" src={trans.Picture} /></td>                                             
                                          </tr>                                         
                                     })
                                 }
@@ -97,4 +67,4 @@ class TransactionHistory extends React.Component{
    }
 }
 
-export default TransactionHistory
+export default SuperApprovedBrands

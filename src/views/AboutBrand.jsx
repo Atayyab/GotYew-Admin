@@ -20,7 +20,7 @@ class TableList extends Component {
     brandName: 'Levis',
     brandType: 'Clothing Brand',
     brandDesc: "Levi Strauss Co. is an American clothing company known worldwide for its Levi's brand of denim jeans. It was founded in May 1853,",
-    brandImg: '/static/media/levis.59e763b8.jpg',
+    brandImg: 'https://image.shutterstock.com/image-photo/manila-philippines-26-june-2016-260nw-458055625.jpg',
     brandBanner: 'https://bellomag.files.wordpress.com/2014/01/versace-jeans-spring-summer-2014-01.jpg',
     uploadedBrandImg: [],
     uploadedBrandBannerImg: [],
