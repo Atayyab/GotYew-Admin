@@ -29,7 +29,7 @@ class Footer extends Component {
           </nav>
           <p className="copyright pull-right">
             &copy; {new Date().getFullYear()}{" "}            
-            , made with <i class="pe-7s-music"></i> and <i class="pe-7s-coffee"></i> for a better web
+            , made with <i className="pe-7s-music"></i> and <i className="pe-7s-coffee"></i> for a better web
           </p>
         </Grid>
       </footer>

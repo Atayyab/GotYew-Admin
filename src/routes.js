@@ -28,6 +28,7 @@ import SuperBrand from "views/SuperBrand.jsx";
 import SuperApprovedBrands from "views/SuperApprovedBrands.jsx";
 import SuperUnapprovedBrands from "views/SuperUnapprovedBrands.jsx";
 import SuperAllBrands from "views/SuperAllBrands.jsx";
+import SuperBrandDetails from "views/SuperBrandDetails.jsx";
 
 
 const dashboardRoutes = [
@@ -92,6 +93,14 @@ const dashboardRoutes = [
     name: "brands-all",
     icon: "pe-7s-network",
     component: SuperAllBrands,
+    layout: "/admin",
+    type: 'superAdmin'
+  },
+  {
+    path: "/brand-details/:id",
+    name: "brands-details",
+    icon: "pe-7s-network",
+    component: SuperBrandDetails,
     layout: "/admin",
     type: 'superAdmin'
   },

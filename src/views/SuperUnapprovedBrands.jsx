@@ -1,7 +1,8 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card";
-import {TransactionData} from 'variables/Variables'
+import {SuperUnverified} from 'variables/Variables'
 
 
 
@@ -31,25 +32,23 @@ class SuperUnapprovedBrands extends React.Component{
                         ctTableResponsive
                         content={
                         <Table striped hover>
-                            <thead>
+                             <thead>
                                 <tr>
-                                    <th>S.no.</th>
-                                    <th>Total Remaining</th>
-                                    <th>Transfered</th>
-                                    <th>Date</th>
-                                    <th>Picture</th>                                    
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Contact no.</th>
+                                    <th>Verification</th>                                                                       
                                 </tr>
                             </thead>
                             <tbody>
                                 {  
                                    
-                                   TransactionData.map((trans,index)=>{
+                                   SuperUnverified.map((trans,index)=>{
                                          return <tr key={index}>
                                              <td>{trans.id}</td>
-                                             <td>{trans.Remaining}</td>
-                                             <td>{trans.Transfered}</td>
-                                             <td>{trans.Date}</td>
-                                             <td><img className="transaction-img" src={trans.Picture} /></td>                                             
+                                             <td>{trans.userName}</td>
+                                             <td>{trans.number}</td>                                             
+                                             <td><Link to="#" className="btn btn-info">Details</Link></td>                                             
                                          </tr>                                         
                                     })
                                 }

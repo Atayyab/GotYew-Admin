@@ -363,6 +363,63 @@ const TransactionData = [
   },
 ]
 
+const SuperAll = [
+  {      
+    id:23,
+    userName: "Jesse",
+    number: "917 458 8569",
+    verifType: 'verified'
+  },
+  {      
+    id:32,
+    userName: "Victoria",
+    number: "917 128 8959",
+    verifType: 'verified'
+  },
+  {      
+    id:56,
+    userName: "Timothy",
+    number: "917 456 2369",
+    verifType: 'verified'
+  },
+  {      
+    id:72,
+    userName: "Simon",
+    number: "917 346 6969",
+    verifType: 'unverified'
+  },
+]
+
+const SuperVerified = [
+  {      
+    id:23,
+    userName: "Jesse",
+    number: "917 458 8569",
+    verifType: 'verified'
+  },
+  {      
+    id:32,
+    userName: "Victoria",
+    number: "917 128 8959",
+    verifType: 'verified'
+  },
+  {      
+    id:56,
+    userName: "Timothy",
+    number: "917 456 2369",
+    verifType: 'verified'
+  },
+]
+
+const SuperUnverified = [
+  {      
+    id:72,
+    userName: "Simon",
+    number: "917 346 6969",
+    verifType: 'unverified'
+  },
+]
+
 
 //
 // //
@@ -694,6 +751,9 @@ module.exports = {
   brands,
   OrdersData, // for orders 
   TransactionData, //transactions history 
+  SuperAll,
+  SuperVerified,
+  SuperUnverified,
   dataPie,
   legendPie,
   dataSales,
