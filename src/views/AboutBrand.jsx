@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
-import { Grid, Row, Col, Table, FormGroup, ControlLabel, FormControl } from "react-bootstrap";
+import { Grid, Row, Col, FormGroup, ControlLabel, FormControl } from "react-bootstrap";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
 import Card from "components/Card/Card.jsx";

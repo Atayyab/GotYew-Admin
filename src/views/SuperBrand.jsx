@@ -18,10 +18,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom"
 import { Grid, Row, Col } from "react-bootstrap";
-
-import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-import {} from "variables/Variables.jsx";
 
 class SuperBrand extends Component {
    

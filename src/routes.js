@@ -125,13 +125,13 @@ const dashboardRoutes = [
   //   component: Typography,
   //   layout: "/admin"
   // },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "pe-7s-science",
-    component: Icons,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/icons",
+  //   name: "Icons",
+  //   icon: "pe-7s-science",
+  //   component: Icons,
+  //   layout: "/admin"
+  // },
   // {
   //   path: "/maps",
   //   name: "Maps",

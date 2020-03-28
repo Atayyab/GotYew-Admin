@@ -280,7 +280,18 @@ const tdArray = [
 const brands = {
   name: "levis",
   logo: "assets/img/brands/levis.jpg",  
-  bannerImage:"../assets/img/brands/Flex-HomeBanner-1.jpg"
+  bannerImage:"../assets/img/brands/Flex-HomeBanner-1.jpg",
+  brandName: 'Levis',
+    brandType: 'Clothing Brand',
+    brandDesc: "Levi Strauss Co. is an American clothing company known worldwide for its Levi's brand of denim jeans. It was founded in May 1853,",
+    brandImg: 'https://image.shutterstock.com/image-photo/manila-philippines-26-june-2016-260nw-458055625.jpg',
+    brandBanner: 'https://bellomag.files.wordpress.com/2014/01/versace-jeans-spring-summer-2014-01.jpg',
+    uploadedBrandImg: [],
+    uploadedBrandBannerImg: [],
+    brandAddress: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
+    brandContactNum1 : '123456',
+    brandContactNum2 : '654321',
+    brandJoinDate : '2-22-2010',
 }
 
 const OrdersData = [
