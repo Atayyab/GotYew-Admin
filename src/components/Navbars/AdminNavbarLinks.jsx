@@ -35,7 +35,7 @@ class AdminNavbarLinks extends Component {
             Account
           </NavItem>
           
-          <NavItem eventKey={3} href="#">
+          <NavItem eventKey={3} href="/authgate/login">
             Log out
           </NavItem>
         </Nav>

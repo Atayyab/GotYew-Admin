@@ -15,6 +15,30 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+#login-area {
+    height: 100vh;
+    background: #314755;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #26a0da, #314755);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #26a0da, #314755); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.error{
+    color: #FB404B;
+}
+.login-area.form--container {
+    background: #fff;
+    padding: 20px 20px 50px 20px;
+    margin: 50px 0 0 0;
+}
+.form--container.bottom-links ul{
+    padding: 0;
+    margin: 20px 0;
+}
+.form--container.bottom-links ul li {
+    display: inline-block;
+    cursor: pointer;
+    color: #4ad2ee;
+}
 .brands-banner .card.card-user .image {
     height: 200px;
 }

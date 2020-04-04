@@ -27,12 +27,15 @@ import "./assets/css/demo.css";
 import "./assets/css/pe-icon-7-stroke.css";
 
 import AdminLayout from "layouts/Admin.jsx";
+import AuthGate from "layouts/AuthGate.jsx";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/about-brand" />
+      <Route path="/authgate" render={props => <AuthGate {...props} />} />
+      {/* <Redirect from="/" to="/admin/about-brand" /> */}
+      <Redirect from="/" to="/authgate/login" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

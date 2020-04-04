@@ -432,6 +432,123 @@ const SuperUnverified = [
 ]
 
 
+const allUsers = [
+  {
+      "id": 1,
+      "user_name": 'Mason Porter',
+      "email":'mason@email.com',
+      "password":'123',
+      "reported_user_name": 'Doris Greene',
+      "date": "2019-12-23 21:44:31",
+      "status": "action taken",
+      "description": "agressive messages sent VIA pvt msg",
+      "options": "hate speech"
+  },
+  {
+      "id": 2,
+      "user_name": 'Dakota Rice',
+      "email":'dakota@email.com',
+      "password":'123',
+      "reported_user_name": 'Minerva Hooper',
+      "date": "2020-01-06 20:55:25",
+      "status": "pending",
+      "description": "agressive messages sent VIA pvt msg",
+      "options": "hate speech"
+  },
+  {
+      "id": 4,
+      "user_name": 'Minerva Hooper',
+      "email":'minerva@email.com',
+      "password":'123',
+      "reported_user_name": 'Dakota Rice',
+      "date": "2019-12-23 21:44:31",
+      "status": "action taken",
+      "description": "agressive messages sent VIA pvt msg",
+      "options": "hate speech"
+  },
+  {
+      "id": 6,
+      "user_name": 'Sage Rodriguez',
+      "email":'sage@email.com',
+      "password":'123',
+      "reported_user_name": 'Philip Chaney',
+      "date": "2019-12-23 21:44:31",
+      "status": "pending",
+      "description": "agressive messages sent VIA pvt msg",
+      "options": "hate speech"
+  },
+  {
+      "id": 5,
+      "user_name": 'Philip Chaney',
+      "email":'philip@email.com',
+      "password":'123',
+      "reported_user_name": 'Sage Rodriguez',
+      "date": "2019-12-23 21:44:31",
+      "status": "action taken",
+      "description": "agressive messages sent VIA pvt msg",
+      "options": "hate speech"
+  },
+  {
+      "id": 3,
+      "user_name": 'Doris Greene',
+      "email":'doris@email.com',
+      "password":'123',
+      "reported_user_name": 'Mason Porter',
+      "date": "2019-12-23 21:44:31",
+      "status": "pending",
+      "description": "agressive messages sent VIA pvt msg",
+      "options": "hate speech"
+  },
+
+]
+
+
+
+const statesData = [
+  { id: 1 , name:'New York'},
+  { id: 2 , name:'Colorado'}                       
+]
+
+const citiesData = {
+cities:[
+  { id:1, name:"Buffalo",         stateId:1 },
+  { id:2, name:"Buffalo",        stateId:1 },
+  { id:3, name:"Rochester",      stateId:1 },
+  { id:4, name:"Yonkers",        stateId:1 },
+  { id:5, name:"Syracuse",       stateId:1 },
+  { id:6, name:"Albany",         stateId:1 },
+  { id:7, name:"New Rochelle",   stateId:1 },
+  { id:8, name:"Mount Vernon",   stateId:1 },
+  { id:9, name:"Schenectady",    stateId:1 },
+  { id:10, name:"Utica",         stateId:1 },
+  { id:11, name:"White Plains",  stateId:1 },
+  { id:12, name:"Hempstead",     stateId:1 },
+  { id:13, name:"Troy",          stateId:1 },
+  { id:14, name:"Niagara Falls", stateId:1 },
+  { id:15, name:"Binghamton",    stateId:1 },
+  { id:16, name:"Freeport",      stateId:1 },
+  { id:17, name:"Valley Stream", stateId:1 },
+  { id:18, name:"Denver",             stateId:2 },                        
+  { id:19, name:"Colorado Springs",   stateId:2 },                        
+  { id:20, name:"Aurora",             stateId:2 },                        
+  { id:21, name:"Fort Collins",       stateId:2 },                        
+  { id:23, name:"Lakewood",           stateId:2 },                        
+  { id:24, name:"Thornton",           stateId:2 },                        
+  { id:25, name:"Arvada",             stateId:2 },                        
+  { id:26, name:"Westminster",        stateId:2 },                        
+  { id:27, name:"Pueblo",             stateId:2 },                        
+  { id:28, name:"Centennial",         stateId:2 },                        
+  { id:29, name:"Boulder",            stateId:2 },                        
+  { id:30, name:"Greeley",            stateId:2 },                        
+  { id:31, name:"Longmont",           stateId:2 },                        
+  { id:32, name:"Loveland",           stateId:2 },                        
+  { id:33, name:"Grand Junction",     stateId:2 },                        
+  { id:34, name:"Broomfield",         stateId:2 } 
+]
+}
+
+
+
 //
 // //
 // // // For icons
@@ -765,6 +882,9 @@ module.exports = {
   SuperAll,
   SuperVerified,
   SuperUnverified,
+  allUsers, // for Login
+  statesData, // for signup
+  citiesData, // for signup
   dataPie,
   legendPie,
   dataSales,
