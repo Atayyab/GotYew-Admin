@@ -31,6 +31,8 @@ import SuperAllBrands from "views/SuperAllBrands.jsx";
 import SuperBrandDetails from "views/SuperBrandDetails.jsx";
 import Login from "components/Login/Login";
 import Signup from "components/Signup/Signup";
+import Documents from "./views/Documents";
+import DocumentsEdit from "./views/DocumentsEdit";
 
 
 const dashboardRoutes = [
@@ -120,6 +122,22 @@ const dashboardRoutes = [
     icon: "pe-7s-network",
     component: Signup,
     layout: "/authgate",
+    type: 'superAdmin'
+  },
+  {
+    path: "/documents",
+    name: "Documents",
+    icon: "pe-7s-file",
+    component: Documents,
+    layout: "/admin",
+    type: ''
+  },
+  {
+    path: "/docs/edit",
+    name: "Edit Docs",
+    icon: "pe-7s-file",
+    component: DocumentsEdit,
+    layout: "/admin",
     type: 'superAdmin'
   },
   // {

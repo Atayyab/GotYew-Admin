@@ -871,6 +871,34 @@ var legendBar = {
   types: ["info", "danger"]
 };
 
+const DocsData = [
+  {      
+    id:72,
+    name: "Privacy Policy",
+    type: "Privacy Policy",
+    content:[
+      {        
+        title: 'Privacy Policy',
+        body:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+      }
+    ],   
+    Date: '03-12-2020'
+  },
+  {      
+    id:92,
+    name: "Terms & Condition",
+    type: "Terms & Condition",
+    content:[
+      {        
+        title: 'Terms & Condition',
+        body:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+      }
+    ],    
+    Date: '13-07-2020'
+  },
+]
+
+
 module.exports = {
   style, // For notifications (App container and Notifications view)
   thArray,
@@ -882,6 +910,7 @@ module.exports = {
   SuperAll,
   SuperVerified,
   SuperUnverified,
+  DocsData, //for documents sections
   allUsers, // for Login
   statesData, // for signup
   citiesData, // for signup
