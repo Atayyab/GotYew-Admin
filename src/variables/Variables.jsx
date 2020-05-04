@@ -434,6 +434,17 @@ const SuperUnverified = [
 
 const allUsers = [
   {
+      "id": 0,
+      "user_name": 'Atayyab Malik',
+      "email":'admin',
+      "password":'123',
+      "reported_user_name": 'Kisi Ki majal',
+      "date": "2019-12-23 21:44:31",
+      "status": "action taken",
+      "description": "agressive messages sent VIA pvt msg",
+      "options": "hate speech"
+  },
+  {
       "id": 1,
       "user_name": 'Mason Porter',
       "email":'mason@email.com',

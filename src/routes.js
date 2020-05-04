@@ -30,6 +30,7 @@ import SuperUnapprovedBrands from "views/SuperUnapprovedBrands.jsx";
 import SuperAllBrands from "views/SuperAllBrands.jsx";
 import SuperBrandDetails from "views/SuperBrandDetails.jsx";
 import Login from "components/Login/Login";
+import LoginAdmin from "components/LoginAdmin/Login";
 import Signup from "components/Signup/Signup";
 import Documents from "./views/Documents";
 import DocumentsEdit from "./views/DocumentsEdit";
@@ -50,7 +51,7 @@ const dashboardRoutes = [
     icon: "pe-7s-graph",
     component: Dashboard,
     layout: "/admin",
-    type: 'vendor'
+    type: 'vendor1'
   },
   {
     path: "/orders",
@@ -74,7 +75,7 @@ const dashboardRoutes = [
     icon: "pe-7s-network",
     component: SuperBrand,
     layout: "/admin",
-    type: ''
+    type: 'superAdmin'
   },
   {
     path: "/superbrandsapproved",
@@ -82,7 +83,7 @@ const dashboardRoutes = [
     icon: "pe-7s-network",
     component: SuperApprovedBrands,
     layout: "/admin",
-    type: 'superAdmin'
+    type: 'superAdminSub'
   },
   {
     path: "/superbrandsunapproved",
@@ -90,7 +91,7 @@ const dashboardRoutes = [
     icon: "pe-7s-network",
     component: SuperUnapprovedBrands,
     layout: "/admin",
-    type: 'superAdmin'
+    type: 'superAdminSub'
   },
   {
     path: "/superbrandsall",
@@ -98,7 +99,7 @@ const dashboardRoutes = [
     icon: "pe-7s-network",
     component: SuperAllBrands,
     layout: "/admin",
-    type: 'superAdmin'
+    type: 'superAdminSub'
   },
   {
     path: "/brand-details/:id",
@@ -106,7 +107,7 @@ const dashboardRoutes = [
     icon: "pe-7s-network",
     component: SuperBrandDetails,
     layout: "/admin",
-    type: 'superAdmin'
+    type: 'superAdminSub'
   },
   {
     path: "/login",
@@ -114,7 +115,15 @@ const dashboardRoutes = [
     icon: "pe-7s-network",
     component: Login,
     layout: "/authgate",
-    type: 'superAdmin'
+    type: 'superAdminSub'
+  },
+  {
+    path: "/login-admin",
+    name: "Login",
+    icon: "pe-7s-network",
+    component: LoginAdmin,
+    layout: "/authgate",
+    type: 'superAdminSub'
   },
   {
     path: "/signup",
@@ -122,7 +131,7 @@ const dashboardRoutes = [
     icon: "pe-7s-network",
     component: Signup,
     layout: "/authgate",
-    type: 'superAdmin'
+    type: 'superAdminSub'
   },
   {
     path: "/documents",
@@ -130,7 +139,7 @@ const dashboardRoutes = [
     icon: "pe-7s-file",
     component: Documents,
     layout: "/admin",
-    type: ''
+    type: 'superAdmin'
   },
   {
     path: "/docs/edit",
@@ -138,7 +147,7 @@ const dashboardRoutes = [
     icon: "pe-7s-file",
     component: DocumentsEdit,
     layout: "/admin",
-    type: 'superAdmin'
+    type: 'superAdminSub'
   },
   // {
   //   path: "/user",

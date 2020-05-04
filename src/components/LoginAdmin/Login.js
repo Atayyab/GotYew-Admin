@@ -32,8 +32,9 @@ class Login extends React.Component {
             if( email === user.email && password === user.password ){
                 console.log('matched')
                 this.setState( {credentialError: !this.state.credentialError} )
-                localStorage.setItem('role', "vendor");
-                this.props.history.push('/admin/about-brand')
+                localStorage.setItem('role', "superAdmin");
+                this.props.history.push('/admin/superbrand')
+
             }else{
                 console.log('not matched')  
                 this.setState( {credentialError: !this.state.credentialError} )           

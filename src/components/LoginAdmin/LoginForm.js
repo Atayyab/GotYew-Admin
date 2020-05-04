@@ -12,7 +12,7 @@ const LoginForm = props => {
   return(
     <div>
         <div className="form--container--heading-area">
-            <h1 className="theme-heading">Login</h1>            
+            <h1 className="theme-heading">Admin Login</h1>            
             <p className={showCredentialError}>Invalid username or password. Please try again</p>
         </div>
         <form  onSubmit={ (event)=>props.loginCheck(event) } >
@@ -28,13 +28,10 @@ const LoginForm = props => {
             <button className="btn btn-block btn-info">PROCEED</button>            
         </form>  
         <div className="form--container bottom-links">
+            <ul> 
+                 </ul>
             <ul>
-                <li><Link to="/authgate/signup" >Create Account</Link></li>
-                <li className="pull-right" onClick={ ()=>{ props.showForgetPasswordForm() } }>Forgot Password</li>
-                
-            </ul>
-            <ul>
-                <li className="pull-right"><Link to="/authgate/login-admin" ><b>Admin Login >></b></Link></li>
+                <li className="pull-right" ><Link to="/authgate/login" ><b>Vendor Login >></b></Link></li>
             </ul>
         </div>  
     </div>

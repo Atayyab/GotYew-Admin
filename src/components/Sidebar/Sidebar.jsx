@@ -60,13 +60,46 @@ class Sidebar extends Component {
             href="#dash"
             className="simple-text logo-normal"
           >
-            Vendor Admin
+            {localStorage.getItem('role')} panel
           </a>
         </div>
         <div className="sidebar-wrapper">
-          <ul className="nav">
+        <ul className="nav">
+            {this.state.width <= 991 ? <AdminNavbarLinks /> : null}
+            {
+              console.log(localStorage.getItem('role'), " --- ", this.props )}
+            {this.props.routes.filter(s => s.type === localStorage.getItem('role')).map((prop, key) => {
+              if (!prop.redirect)
+                return (
+                  <li
+                    className={
+                      prop.upgrade
+                        ? "active active-pro"
+                        : this.activeRoute(prop.layout + prop.path)
+                    }
+                    key={key}
+                  >
+                    <NavLink
+                      to={prop.layout + prop.path}
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i className={prop.icon} />
+                      <p>{prop.name}</p>
+                    </NavLink>
+                  </li>
+                );
+              return null;
+            })}
+          </ul>
+
+
+
+
+          {/* <ul className="nav">
             {this.state.width <= 991 ? <AdminNavbarLinks /> : null}
             {this.props.routes.map((prop, key) => {
+              console.log(prop.type, prop.name)
               if (!prop.redirect)
                 return (
                   prop.type === "superAdmin" || prop.type === "superAdmin" || prop.type === "superAdmin" ? 
@@ -108,7 +141,7 @@ class Sidebar extends Component {
                 );
               return null;
             })}
-          </ul>
+          </ul> */}
         </div>
       </div>
     );
