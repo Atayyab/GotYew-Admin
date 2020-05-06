@@ -9,6 +9,7 @@ class Orders extends React.Component{
     
     state = {
         modalIsOpen: false,
+        modal2IsOpen: false,
         orderedPopClass: false,
         Confirmed : false,
         Cutting : false,
@@ -29,7 +30,7 @@ class Orders extends React.Component{
             Shipped : false,
             Delivered : false, 
         });      
-      }
+      }    
 
       check=(data)=>{  
         this.setState({
@@ -41,30 +42,37 @@ class Orders extends React.Component{
     
 
     handleOrderedPopClick = () => {
-        this.setState({orderedPopClass: true},
+        this.setState({
+          orderedPopClass: true,          
+        },
             console.log('done')
         );
     }
+
     handleConfirmedPopClick = () => {
         this.setState({Confirmed : true},
             console.log('done')
         );
     }
+
     handleCuttingPopClick = () => {
         this.setState({Cutting : true},
             console.log('done')
         );
     }
+
     handleStitchingPopClick = () => {
         this.setState({Stitching : true},
             console.log('done')
         );
     }
+
     handleShippedPopClick = () => {
         this.setState({Shipped : true},
             console.log('done')
         );
     }
+
     handleDeliveredPopClick = () => {
         this.setState({Delivered : true},
             console.log('done')
@@ -75,7 +83,7 @@ class Orders extends React.Component{
    render(){
     const date = new Date()      
 
-    const modalmenuClass = `modal fade ${this.state.modalIsOpen ? "in show" : "hide"}`;   
+    const modalmenuClass = `modal fade ${this.state.modalIsOpen ? "in show" : "hide"}`;       
     const orderedPopClass = ` ${this.state.orderedPopClass ? date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear() : "✓" }`;                    
     const confirmedPopClass = ` ${this.state.Confirmed ? date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear() : "✓" }`;
     const cuttingPopClass = ` ${this.state.Cutting ? date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear() : "✓" }`;
@@ -183,27 +191,30 @@ class Orders extends React.Component{
                     <tbody>
                      <tr>                       
                        <td>Ordered</td>
-                       <td> <span onClick={this.handleOrderedPopClick}> { orderedPopClass } </span> </td>
+                       <td> <span onClick={ ()=>{ if(window.confirm('Are you sure you wan to proceed?')){this.handleOrderedPopClick()} } }> { orderedPopClass } </span> </td>
                      </tr>                     
                      <tr>                       
                        <td>Confirmed</td> 
-                       <td> <span onClick={this.handleConfirmedPopClick}> { confirmedPopClass } </span> </td>                      
+                       <td> 
+                         <span onClick={ () => { if(window.confirm('Are you sure you wan to proceed?')){ this.handleConfirmedPopClick() } } }> 
+                           { confirmedPopClass } 
+                         </span> </td>                      
                      </tr>                     
                      <tr>                       
                        <td>Cutting</td>    
-                       <td> <span onClick={this.handleCuttingPopClick}> { cuttingPopClass } </span> </td>                                          
+                       <td> <span onClick={ () =>{ if(window.confirm('Are you sure you wan to proceed?')) { this.handleCuttingPopClick() } } }> { cuttingPopClass } </span> </td>                                          
                      </tr>                     
                      <tr>                       
                        <td>Stitching</td>  
-                       <td> <span onClick={this.handleStitchingPopClick}> { stitchingPopClass } </span> </td>                                            
+                       <td> <span onClick={ ()=>{ if(window.confirm('Are you sure you wan to proceed?')) {this.handleStitchingPopClick()}  } }> { stitchingPopClass } </span> </td>                                            
                      </tr>                     
                      <tr>                       
                        <td>Shipped</td>  
-                       <td> <span onClick={this.handleShippedPopClick}> { shippedPopClass } </span> </td>                                                        
+                       <td> <span onClick={  ()=>{  if(window.confirm('Are you sure you wan to proceed?')){this.handleShippedPopClick()}  }  }> { shippedPopClass } </span> </td>                                                        
                      </tr>                     
                      <tr>                       
                        <td>Delivered</td>  
-                       <td> <span onClick={this.handleDeliveredPopClick}> { deliveredPopClass } </span> </td>                                                        
+                       <td> <span onClick={ ()=>{ if(window.confirm('Are you sure you wan to proceed?')){this.handleDeliveredPopClick()} } }> { deliveredPopClass } </span> </td>                                                        
                      </tr>                     
                      </tbody> 
                    </table>

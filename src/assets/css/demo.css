@@ -64,6 +64,12 @@ background: linear-gradient(to right, #26a0da, #314755); /* W3C, IE 10+/ Edge, F
     width: 50px;
     border: 1px solid #cac9c9;
 }
+.user-full-details tbody tr span{
+   cursor: pointer;
+}
+.modal2{
+  top: 30%;
+}
 /*.fixed-plugin .button-container .github-btn .gh-btn,
 .fixed-plugin .button-container .github-btn .gh-count{
     padding: 5px 7px 5px 7px;
