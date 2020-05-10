@@ -179,10 +179,11 @@ class Orders extends React.Component{
                   </div> 
                                                             
                 </div> 
-                <div className="col-lg-6">
+                <div className="col-lg-12">
                 <div className="content table-full-width table-responsive">
                    <table className="user-full-details table table-striped table-hover">
                    <thead>
+                     <span className="error">Note: Tapping tick mark will send a notification to user about the status of this order.</span>
                        <tr>
                            <th>Status</th>
                            <th>Date</th>                           
@@ -191,30 +192,30 @@ class Orders extends React.Component{
                     <tbody>
                      <tr>                       
                        <td>Ordered</td>
-                       <td> <span onClick={ ()=>{ if(window.confirm('Are you sure you wan to proceed?')){this.handleOrderedPopClick()} } }> { orderedPopClass } </span> </td>
+                       <td> <span onClick={ ()=>{ if(window.confirm("Are you sure the status of this order is Ordered? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")){this.handleOrderedPopClick()} } }> { orderedPopClass } </span> </td>
                      </tr>                     
                      <tr>                       
                        <td>Confirmed</td> 
                        <td> 
-                         <span onClick={ () => { if(window.confirm('Are you sure you wan to proceed?')){ this.handleConfirmedPopClick() } } }> 
+                         <span onClick={ () => { if(window.confirm("Are you sure the status of this order is Confirmed? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")){ this.handleConfirmedPopClick() } } }> 
                            { confirmedPopClass } 
                          </span> </td>                      
                      </tr>                     
                      <tr>                       
                        <td>Cutting</td>    
-                       <td> <span onClick={ () =>{ if(window.confirm('Are you sure you wan to proceed?')) { this.handleCuttingPopClick() } } }> { cuttingPopClass } </span> </td>                                          
+                       <td> <span onClick={ () =>{ if(window.confirm("Are you sure the status of this order is Cutting? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")) { this.handleCuttingPopClick() } } }> { cuttingPopClass } </span> </td>                                          
                      </tr>                     
                      <tr>                       
                        <td>Stitching</td>  
-                       <td> <span onClick={ ()=>{ if(window.confirm('Are you sure you wan to proceed?')) {this.handleStitchingPopClick()}  } }> { stitchingPopClass } </span> </td>                                            
+                       <td> <span onClick={ ()=>{ if(window.confirm("Are you sure the status of this order is Stitching? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")) {this.handleStitchingPopClick()}  } }> { stitchingPopClass } </span> </td>                                            
                      </tr>                     
                      <tr>                       
                        <td>Shipped</td>  
-                       <td> <span onClick={  ()=>{  if(window.confirm('Are you sure you wan to proceed?')){this.handleShippedPopClick()}  }  }> { shippedPopClass } </span> </td>                                                        
+                       <td> <span onClick={  ()=>{  if(window.confirm("Are you sure the status of this order is Shipped? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")){this.handleShippedPopClick()}  }  }> { shippedPopClass } </span> </td>                                                        
                      </tr>                     
                      <tr>                       
                        <td>Delivered</td>  
-                       <td> <span onClick={ ()=>{ if(window.confirm('Are you sure you wan to proceed?')){this.handleDeliveredPopClick()} } }> { deliveredPopClass } </span> </td>                                                        
+                       <td> <span onClick={ ()=>{ if(window.confirm("Are you sure the status of this order is Delivered? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")){this.handleDeliveredPopClick()} } }> { deliveredPopClass } </span> </td>                                                        
                      </tr>                     
                      </tbody> 
                    </table>
