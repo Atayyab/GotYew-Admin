@@ -52,6 +52,8 @@ class TableList extends Component {
     color : [
                   // { id: 2020, name :'socks'},
                 ],
+    modalIsOpen : false,
+    formName : ''
   }
 
 
@@ -119,10 +121,12 @@ handleEditOutfitType(id,name) {
   this.setState({
     defaultOutfitEditId : id,
     defaultOutfitEdit : name,
+    modalIsOpen : true,
+    formName : 'OutfitTypes'
   })
 }
 
-updateEditOutfitType(e) {  
+updateEditOutfitType(e) {
   e.preventDefault()
 
   let id = arguments[0];
@@ -136,7 +140,8 @@ updateEditOutfitType(e) {
       }
       return item;     
     }),
-    defaultOutfitEditId : ''
+    defaultOutfitEditId : '',
+    modalIsOpen : false
   });
   e.target.EditoutfitType.value = ''
 }
@@ -170,6 +175,8 @@ handleEditMaterialType(id,name) {
   this.setState({
     defaultMaterialEditId : id,
     defaultMaterialEdit : name,
+    modalIsOpen : true,
+    formName : 'MaterialType'
   })
   console.log('id:',id,'name:',name,'handleEditMaterialType');
 }
@@ -188,7 +195,8 @@ updateEditMaterialType(e) {
       }
       return item;     
     }),
-    defaultMaterialEditId : ''
+    defaultMaterialEditId : '',
+    modalIsOpen : false,
   });
   e.target.EditmaterialType.value = ''
 }
@@ -222,6 +230,9 @@ handleEditSizeType(id,name) {
   this.setState({
     defaultSizeEditId : id,
     defaultSizeEdit : name,
+    modalIsOpen : true,
+    formName : 'SizeType'
+    
   })
   console.log('id:',id,'name:',name,'handleEditSizeType');
 }
@@ -240,7 +251,8 @@ updateEditSizeType(e) {
       }
       return item;     
     }),
-    defaultSizeEditId : ''
+    defaultSizeEditId : '',
+    modalIsOpen : false,
   });
   e.target.EditsizeType.value = ''
 }
@@ -274,6 +286,8 @@ handleEditType(id,name) {
   this.setState({
     defaultTypeEditId : id,
     defaultTypeEdit : name,
+    modalIsOpen : true,
+    formName : 'Type'
   })
   console.log('id:',id,'name:',name,'handleEditSizeType');
 }
@@ -292,7 +306,8 @@ updateEditType(e) {
       }
       return item;     
     }),
-    defaultTypeEditId : ''
+    defaultTypeEditId : '',
+    modalIsOpen : false,
   });
   e.target.EditType.value = ''
 }
@@ -326,6 +341,8 @@ handleEditColor(id,name) {
   this.setState({
     defaultColorEditId : id,
     defaultColorEdit : name,
+    modalIsOpen : true,
+    formName : 'ColorType'
   })
   console.log('id:',id,'name:',name,'handleEditSizeType');
 }
@@ -344,14 +361,31 @@ updateEditColor(e) {
       }
       return item;     
     }),
-    defaultColorEditId : ''
+    defaultColorEditId : '',
+    modalIsOpen : false,
   });
   e.target.EditColor.value = ''
 }
 
 
+closeModal = () => {
+  this.setState({ 
+      modalIsOpen : false,
+      // Emptying form name for reusability       
+      formName : ''
+  });      
+} 
+
+openModal = () => {
+  this.setState({ 
+      modalIsOpen : true,       
+  });      
+} 
+
+
   render() {
     const formError = this.state.error = false ? 'Please fill all of the fields' : ''
+    const modalmenuClass = `modal fade ${this.state.modalIsOpen ? "in show" : "hide"}`;
     return (
       <div className="content">
         <Grid fluid>
@@ -412,27 +446,7 @@ updateEditColor(e) {
                     
                    </form>    
                    </Col>
-                   <Col md={12}>                   
-                   <form onSubmit={(e)=>{this.updateEditOutfitType(e)}}>
-                   <FormInputs
-                      ncols={["col-md-12"]}
-                      properties={[
-                        {
-                          label: "Edit Outfit type",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "edit outfit type",
-                          name:"EditoutfitType",
-                          defaultValue: this.state.defaultOutfitEdit
-                        }
-                      ]}
-                    />     
-                      <div className="col-md-3">
-                      <input type="submit" className="btn btn-success btn-sm" value="update"/>
-                      </div>
-                    
-                    
-                   </form>    
+                   <Col md={12}>
                    </Col>
                    <table className="table table-striped table-hover">
                      <thead>
@@ -449,6 +463,7 @@ updateEditColor(e) {
                        </td>
                        <td width="10%">
                         <button className="btn btn-sm btn-info" onClick={()=>{this.handleEditOutfitType(outfit.id, outfit.name)}}>Edit</button>                     
+                        {/* <button className="btn btn-sm btn-info" onClick={()=>{this.openModal(outfit.id, outfit.name)}}>Edit</button> */}
                        </td>
                        <td width="10%">
                        <button className="btn btn-sm btn-danger" onClick={()=>{this.onDeleteHandle(outfit.id)}}>Delete</button>
@@ -489,27 +504,7 @@ updateEditColor(e) {
                     
                    </form>    
                    </Col>
-                   <Col md={12}>                   
-                   <form onSubmit={(e)=>{this.updateEditSizeType(e)}}>
-                   <FormInputs
-                      ncols={["col-md-12"]}
-                      properties={[
-                        {
-                          label: "Edit Size type",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "edit size type",
-                          name:"EditsizeType",
-                          defaultValue: this.state.defaultSizeEdit
-                        }
-                      ]}
-                    />     
-                      <div className="col-md-3">
-                      <input type="submit" className="btn btn-success btn-sm" value="update"/>
-                      </div>
-                    
-                    
-                   </form>    
+                   <Col md={12}>
                    </Col>
                    <table className="table table-striped table-hover">
                    <thead>
@@ -564,27 +559,7 @@ updateEditColor(e) {
                     
                    </form>    
                    </Col>
-                   <Col md={12}>                   
-                   <form onSubmit={(e)=>{this.updateEditType(e)}}>
-                   <FormInputs
-                      ncols={["col-md-12"]}
-                      properties={[
-                        {
-                          label: "Edit Type",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "edit type",
-                          name:"EditType",
-                          defaultValue: this.state.defaultTypeEdit
-                        }
-                      ]}
-                    />     
-                      <div className="col-md-3">
-                      <input type="submit" className="btn btn-success btn-sm" value="update"/>
-                      </div>
-                    
-                    
-                   </form>    
+                   <Col md={12}>
                    </Col>
                    <table className="table table-striped table-hover">
                    <thead>
@@ -749,27 +724,7 @@ updateEditColor(e) {
                     
                    </form>    
                    </Col>
-                   <Col md={12}>                   
-                   <form onSubmit={(e)=>{this.updateEditMaterialType(e)}}>
-                   <FormInputs
-                      ncols={["col-md-12"]}
-                      properties={[
-                        {
-                          label: "Edit Material type",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "edit material type",
-                          name:"EditmaterialType",
-                          defaultValue: this.state.defaultMaterialEdit
-                        }
-                      ]}
-                    />     
-                      <div className="col-md-3">
-                      <input type="submit" className="btn btn-success btn-sm" value="update"/>
-                      </div>
-                    
-                    
-                   </form>    
+                   <Col md={12}>
                    </Col>
                    <table className="table table-striped table-hover">
                    <thead>
@@ -826,26 +781,6 @@ updateEditColor(e) {
                    </form>    
                    </Col>
                    <Col md={12}>                   
-                   <form onSubmit={(e)=>{this.updateEditColor(e)}}>
-                   <FormInputs
-                      ncols={["col-md-12"]}
-                      properties={[
-                        {
-                          label: "Edit Color",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "edit color",
-                          name:"EditColor",
-                          defaultValue: this.state.defaultColorEdit
-                        }
-                      ]}
-                    />     
-                      <div className="col-md-3">
-                      <input type="submit" className="btn btn-success btn-sm" value="update"/>
-                      </div>
-                    
-                    
-                   </form>    
                    </Col>
                    <table className="table table-striped table-hover">
                    <thead>
@@ -877,6 +812,165 @@ updateEditColor(e) {
 
             </Col>
           </Row>
+
+
+
+  {/* Modal */}
+  <div className={ modalmenuClass } role="dialog" tabIndex={-1} aria-labelledby="mySmallModalLabel">
+         <div className="modal-dialog modal-md" role="document"> 
+          <div className="modal-content"> 
+            <div className="modal-header"> 
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" onClick={this.closeModal}>×</span>
+              </button> 
+              <h4 className="modal-title" id="mySmallModalLabel">Edit</h4> 
+            </div> 
+            <div className="modal-body">
+             <div className="row">
+             <div className="col-lg-12">                 
+                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2 className="user-full-details-name"></h2>
+                {
+
+                  this.state.formName == 'OutfitTypes' ?
+                  
+                  
+                  <form onSubmit={(e)=>{this.updateEditOutfitType(e)}}>                  
+                  {console.log(this.state.formName)}
+                  <FormInputs
+                     ncols={["col-md-12"]}
+                     properties={[
+                       {
+                         label: "Edit Outfit type",
+                         type: "text",
+                         bsClass: "form-control",
+                         placeholder: "edit outfit type",
+                         name:"EditoutfitType",
+                         // defaultValue: this.state.defaultOutfitEdit
+
+                       }
+                     ]}
+                   />                          
+                     <div className="col-md-3">
+                     <input type="submit" className="btn btn-success btn-sm" value="update"/>
+                     </div>                                        
+                </form>
+                
+                :
+
+                this.state.formName == 'SizeType' ?
+                  
+                <form onSubmit={(e)=>{this.updateEditSizeType(e)}}>
+                <FormInputs
+                   ncols={["col-md-12"]}
+                   properties={[
+                     {
+                       label: "Edit Size type",
+                       type: "text",
+                       bsClass: "form-control",
+                       placeholder: "edit size type",
+                       name:"EditsizeType",
+                       defaultValue: this.state.defaultSizeEdit
+                     }
+                   ]}
+                 />     
+                   <div className="col-md-3">
+                   <input type="submit" className="btn btn-success btn-sm" value="update"/>
+                   </div>
+                 
+                 
+                </form>   
+
+                :
+                
+                this.state.formName == 'MaterialType' ?
+                 
+                <form onSubmit={(e)=>{this.updateEditMaterialType(e)}}>
+                <FormInputs
+                   ncols={["col-md-12"]}
+                   properties={[
+                     {
+                       label: "Edit Material type",
+                       type: "text",
+                       bsClass: "form-control",
+                       placeholder: "edit material type",
+                       name:"EditmaterialType",
+                       defaultValue: this.state.defaultMaterialEdit
+                     }
+                   ]}
+                 />     
+                   <div className="col-md-3">
+                   <input type="submit" className="btn btn-success btn-sm" value="update"/>
+                   </div>
+                 
+                 
+                </form> 
+
+                :
+                
+                this.state.formName == 'Type' ?
+                
+                <form onSubmit={(e)=>{this.updateEditType(e)}}>
+                <FormInputs
+                   ncols={["col-md-12"]}
+                   properties={[
+                     {
+                       label: "Edit Type",
+                       type: "text",
+                       bsClass: "form-control",
+                       placeholder: "edit type",
+                       name:"EditType",
+                       defaultValue: this.state.defaultTypeEdit
+                     }
+                   ]}
+                 />     
+                   <div className="col-md-3">
+                   <input type="submit" className="btn btn-success btn-sm" value="update"/>
+                   </div>
+                 
+                 
+                </form>    
+
+                :
+
+                this.state.formName == 'ColorType' ?
+                  
+                <form onSubmit={(e)=>{this.updateEditColor(e)}}>
+                <FormInputs
+                   ncols={["col-md-12"]}
+                   properties={[
+                     {
+                       label: "Edit Color",
+                       type: "text",
+                       bsClass: "form-control",
+                       placeholder: "edit color",
+                       name:"EditColor",
+                       defaultValue: this.state.defaultColorEdit
+                     }
+                   ]}
+                 />     
+                   <div className="col-md-3">
+                   <input type="submit" className="btn btn-success btn-sm" value="update"/>
+                   </div>
+                 
+                 
+                </form>
+
+                :                
+                 null
+
+                }                         
+                </div>                                 
+             </div> 
+             </div>
+
+            </div> {/*modal-body ends*/}
+          </div> 
+         </div> 
+        </div>
+        {/* Modal End*/}
+
+
         </Grid>
       </div>
     );

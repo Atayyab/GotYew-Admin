@@ -34,6 +34,10 @@ import LoginAdmin from "components/LoginAdmin/Login";
 import Signup from "components/Signup/Signup";
 import Documents from "./views/Documents";
 import DocumentsEdit from "./views/DocumentsEdit";
+import Coupons from "./views/Coupons";
+import AddCoupon from './views/createCoupon.component';
+import EditCoupon from './views/editCoupon.component';
+// import AddCoupon from './views/';
 
 
 const dashboardRoutes = [
@@ -68,6 +72,30 @@ const dashboardRoutes = [
     component: Transaction,
     layout: "/admin",
     type: 'vendor'
+  },
+  {
+    path: "/products",
+    name: "Products",
+    icon: "pe-7s-network",
+    component: Coupons,
+    layout: "/admin",
+    type: 'vendor'
+  },
+  {
+    path: "/editProduct/:id",
+    name: "EditProduct",
+    icon: "pe-7s-network",
+    view: false,
+    component: EditCoupon,
+    layout: "/admin"
+  },
+  {
+    path: "/addProduct",
+    name: "AddProduct",
+    icon: "pe-7s-network",
+    view: false,
+    component: AddCoupon,
+    layout: "/admin"
   },
   {
     path: "/superbrand",
