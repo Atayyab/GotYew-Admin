@@ -40,7 +40,7 @@ class Login extends React.Component {
    
    loginCheck =(event)=>{
     event.preventDefault()
-    axios.post("https://cult-node.herokuapp.com/users/login_vendor",{
+    axios.post("http://3.123.184.89:5000/users/login_vendor",{
         email: event.target.email.value,
         password: event.target.password.value
     }).then(res=>{

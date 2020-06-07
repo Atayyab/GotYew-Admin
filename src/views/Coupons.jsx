@@ -73,7 +73,7 @@ class Coupons extends Component {
     }
     
     console.log("this - > ", headers)
-    axios.get('https://cult-node.herokuapp.com/admin/product_list', {
+    axios.get('http://3.123.184.89:5000/admin/product_list', {
       headers : headers
     })
         .then(response => {

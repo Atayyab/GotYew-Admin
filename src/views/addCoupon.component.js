@@ -108,7 +108,7 @@ class AddCoupon extends Component {
 	// 		'Content-Type': 'application/json',
 	// 		'x-access-token': localStorage.getItem("jwtToken")
 	// 	  }
-    //   axios.get('https://cult-node.herokuapp.com/admin/product_by_id?id='+this.props.match.params.id, {
+    //   axios.get('http://3.123.184.89:5000/admin/product_by_id?id='+this.props.match.params.id, {
 	// 	headers : headers
 	//   })
     //       .then(async (response) => {
@@ -545,7 +545,7 @@ class AddCoupon extends Component {
 			'x-access-token': localStorage.getItem("jwtToken")
 		  }
 		  
-			await axios.post('https://cult-node.herokuapp.com/admin/add_product', fd, {
+			await axios.post('http://3.123.184.89:5000/admin/add_product', fd, {
 				headers : headers
 			  })
 				.then(res => console.log(res.data));

@@ -32,7 +32,7 @@ class Orders extends React.Component{
       'x-access-token': localStorage.getItem("jwtToken")
     }
     
-    axios.get('https://cult-node.herokuapp.com/admin/orders', {
+    axios.get('http://3.123.184.89:5000/admin/orders', {
       headers : headers
     })
         .then(response => {
@@ -131,7 +131,7 @@ class Orders extends React.Component{
           // 'Content-Type': 'application/json',
           'x-access-token': localStorage.getItem("jwtToken")
           }
-		  await axios.post('https://cult-node.herokuapp.com/admin/change_order_status', data, {
+		  await axios.post('http://3.123.184.89:5000/admin/change_order_status', data, {
 				headers : headers
 			  })
 				.then(res => {
@@ -156,7 +156,7 @@ class Orders extends React.Component{
           // 'Content-Type': 'application/json',
           'x-access-token': localStorage.getItem("jwtToken")
           }
-        await axios.post('https://cult-node.herokuapp.com/admin/change_order_status', data, {
+        await axios.post('http://3.123.184.89:5000/admin/change_order_status', data, {
 				headers : headers
 			  })
 				.then(res => {
@@ -181,7 +181,7 @@ class Orders extends React.Component{
           // 'Content-Type': 'application/json',
           'x-access-token': localStorage.getItem("jwtToken")
           }
-        await axios.post('https://cult-node.herokuapp.com/admin/change_order_status', data, {
+        await axios.post('http://3.123.184.89:5000/admin/change_order_status', data, {
 				headers : headers
 			  })
 				.then(res => {
@@ -206,7 +206,7 @@ class Orders extends React.Component{
           // 'Content-Type': 'application/json',
           'x-access-token': localStorage.getItem("jwtToken")
           }
-        await axios.post('https://cult-node.herokuapp.com/admin/change_order_status', data, {
+        await axios.post('http://3.123.184.89:5000/admin/change_order_status', data, {
 				headers : headers
 			  })
 				.then(res => {
@@ -231,7 +231,7 @@ class Orders extends React.Component{
           // 'Content-Type': 'application/json',
           'x-access-token': localStorage.getItem("jwtToken")
           }
-        await axios.post('https://cult-node.herokuapp.com/admin/change_order_status', data, {
+        await axios.post('http://3.123.184.89:5000/admin/change_order_status', data, {
 				headers : headers
 			  })
         .then(res => {

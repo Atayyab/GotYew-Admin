@@ -23,7 +23,7 @@ class TableRowCoupons extends Component {
     'Content-Type': 'application/json',
     'x-access-token': localStorage.getItem("jwtToken")
     }
-    axios.post('https://cult-node.herokuapp.com/admin/delete_product',obj, {
+    axios.post('http://3.123.184.89:5000/admin/delete_product',obj, {
       headers : headers
       })
             .then(res => {
