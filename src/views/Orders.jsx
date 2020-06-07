@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card";
 import {OrdersData} from 'variables/Variables'
+import axios from 'axios';
 
 
 
@@ -10,15 +11,44 @@ class Orders extends React.Component{
     state = {
         modalIsOpen: false,
         modal2IsOpen: false,
+        orders : [],
         orderedPopClass: false,
         Confirmed : false,
         Cutting : false,
         Stitching : false,
         Shipped : false,
         Delivered : false,
-        data:''
+        data:{details : []}
     }
     
+  componentDidMount() {
+    
+    if(!localStorage.getItem("jwtToken")){
+      // console.log("=====================")
+      this.props.history.push("/")
+    }
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem("jwtToken")
+    }
+    
+    axios.get('https://cult-node.herokuapp.com/admin/orders', {
+      headers : headers
+    })
+        .then(response => {
+    // console.log(this.props.match.params)
+    console.log(response.data)
+            this.setState({ 
+              orders: response.data.data
+             });
+      console.log("this - > ", this.state)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+  }
+
+
 
     closeModal = () => {
         this.setState({ 
@@ -38,6 +68,44 @@ class Orders extends React.Component{
            data:data
         })      
         console.log(this.state)  
+
+        if(data.created_at){
+          this.setState({
+            orderedPopClass: true,          
+          }
+          );
+        }
+        if(data.confirmed_date){
+          this.setState({
+            Confirmed: true,          
+          }
+          );
+        }
+        if(data.cutting_date){
+          this.setState({
+            Cutting: true,          
+          }
+          );
+        }
+        if(data.stitching_date){
+          this.setState({
+            Stitching: true,          
+          }
+          );
+        }
+        if(data.shipped_date){
+          this.setState({
+            Shipped: true,          
+          }
+          );
+        }
+        if(data.delivery_date){
+          this.setState({
+            Delivered: true,          
+          }
+          );
+        }
+        
       }
     
 
@@ -47,36 +115,133 @@ class Orders extends React.Component{
         },
             console.log('done')
         );
+       
+		
     }
 
-    handleConfirmedPopClick = () => {
+    handleConfirmedPopClick = async() => {
         this.setState({Confirmed : true},
             console.log('done')
-        );
+        ); 
+        var data = {
+          status : "confirmed",
+          id : this.state.data.id
+        }
+        const headers = {
+          // 'Content-Type': 'application/json',
+          'x-access-token': localStorage.getItem("jwtToken")
+          }
+		  await axios.post('https://cult-node.herokuapp.com/admin/change_order_status', data, {
+				headers : headers
+			  })
+				.then(res => {
+          console.log(res.data)
+          this.setState({
+            data : {...this.state.data,
+              confirmed_date : res.data.data
+            }
+          });	
+        });
     }
 
-    handleCuttingPopClick = () => {
+    handleCuttingPopClick = async() => {
         this.setState({Cutting : true},
             console.log('done')
         );
+        var data = {
+          status : "cutting",
+          id : this.state.data.id
+        }
+        const headers = {
+          // 'Content-Type': 'application/json',
+          'x-access-token': localStorage.getItem("jwtToken")
+          }
+        await axios.post('https://cult-node.herokuapp.com/admin/change_order_status', data, {
+				headers : headers
+			  })
+				.then(res => {
+          console.log(res.data)
+          this.setState({
+            data : {...this.state.data,
+              cutting_date : res.data.data
+            }
+          });	
+        });
     }
 
-    handleStitchingPopClick = () => {
+    handleStitchingPopClick = async() => {
         this.setState({Stitching : true},
             console.log('done')
         );
+        var data = {
+          status : "stitching",
+          id : this.state.data.id
+        }
+        const headers = {
+          // 'Content-Type': 'application/json',
+          'x-access-token': localStorage.getItem("jwtToken")
+          }
+        await axios.post('https://cult-node.herokuapp.com/admin/change_order_status', data, {
+				headers : headers
+			  })
+				.then(res => {
+          console.log(res.data)
+          this.setState({
+            data : {...this.state.data,
+              stitching_date : res.data.data
+            }
+          });	
+        });
     }
 
-    handleShippedPopClick = () => {
+    handleShippedPopClick =async () => {
         this.setState({Shipped : true},
             console.log('done')
         );
+        var data = {
+          status : "shipped",
+          id : this.state.data.id
+        }
+        const headers = {
+          // 'Content-Type': 'application/json',
+          'x-access-token': localStorage.getItem("jwtToken")
+          }
+        await axios.post('https://cult-node.herokuapp.com/admin/change_order_status', data, {
+				headers : headers
+			  })
+				.then(res => {
+          console.log(res.data)
+          this.setState({
+            data : {...this.state.data,
+              shipped_date : res.data.data
+            }
+          });	
+        });
     }
 
-    handleDeliveredPopClick = () => {
+    handleDeliveredPopClick = async () => {
         this.setState({Delivered : true},
             console.log('done')
-        );
+        ); 
+        var data = {
+          status : "delivered",
+          id : this.state.data.id
+        }
+        const headers = {
+          // 'Content-Type': 'application/json',
+          'x-access-token': localStorage.getItem("jwtToken")
+          }
+        await axios.post('https://cult-node.herokuapp.com/admin/change_order_status', data, {
+				headers : headers
+			  })
+        .then(res => {
+          console.log(res.data)
+          this.setState({
+            data : {...this.state.data,
+              delivery_date : res.data.data
+            }
+          });	
+        });
     }
     
 
@@ -84,12 +249,12 @@ class Orders extends React.Component{
     const date = new Date()      
 
     const modalmenuClass = `modal fade ${this.state.modalIsOpen ? "in show" : "hide"}`;       
-    const orderedPopClass = ` ${this.state.orderedPopClass ? date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear() : "✓" }`;                    
-    const confirmedPopClass = ` ${this.state.Confirmed ? date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear() : "✓" }`;
-    const cuttingPopClass = ` ${this.state.Cutting ? date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear() : "✓" }`;
-    const stitchingPopClass = ` ${this.state.Stitching ? date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear() : "✓" }`;
-    const shippedPopClass = ` ${this.state.Shipped ? date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear() : "✓" }`;
-    const deliveredPopClass = ` ${this.state.Delivered ? date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear() : "✓" }`;    
+    const orderedPopClass = ` ${this.state.orderedPopClass ? this.state.data.created_at : "✓" }`;                    
+    const confirmedPopClass = ` ${this.state.Confirmed ? this.state.data.confirmed_date : "✓" }`;
+    const cuttingPopClass = ` ${this.state.Cutting ? this.state.data.cutting_date : "✓" }`;
+    const stitchingPopClass = ` ${this.state.Stitching ? this.state.data.stitching_date : "✓" }`;
+    const shippedPopClass = ` ${this.state.Shipped ? this.state.data.shipped_date : "✓" }`;
+    const deliveredPopClass = ` ${this.state.Delivered ? this.state.data.delivery_date : "✓" }`;    
        return(
         <div className="content">
             <Grid fluid>
@@ -124,15 +289,15 @@ class Orders extends React.Component{
                                         // itemQuantity: "2",  
                                         // itemName:"Black Hoodie",
                                         // itemSize:"L"                                 
-                                   OrdersData.map((order,index)=>{
+                                        this.state.orders.map((order,index)=>{
                                          return <tr key={index} onClick={()=>{this.check(order)}}>
                                              <td>{order.id}</td>
-                                             <td>{order.userName}</td>
-                                             <td>{order.orderDate}</td>
-                                             <td>{order.orderAmount}</td>
-                                             <td>{order.orderStatus}</td>
-                                             <td>{order.total}</td>
-                                             <td>{order.cultCut}</td>
+                                             <td>{order.user_name}</td>
+                                             <td>{order.created_at}</td>
+                                             <td>{order.total_price}</td>
+                                             <td>{order.status}</td>
+                                             <td>{order.total_price - 2}</td>
+                                             <td>{2}</td>
                                          </tr>                                         
                                     })
                                 }
@@ -158,7 +323,7 @@ class Orders extends React.Component{
              <div className="row">
              <div className="col-lg-12">                 
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2 className="user-full-details-name">{this.state.data&&this.state.data.name}</h2>
+                <h2 className="user-full-details-name">{this.state.data&&this.state.data.user_name}</h2>
                   <div className="content table-full-width table-responsive">
                    <table className="user-full-details table table-striped table-hover">
                    <thead>
@@ -170,10 +335,18 @@ class Orders extends React.Component{
                    </thead>
                     <tbody>
                      <tr>                       
-                       <td>{this.state.data&&this.state.data.itemQuantity}</td>
-                       <td>{this.state.data&&this.state.data.itemName}</td>
-                       <td>{this.state.data&&this.state.data.itemSize}</td>
-                     </tr>                     
+                     </tr>
+                     {
+                       console.log(this.state)}
+                     {
+                     this.state.data.details.map((details,index)=>{
+                                         return <tr key={index} >
+                                         <td>{details&&details.quantity}</td>
+                                         <td>{details&&details.product_name}</td>
+                                         <td>{details&&details.size}</td>
+                                         </tr>                                         
+                                    })
+                                }                     
                      </tbody> 
                    </table>
                   </div> 

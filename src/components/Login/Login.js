@@ -2,10 +2,7 @@ import React from 'react'
 import LoginForm from './LoginForm'
 import ForgotPassword from './ForgotPassword'
 import {allUsers} from '../../variables/Variables'
-
-
-
-
+import axios from 'axios'
 
 class Login extends React.Component {  
 
@@ -22,7 +19,7 @@ class Login extends React.Component {
     // console.log(this.state.passwordIsVisible);
    }
 
-   loginCheck = (event) => {
+   loginCheckOld = (event) => {
         event.preventDefault()
         const email =  event.target.email.value
         const password =  event.target.password.value
@@ -40,6 +37,26 @@ class Login extends React.Component {
             }
         })    
    }
+   
+   loginCheck =(event)=>{
+    event.preventDefault()
+    axios.post("https://cult-node.herokuapp.com/users/login_vendor",{
+        email: event.target.email.value,
+        password: event.target.password.value
+    }).then(res=>{
+        // setAuthToken(res.data.user_data.jwt_access_key)
+        console.log(res)
+        localStorage.setItem('jwtToken' , res.data.access_key);
+        console.log('matched')
+                this.setState( {credentialError: !this.state.credentialError} )
+                localStorage.setItem('role', "vendor");
+                this.props.history.push('/admin/about-brand')
+    }).catch(e=>{
+        console.log('not matched')  
+        this.setState( {credentialError: !this.state.credentialError} )       
+        // alert(e)
+    })  
+}
    
    showCreateUSerForm = () => {
     this.setState({ createUserScreen : !this.state.createUserScreen })

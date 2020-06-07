@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 class TableRowCoupons extends Component {
 
@@ -15,34 +15,44 @@ class TableRowCoupons extends Component {
 
   delete(){ 
     const obj = {
-    id: this.props.obj.id
+    id: this.props.obj.product_id
   };
-  console.log(this.props)
-    // axios.post('https://catchcatchapp.com/admin/delete_coupons',obj)
-    //         .then(res => {
-    //           console.log('deleted');
-    //           this.props.delete(this.props.indice);
-    //         })
-    //         .catch(err => console.log(err))
+  console.log("delete : ",this.props)
+  
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-access-token': localStorage.getItem("jwtToken")
+    }
+    axios.post('https://cult-node.herokuapp.com/admin/delete_product',obj, {
+      headers : headers
+      })
+            .then(res => {
+              console.log('deleted');
+              this.props.delete(this.props.indice);
+            })
+            .catch(err => console.log(err))
   }
 
   render() {
     return (
         <tr>
           <td>
-            {this.props.obj.id}
+            {this.props.obj.product_id}
           </td>
           <td colSpan="2">
-            {this.props.obj.name}
+            {this.props.obj.product_name}
           </td>
           <td>
-            {this.props.obj.amount}
+            {this.props.obj.product_price}
           </td>          
           <td>
-            <img src={this.props.obj.picture} className="transaction-img" />
+            {this.props.obj.product_category}
           </td>          
+          {/* <td>
+            <img src={this.props.obj.product_image} className="transaction-img" />
+          </td>           */}
           <td>
-            <Link to={"/admin/editProduct/"+this.props.obj.id} className="btn btn-primary">Edit</Link>
+            <Link to={"/admin/editProduct/"+this.props.obj.product_id} className="btn btn-primary">Edit</Link>
           
             <button onClick={this.delete} className="btn btn-danger">Delete</button>
           </td>

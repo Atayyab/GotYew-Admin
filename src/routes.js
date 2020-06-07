@@ -35,7 +35,8 @@ import Signup from "components/Signup/Signup";
 import Documents from "./views/Documents";
 import DocumentsEdit from "./views/DocumentsEdit";
 import Coupons from "./views/Coupons";
-import AddCoupon from './views/createCoupon.component';
+import AddCoupon from './views/addCoupon.component';
+// import AddCoupon from './views/createCoupon.component';
 import EditCoupon from './views/editCoupon.component';
 // import AddCoupon from './views/';
 

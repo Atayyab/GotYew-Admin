@@ -23,14 +23,14 @@ import Card from "components/Card/Card.jsx";
 import TableRowCoupons from './TableRowCoupons';
 import TableRowAddon from './TableRowAddon';
 // import { SubsArray } from "variables/Variables.jsx";
-// import axios from 'axios';
+import axios from 'axios';
 
 class Coupons extends Component {
 
   constructor(props){
     super(props)
     this.state = {
-      addons_data: [],      
+      addons_data: [], product_list : [],     
       business : [
         {          
           id: 1,          
@@ -61,17 +61,46 @@ class Coupons extends Component {
   }
 
   
+  componentDidMount() {
+    
+    if(!localStorage.getItem("jwtToken")){
+      // console.log("=====================")
+      this.props.history.push("/")
+    }
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem("jwtToken")
+    }
+    
+    console.log("this - > ", headers)
+    axios.get('https://cult-node.herokuapp.com/admin/product_list', {
+      headers : headers
+    })
+        .then(response => {
+    // console.log(this.props.match.params)
+    console.log(response.data)
+            this.setState({ 
+              product_list: response.data.product_list
+             });
+      console.log("this - > ", this.state)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+  }
+
+
   deleteItem(i) {
-  let rows = [...this.state.business]
+  let rows = [...this.state.product_list]
   rows.splice(i, 1)
   this.setState({ 
-    business: rows
+    product_list: rows
   })
   console.log(rows, " --- " , this.state)
 }
 	tabRow(){
 		console.log(this.state);
-		return this.state.business.map((object, i) => {
+		return this.state.product_list.map((object, i) => {
 			console.log(object,i);
 			return <TableRowCoupons obj={object} key={i} indice={i} delete ={ (ind) => this.deleteItem(ind)} />;
 		});
@@ -137,7 +166,7 @@ class Coupons extends Component {
 		                <th>S.no</th>
 		                <th colSpan="2">Product Name</th>
 		                <th>Price</th>		                
-		                <th>Picture</th>		                
+		                <th>Category</th>		                
 		                <th>Action</th>
 		              </tr>
 		            </thead>

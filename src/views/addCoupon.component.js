@@ -1,7 +1,7 @@
 import React , { Component } from 'react';
 import axios from 'axios';
 
-class EditCoupon extends Component {
+class AddCoupon extends Component {
 	constructor(props) {		
 	    super(props);		
 		this.onChangeName = this.onChangeName.bind(this);
@@ -19,15 +19,16 @@ class EditCoupon extends Component {
 		this.handleLargeQuantity = this.handleLargeQuantity.bind(this);
 		this.handleLargeLength = this.handleLargeLength.bind(this);
 	    this.handleLargeWidth = this.handleLargeWidth.bind(this);
-	    this.handleLargeHeight = this.handleLargeHeight.bind(this);	  
+	    this.handleLargeHeight = this.handleLargeHeight.bind(this);	    
 		this.handlexLargeQuantity = this.handlexLargeQuantity.bind(this);
 		this.handlexLargeLength = this.handlexLargeLength.bind(this);
 	    this.handlexLargeWidth = this.handlexLargeWidth.bind(this);
-	    this.handlexLargeHeight = this.handlexLargeHeight.bind(this);	   
+	    this.handlexLargeHeight = this.handlexLargeHeight.bind(this);	    
 	    
 	    this.onSubmit = this.onSubmit.bind(this);
 
-	    this.state = {	product : {
+	    this.state = {	
+			product : {
             "product_id": -1,
             "product_image": "",
             "product_name": "",
@@ -101,60 +102,61 @@ class EditCoupon extends Component {
   	}
 
   	componentDidMount() {
+			console.log(this.state.product);
 		  
-		const headers = {
-			'Content-Type': 'application/json',
-			'x-access-token': localStorage.getItem("jwtToken")
-		  }
-      axios.get('https://cult-node.herokuapp.com/admin/product_by_id?id='+this.props.match.params.id, {
-		headers : headers
-	  })
-          .then(async (response) => {
-			console.log(this.props.match.params)
-			console.log(response.data)
-              this.setState({ 
-                product: response.data.product[0]
-			});
+	// 	const headers = {
+	// 		'Content-Type': 'application/json',
+	// 		'x-access-token': localStorage.getItem("jwtToken")
+	// 	  }
+    //   axios.get('https://cult-node.herokuapp.com/admin/product_by_id?id='+this.props.match.params.id, {
+	// 	headers : headers
+	//   })
+    //       .then(async (response) => {
+	// 		console.log(this.props.match.params)
+	// 		console.log(response.data)
+    //           this.setState({ 
+    //             product: response.data.product[0]
+	// 		});
 
 
-			if(response.data.product[0].size.length > 0){
-				for(var i = 0; i < response.data.product[0].size.length ; i++ ){
-				  if(response.data.product[0].size[i].type == "small"){
-					  this.setState({ 
-						  smallHeight: response.data.product[0].size[i].height,
-						  smallLength: response.data.product[0].size[i].length,
-						  smallWidth: response.data.product[0].size[i].width,
-						  smallQuantity: response.data.product[0].size[i].quantity
-					  });
-				  }else if(response.data.product[0].size[i].type == "medium"){
-					this.setState({ 
-						mediumHeight: response.data.product[0].size[i].height,
-						mediumLength: response.data.product[0].size[i].length,
-						mediumWidth: response.data.product[0].size[i].width,
-						mediumQuantity: response.data.product[0].size[i].quantity
-					});
-				  }else if(response.data.product[0].size[i].type == "large"){
-					this.setState({ 
-						largeHeight: response.data.product[0].size[i].height,
-						largeLength: response.data.product[0].size[i].length,
-						largeWidth: response.data.product[0].size[i].width,
-						largeQuantity: response.data.product[0].size[i].quantity
-					});
-				  }else if(response.data.product[0].size[i].type == "xl"){
-					this.setState({ 
-						xlargeHeight: response.data.product[0].size[i].height,
-						xlargeLength: response.data.product[0].size[i].length,
-						xlargeWidth: response.data.product[0].size[i].width,
-						xlargeQuantity: response.data.product[0].size[i].quantity
-					});
-				  }
-				}
-			}
+	// 		if(response.data.product[0].size.length > 0){
+	// 			for(var i = 0; i < response.data.product[0].size.length ; i++ ){
+	// 			  if(response.data.product[0].size[i].type == "small"){
+	// 				  this.setState({ 
+	// 					  smallHeight: response.data.product[0].size[i].height,
+	// 					  smallLength: response.data.product[0].size[i].length,
+	// 					  smallWidth: response.data.product[0].size[i].width,
+	// 					  smallQuantity: response.data.product[0].size[i].quantity
+	// 				  });
+	// 			  }else if(response.data.product[0].size[i].type == "medium"){
+	// 				this.setState({ 
+	// 					mediumHeight: response.data.product[0].size[i].height,
+	// 					mediumLength: response.data.product[0].size[i].length,
+	// 					mediumWidth: response.data.product[0].size[i].width,
+	// 					mediumQuantity: response.data.product[0].size[i].quantity
+	// 				});
+	// 			  }else if(response.data.product[0].size[i].type == "large"){
+	// 				this.setState({ 
+	// 					largeHeight: response.data.product[0].size[i].height,
+	// 					largeLength: response.data.product[0].size[i].length,
+	// 					largeWidth: response.data.product[0].size[i].width,
+	// 					largeQuantity: response.data.product[0].size[i].quantity
+	// 				});
+	// 			  }else if(response.data.product[0].size[i].type == "xl"){
+	// 				this.setState({ 
+	// 					xlargeHeight: response.data.product[0].size[i].height,
+	// 					xlargeLength: response.data.product[0].size[i].length,
+	// 					xlargeWidth: response.data.product[0].size[i].width,
+	// 					xlargeQuantity: response.data.product[0].size[i].quantity
+	// 				});
+	// 			  }
+	// 			}
+	// 		}
 
-          })
-          .catch(function (error) {
-              console.log(error);
-		  })
+    //       })
+    //       .catch(function (error) {
+    //           console.log(error);
+	// 	  })
 		  
     }
 
@@ -458,41 +460,41 @@ class EditCoupon extends Component {
 			  }
 			}
 		}
-		onChangeName(e) {
-			// console.log("----",e.target)
-			// this.setState({
-			// 	name: e.target.value
-			// })  
-			this.setState({
-				product : {...this.state.product,
-					product_name : e.target.value
-				}
-			});	
-		}
-		 
-		onChangeDescription(e) {
-			this.setState({
-				product : {...this.state.product,
-					product_description : e.target.value
-				}
-			});	
-		}
-		onChangeCategory = (e) => {
-			this.setState({
-				product : {...this.state.product,
-					product_category : e.target.value
-				}
-			});	
-		}
-	
-		onChangeAmount(e) {
-			this.setState({
-				product : {...this.state.product,
-					product_price : e.target.value
-				}
-			});	
-		  }
-	  
+	onChangeName(e) {
+		// console.log("----",e.target)
+	    // this.setState({
+		// 	name: e.target.value
+		// })  
+		this.setState({
+			product : {...this.state.product,
+				product_name : e.target.value
+			}
+		});	
+	}
+	 
+	onChangeDescription(e) {
+		this.setState({
+			product : {...this.state.product,
+				product_description : e.target.value
+			}
+		});	
+	}
+	onChangeCategory = (e) => {
+		this.setState({
+			product : {...this.state.product,
+				product_category : e.target.value
+			}
+		});	
+	}
+
+    onChangeAmount(e) {
+		this.setState({
+			product : {...this.state.product,
+				product_price : e.target.value
+			}
+		});	
+	  }
+  
     handlePicture = (e) => {     
 		if( e.target.files.length > 3 ){
 			e.preventDefault()
@@ -500,11 +502,9 @@ class EditCoupon extends Component {
 			
 		}
 	  this.setState({
-		  picture: e.target.files,
-		  images : ""
+		  picture: e.target.files
 	  }, ()=>{ console.log(this.state.picture)})
     }
-
 
 	createFormData = (formData, key, data) => {
 		if (data === Object(data) || Array.isArray(data)) {
@@ -518,18 +518,15 @@ class EditCoupon extends Component {
 	async onSubmit(e) {
 		e.preventDefault();
 		console.log("onSubmit state", this.state)
-		
+	    // const obj = {
+		// 	tag: this.state.tag,
+		// 	image: this.state.file
+	    // };
+		// console.log(obj)
 		const fd = new FormData();
 		
 		this.createFormData(fd, 'size', this.state.product.size)
 		if(this.state.picture){
-			for(var x = 0; x<this.state.picture.length; x++) {
-				fd.append('file', this.state.picture[x])
-			}
-			
-		}
-			fd.append('images', this.state.product.product_image);
-			fd.append('id', this.state.product.product_id);
 			fd.append('name', this.state.product.product_name);
 			fd.append('description', this.state.product.product_description);
 			fd.append('price', this.state.product.product_price);
@@ -539,21 +536,24 @@ class EditCoupon extends Component {
 			fd.append('category', this.state.product.product_category);
 			
 			// fd.append('image', this.state.file, this.state.file.name);
-			
+			for(var x = 0; x<this.state.picture.length; x++) {
+				fd.append('file', this.state.picture[x])
+			}
 			
 		const headers = {
 			// 'Content-Type': 'application/json',
 			'x-access-token': localStorage.getItem("jwtToken")
 		  }
 		  
-			await axios.post('https://cult-node.herokuapp.com/admin/edit_product', fd, {
+			await axios.post('https://cult-node.herokuapp.com/admin/add_product', fd, {
 				headers : headers
 			  })
 				.then(res => console.log(res.data));
-		
+		}
 		
     	this.props.history.push('/admin/products');
   	}
+
   	render() {
 		const smallClass = this.state.smallClass ? 'form-group show' : 'form-group hide'    
 		const mediumClass = this.state.mediumClass ? 'form-group show' : 'form-group hide'    
@@ -561,7 +561,7 @@ class EditCoupon extends Component {
 		const xlargeClass = this.state.xlargeClass ? 'form-group show' : 'form-group hide'
 	    return (			
 	        <div className="container-fluid">
-	            <h3 align="center">Update Product</h3>
+	            <h3 align="center">Add Product</h3>
 	            <form onSubmit={this.onSubmit}>
 				<div className="form-group">
 	                    <label>Product Name:</label>
@@ -580,7 +580,7 @@ class EditCoupon extends Component {
 	                      value={this.state.product.product_description}
 	                      onChange={this.onChangeDescription}
 	                      />
-					</div>    
+					</div>          
 					<div className="form-group">
 						<label>Category</label>
 						<input 
@@ -746,7 +746,7 @@ class EditCoupon extends Component {
 					</div>										
 	                <div className="form-group">
 	                    <input type="submit" 
-	                      value="Update Product" 
+	                      value="Add Product" 
 						  className="btn btn-primary"
 						  style={{margin: '24px 0 0 0'}}						
 						  />
@@ -756,4 +756,4 @@ class EditCoupon extends Component {
 	    )
   	}
 }
-export default EditCoupon;
+export default AddCoupon;

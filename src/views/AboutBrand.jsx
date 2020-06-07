@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Grid, Row, Col, FormGroup, ControlLabel, FormControl, Badge } from "react-bootstrap";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
+import axios from 'axios';
 import Card from "components/Card/Card.jsx";
 import { UserCard } from "components/UserCard/UserCard.jsx";
 // import { thArray, tdArray, brands } from "variables/Variables.jsx";
@@ -19,13 +20,18 @@ class TableList extends Component {
     brandName: 'Levis',
     brandType: 'Clothing Brand',
     brandDesc: "Levi Strauss Co. is an American clothing company known worldwide for its Levi's brand of denim jeans. It was founded in May 1853,",
-    brandImg: 'https://image.shutterstock.com/image-photo/manila-philippines-26-june-2016-260nw-458055625.jpg',
-    brandBanner: 'https://bellomag.files.wordpress.com/2014/01/versace-jeans-spring-summer-2014-01.jpg',
+    brandImg: 'https://res.cloudinary.com/bsqp-tech/image/upload/v1591329551/gxu85xcvjwout4mzxob8.png',
+    brandBanner: 'https://scx2.b-cdn.net/gfx/news/hires/2018/milkyway.jpg',
     uploadedBrandImg: [],
     uploadedBrandBannerImg: [],
     brandAddress: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
     brandContactNum1 : '123456',
     brandContactNum2 : '654321',
+    vendor: {}, 
+    colors: [],
+    materials: [],
+    outfits: [],
+    sizes: [],
     error : false,
     defaultOutfitEditId : '',
     defaultOutfitEdit : '',    
@@ -56,35 +62,85 @@ class TableList extends Component {
     formName : ''
   }
 
+  componentDidMount() {
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem("jwtToken")
+    }
+    
+    console.log("this - > ", headers)
+    axios.get('https://cult-node.herokuapp.com/admin/dashboard', {
+      headers : headers
+    })
+        .then(response => {
+    // console.log(this.props.match.params)
+    console.log(response.data)
+            this.setState({ 
+              vendor: response.data.vendor, 
+              colors: response.data.colors,
+              materials: response.data.materials,
+              outfits: response.data.outfits,
+              sizes: response.data.sizes,
+              color: response.data.colors,
+              materialType: response.data.materials,
+              outfitType: response.data.outfits,
+              sizeType: response.data.sizes
+             });
+      console.log("this - > ", this.state)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+  }
 
- editBrandHandle = (e) => {
+
+ editBrandHandle = async (e) => {
    e.preventDefault();
     const name = e.target.brandName.value;
     const type = e.target.brandType.value;
-    const desc = e.target.brandDescription.value;
+    if(e.target.brandDescription.value == null || e.target.brandDescription.value == "")
+    var desc = this.state.vendor.description;
+    else
+    var desc = e.target.brandDescription.value;
     const addr = e.target.brandAddress.value;
     const num1 = e.target.brandContact1.value;
     const num2 = e.target.brandContact2.value;
+  //  name === '' || type === ''  || desc === '' || addr === '' || num1 === '' || num2 === '' ? this.setState({error : true}) :   
 
-    
-    
-   name === '' || type === ''  || desc === '' || addr === '' || num1 === '' || num2 === '' ? this.setState({error : true}) :   
-
-  this.setState({
+  await this.setState({
     brandName: name,
     brandType: type,
     brandDesc: desc,    
     brandAddress: addr,
     brandContactNum1 : num1,
     brandContactNum2 : num2,    
-    error : false
+    error : false,
+    vendor: { ...this.state.vendor,
+      name : name,
+      category : type,
+      description : desc,
+      address : addr,
+      phone_1 : num1,
+      phone_2 : num2
+    }
    });
 
+
+      await axios.post('https://cult-node.herokuapp.com/users/update_profile_vendor', this.state.vendor)
+	        .then(res => console.log(res.data));
 }
 
-HandleDPUploadImage = (e) => {     
+HandleDPUploadImage =async (e) => {     
+  if(!e.target.files[0])
+  return
+  const fd = new FormData();
+  fd.append('image', e.target.files[0], e.target.files[0].name);
+  var image = this.state.vendor.image;
+  await axios.post('https://cult-node.herokuapp.com/users/upload', fd)
+  .then(res => image = res.data.image);
    this.setState({
-     uploadedBrandImg: e.target.files[0]
+     uploadedBrandImg: image,
+     vendor: { ...this.state.vendor, image : image }
    }, ()=>{ console.log(this.state.uploadedBrandImg)})
 }
 
@@ -100,6 +156,12 @@ handleOutfitType = (e) =>{
       this.setState({
         outfitType : [...this.state.outfitType,{id: Date.now(), name : e.target.outfitType.value}]        
       })
+      var data = {
+        id : this.state.vendor.id,
+        name : e.target.outfitType.value
+      }
+      axios.post('https://cult-node.herokuapp.com/admin/add_outfit', data)
+      .then(res => console.log(res.data));
       e.target.outfitType.value = ''
 }
 
@@ -107,6 +169,11 @@ handleOutfitType = (e) =>{
 onDeleteHandle() {
   let id = arguments[0];
          
+  var data = {
+    id : id
+  }
+  axios.post('https://cult-node.herokuapp.com/admin/delete_outfit', data)
+  .then(res => console.log(res.data));
   this.setState({
     outfitType: this.state.outfitType.filter(item => {
       if (item.id !== id) {
@@ -117,8 +184,8 @@ onDeleteHandle() {
   });
 }
 
-handleEditOutfitType(id,name) {  
-  this.setState({
+async handleEditOutfitType(id,name) {  
+  await this.setState({
     defaultOutfitEditId : id,
     defaultOutfitEdit : name,
     modalIsOpen : true,
@@ -130,6 +197,14 @@ updateEditOutfitType(e) {
   e.preventDefault()
 
   let id = arguments[0];
+  
+  var data = {
+    list_id : this.state.defaultOutfitEditId,
+    name : e.target.EditoutfitType.value
+  }
+  axios.post('https://cult-node.herokuapp.com/admin/edit_outfit', data)
+  .then(res => console.log(res.data));
+
   console.log(this.state.defaultOutfitEditId,'State item id')
   this.setState({
     outfitType: this.state.outfitType.map(item => {
@@ -152,6 +227,12 @@ handleMaterialType = (e) =>{
       this.setState({
         materialType : [...this.state.materialType,{id: Date.now(), name : e.target.materialType.value}]        
       })
+      var data = {
+        id : this.state.vendor.id,
+        name : e.target.materialType.value
+      }
+      axios.post('https://cult-node.herokuapp.com/admin/add_material', data)
+      .then(res => console.log(res.data));
       e.target.materialType.value = ''
       console.log('handleMaterialType');
 }
@@ -159,6 +240,11 @@ handleMaterialType = (e) =>{
 
 onDeleteMaterialHandle() {
   let id = arguments[0];
+  var data = {
+    id : id
+  }
+  axios.post('https://cult-node.herokuapp.com/admin/delete_material', data)
+  .then(res => console.log(res.data));
          
   this.setState({
     materialType: this.state.materialType.filter(item => {
@@ -171,8 +257,8 @@ onDeleteMaterialHandle() {
   console.log('id:',id,'onDeleteMaterialHandle');
 }
 
-handleEditMaterialType(id,name) {  
-  this.setState({
+async handleEditMaterialType(id,name) {  
+  await this.setState({
     defaultMaterialEditId : id,
     defaultMaterialEdit : name,
     modalIsOpen : true,
@@ -184,6 +270,13 @@ handleEditMaterialType(id,name) {
 updateEditMaterialType(e) {  
   e.preventDefault()
    console.log('updateEditMaterialType');
+   
+  var data = {
+    list_id : this.state.defaultMaterialEditId,
+    name : e.target.EditmaterialType.value
+  }
+  axios.post('https://cult-node.herokuapp.com/admin/edit_material', data)
+  .then(res => console.log(res.data));
   let id = arguments[0];
   console.log(this.state.defaultMaterialEditId,'State item id')
   this.setState({
@@ -207,6 +300,12 @@ handleSizeType = (e) =>{
       this.setState({
         sizeType : [...this.state.sizeType,{id: Date.now(), name : e.target.sizeType.value}]        
       })
+      var data = {
+        id : this.state.vendor.id,
+        name : e.target.sizeType.value
+      }
+      axios.post('https://cult-node.herokuapp.com/admin/add_size', data)
+      .then(res => console.log(res.data));
       e.target.sizeType.value = ''
       console.log('handleSizeType');
 }
@@ -215,6 +314,11 @@ handleSizeType = (e) =>{
 onDeleteSizeHandle() {
   let id = arguments[0];
          
+  var data = {
+    id : id
+  }
+  axios.post('https://cult-node.herokuapp.com/admin/delete_size', data)
+  .then(res => console.log(res.data));
   this.setState({
     sizeType: this.state.sizeType.filter(item => {
       if (item.id !== id) {
@@ -226,20 +330,28 @@ onDeleteSizeHandle() {
   console.log('id:',id,'onDeleteSizeHandle');
 }
 
-handleEditSizeType(id,name) {  
-  this.setState({
+async handleEditSizeType(id,name) {  
+  await this.setState({
     defaultSizeEditId : id,
     defaultSizeEdit : name,
     modalIsOpen : true,
     formName : 'SizeType'
     
   })
+  
   console.log('id:',id,'name:',name,'handleEditSizeType');
 }
 
 updateEditSizeType(e) {  
   e.preventDefault()
    console.log('updateEditSizeType');
+   
+  var data = {
+    list_id : this.state.defaultSizeEditId,
+    name : e.target.EditsizeType.value
+  }
+  axios.post('https://cult-node.herokuapp.com/admin/edit_size', data)
+  .then(res => console.log(res.data));
   let id = arguments[0];
   console.log(this.state.defaultSizeEditId,'State item id')
   this.setState({
@@ -254,6 +366,7 @@ updateEditSizeType(e) {
     defaultSizeEditId : '',
     modalIsOpen : false,
   });
+  
   e.target.EditsizeType.value = ''
 }
 
@@ -282,8 +395,8 @@ onDeleteTypeHandle() {
   console.log('id:',id,'onDeleteSizeHandle');
 }
 
-handleEditType(id,name) {  
-  this.setState({
+async handleEditType(id,name) {  
+  await this.setState({
     defaultTypeEditId : id,
     defaultTypeEdit : name,
     modalIsOpen : true,
@@ -318,6 +431,12 @@ handleColor = (e) =>{
       this.setState({
         color : [...this.state.color,{id: Date.now(), name : e.target.color.value}]        
       })
+      var data = {
+        id : this.state.vendor.id,
+        name : e.target.color.value
+      }
+      axios.post('https://cult-node.herokuapp.com/admin/add_color', data)
+      .then(res => console.log(res.data));
       e.target.color.value = ''
       console.log('handleType');
 }
@@ -325,7 +444,12 @@ handleColor = (e) =>{
 
 onDeleteColorHandle() {
   let id = arguments[0];
-         
+           
+  var data = {
+    id : id
+  }
+  axios.post('https://cult-node.herokuapp.com/admin/delete_color', data)
+  .then(res => console.log(res.data));
   this.setState({
     color: this.state.color.filter(item => {
       if (item.id !== id) {
@@ -337,8 +461,8 @@ onDeleteColorHandle() {
   console.log('id:',id,'onDeleteSizeHandle');
 }
 
-handleEditColor(id,name) {  
-  this.setState({
+async handleEditColor(id,name) {  
+  await this.setState({
     defaultColorEditId : id,
     defaultColorEdit : name,
     modalIsOpen : true,
@@ -350,6 +474,15 @@ handleEditColor(id,name) {
 updateEditColor(e) {  
   e.preventDefault()
    console.log('updateEditSizeType');
+
+   var data = {
+    list_id : this.state.defaultColorEditId,
+    name : e.target.EditColor.value
+  }
+  axios.post('https://cult-node.herokuapp.com/admin/edit_color', data)
+  .then(res => console.log(res.data));
+
+
   let id = arguments[0];
   console.log(this.state.defaultColorEditId,'State item id')
   this.setState({
@@ -393,13 +526,13 @@ openModal = () => {
             <Col md={12}>
             <div className="brands-banner">
               <UserCard                  
-                  bgImage={this.state.brandBanner}
-                  avatar={this.state.brandImg}
-                  name={this.state.brandName}
-                  userName={this.state.brandType}
+                  bgImage={this.state.vendor.banner || this.state.brandBanner}
+                  avatar={this.state.vendor.image || this.state.brandImg}
+                  name={this.state.vendor.name || this.state.brandName}
+                  userName={this.state.vendor.category || this.state.brandType}
                   description={
                     <span>                    
-                      {this.state.brandDesc}
+                      {this.state.vendor.description || this.state.brandDesc}
                     </span>
                   }
                   
@@ -414,10 +547,10 @@ openModal = () => {
                 ctTableResponsive
                 content={                  
                   <ul className="address">
-                    <li><p>{this.state.brandAddress}</p></li>
-                    <li><p><a href={`tel:`+this.state.brandContactNum1}>{this.state.brandContactNum1}</a></p></li>
-                    <li><p><a href={`tel:`+this.state.brandContactNum2}>{this.state.brandContactNum2}</a></p></li>
-                  </ul>
+                    <li><p>{this.state.vendor.address}</p></li>
+                    <li><p><a href={`tel:`+this.state.vendor.phone_1}>{this.state.vendor.phone_1}</a></p></li>
+                    
+                    </ul>
                 }
               />
               <Card
@@ -533,7 +666,7 @@ openModal = () => {
                  </div>                                   
                 }
               />
-              <Card
+              {/* <Card
                 title="Type"
                 category=""
                 ctTableFullWidth
@@ -587,7 +720,7 @@ openModal = () => {
                    </table>                
                  </div>                                   
                 }
-              />
+              /> */}
               
             </Col>
 
@@ -605,7 +738,7 @@ openModal = () => {
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "My Brand",
-                          defaultValue: "",
+                          defaultValue: this.state.vendor.name,
                           name:"brandName",
                           onChange: this.editBrandName
                         },
@@ -614,6 +747,7 @@ openModal = () => {
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "Clothing Brand",
+                          defaultValue: this.state.vendor.category,
                           name:"brandType"
                         }
                       ]}
@@ -625,9 +759,9 @@ openModal = () => {
                           label: "Adress",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Home Adress",
+                          placeholder: "Brand Adress",
                           name:"brandAddress",
-                          defaultValue:""
+                          defaultValue: this.state.vendor.address,
                         }
                       ]}
                     />
@@ -636,11 +770,11 @@ openModal = () => {
                       properties={[
                         {
                           label: "Contact Number",
-                          type: "number",
+                          type: "text",
                           bsClass: "form-control",
                           placeholder: "Number",
                           name:"brandContact1",
-                          defaultValue: ""
+                          defaultValue: this.state.vendor.phone_1,
                         },
                         {
                           label: "Second Contact Number (Optional)",
@@ -648,19 +782,32 @@ openModal = () => {
                           bsClass: "form-control",
                           placeholder: "Number",
                           name:"brandContact2",
-                          defaultValue: ""
+                          defaultValue: this.state.vendor.phone_2,
                         }                      
                       ]}
                     />
+                    {/* <FormInputs
+                      ncols={["col-md-12"]}
+                      properties={[
+                        {
+                          label: "Description",
+                          type: "textarea",
+                          bsClass: "form-control",
+                          placeholder: "Description",
+                          name:"desc",
+                          defaultValue: this.state.vendor.description,
+                        }                    
+                      ]}
+                    /> */}
                     <Row>
-                      <Col md={6}>
+                      <Col md={12}>
                       <ControlLabel>Brand Image</ControlLabel>
                         <input type="file" onChange={this.HandleDPUploadImage}/>  
                       </Col>
-                      <Col md={6}>
+                      {/* <Col md={6}>
                       <ControlLabel>Brand Banner Image</ControlLabel>
                         <input type="file" onChange={this.HandleBannerUploadImage}/>
-                      </Col>
+                      </Col> */}
                     </Row>
                     {/* <FormInputs
                       ref={this.HandleUploadImage}
@@ -686,7 +833,7 @@ openModal = () => {
                             bsClass="form-control"
                             name="brandDescription"
                             placeholder="Here can be your description"
-                            defaultValue=""
+                            defaultValue= {this.state.vendor.description}
                           />
                         </FormGroup>
                       </Col>
@@ -846,7 +993,7 @@ openModal = () => {
                          bsClass: "form-control",
                          placeholder: "edit outfit type",
                          name:"EditoutfitType",
-                         // defaultValue: this.state.defaultOutfitEdit
+                         defaultValue: this.state.defaultOutfitEdit
 
                        }
                      ]}
