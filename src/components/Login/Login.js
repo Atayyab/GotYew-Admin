@@ -9,6 +9,7 @@ class Login extends React.Component {
    state = {
      passwordIsVisible : false,
      credentialError: false,
+     errorText: '',
      loginUserScreen : true,
      createUserScreen : false,
      forgetPasswordScreen : false
@@ -45,12 +46,19 @@ class Login extends React.Component {
         password: event.target.password.value
     }).then(res=>{
         // setAuthToken(res.data.user_data.jwt_access_key)
-        console.log(res)
-        localStorage.setItem('jwtToken' , res.data.access_key);
-        console.log('matched')
-                this.setState( {credentialError: !this.state.credentialError} )
-                localStorage.setItem('role', "vendor");
-                this.props.history.push('/admin/about-brand')
+        console.log(res.data)
+        if( res.data.code == '0' ){
+
+            localStorage.setItem('jwtToken' , res.data.access_key);
+            console.log('matched')
+                    this.setState( {credentialError: true , errorText: ''} )
+                    localStorage.setItem('role', "vendor");
+                    this.props.history.push('/admin/about-brand')
+
+        }else{
+            console.log('err')
+            this.setState( {credentialError: true, errorText: res.data.message} )
+        }
     }).catch(e=>{
         console.log('not matched')  
         this.setState( {credentialError: !this.state.credentialError} )       
@@ -130,7 +138,7 @@ class Login extends React.Component {
                                     showCredentialError={ this.state.credentialError }
                                     showCreateUSerForm={this.showCreateUSerForm}
                                     showForgetPasswordForm={this.showForgetPasswordForm}
-                                    
+                                    errorText={this.state.errorText}
                                  />                   
                             }         
                         </div>                        

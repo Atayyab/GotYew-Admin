@@ -323,8 +323,8 @@ class Orders extends React.Component{
              <div className="row">
              <div className="col-lg-12">                 
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2 className="user-full-details-name">{this.state.data&&this.state.data.user_name}</h2>
-                  <div className="content table-full-width table-responsive">
+                <h5 className="user-full-details-name">{this.state.data&&this.state.data.user_name}</h5>
+                  <div className="content table-full-width table-responsive item-detail-table">
                    <table className="user-full-details table table-striped table-hover">
                    <thead>
                        <tr>
@@ -353,7 +353,7 @@ class Orders extends React.Component{
                                                             
                 </div> 
                 <div className="col-lg-12">
-                <div className="content table-full-width table-responsive">
+                <div className="content table-full-width table-responsive item-status-table">
                    <table className="user-full-details table table-striped table-hover">
                    <thead>
                      <span className="error">Note: Tapping tick mark will send a notification to user about the status of this order.</span>

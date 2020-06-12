@@ -67,7 +67,7 @@ class Step2 extends React.Component{
             error : false,         
             modalIsOpen : true   
         })
-         console.log('yayy!!')
+        //  console.log('yayy!!')
         //  this.props.changeToStep3(event)         
 
        }            
@@ -109,7 +109,7 @@ class Step2 extends React.Component{
                         <i className={showPasswordEyeClassName} onClick={ ()=>{this.props.showPasswordToggle() } } ></i>
                     </div>
                     <div className="form-group">
-                        <label className="text-grey-color float-label">PASSWORD</label>
+                        <label className="text-grey-color float-label">CONFIRM PASSWORD</label>
                         <input type={showPasswordClassName} className="form-control" name="confirmPassword" value={this.confirmpassword} onChange={event=>{this.handlepasswordMatch(event)}} />                    
                     </div>
                     <p className={showMatchedPasswordErr}>Passwords do not matched</p>
@@ -145,7 +145,7 @@ class Step2 extends React.Component{
                                    </div>                                
                                 </div>
                                 <div className="modal-footer">
-                                  <Link to="/admin/about-brand" className="btn btn-info">Continue</Link>
+                                  <button className="btn btn-info" onClick={ ()=>{ this.props.handleFormSubmit() } }>Continue</button>
                                 </div>
                             </div>
                             </div>

@@ -13,7 +13,7 @@ const LoginForm = props => {
     <div>
         <div className="form--container--heading-area">
             <h1 className="theme-heading">Login</h1>            
-            <p className={showCredentialError}>Invalid username or password. Please try again</p>
+            <p className={showCredentialError}>{props.errorText}</p>
         </div>
         <form  onSubmit={ (event)=>props.loginCheck(event) } >
             <div className="form-group">
