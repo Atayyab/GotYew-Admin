@@ -23,7 +23,7 @@ class Step1 extends React.Component{
     
     checkFormEmpty = (event) => {
         event.preventDefault();
-       console.log(this.props)
+    //    console.log(this.props)
        if( !this.props.firstName || !this.props.lastName  ){
 
          console.log('fields not filled')
@@ -36,7 +36,7 @@ class Step1 extends React.Component{
         this.setState({
             error : false            
         })
-         console.log('yayy!!')
+        //  console.log('yayy!!')
          this.props.changeToStep2(event)
 
        }            

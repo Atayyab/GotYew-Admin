@@ -14,14 +14,9 @@ class Login extends React.Component {
      passwordIsVisible : false,       
      createUserScreen : false,     
      firstName: '',
-     lastName: '',
-     state:'',
-     city:'',
+     lastName: '',    
      email: '',
      password: '',
-     terms: '',
-     fileInput: '' ,
-     fileURL:  ''
    }
 
 
@@ -32,7 +27,6 @@ class Login extends React.Component {
    }
 
 
-
    //get form input values
 
    handleStepChange = event =>{
@@ -41,7 +35,7 @@ class Login extends React.Component {
         this.setState({
         [name]: value
         },()=>{
-            console.log(this.state)
+            // console.log(this.state)
         })   
          
    }
@@ -54,7 +48,7 @@ class Login extends React.Component {
         this.setState({
         [name]: value
         },()=>{
-            console.log(this.state)
+            // console.log(this.state)
         })   
          
    }
@@ -63,40 +57,36 @@ class Login extends React.Component {
    changeToStep2 = (event) => {
      event.preventDefault();
        this.setState({ currentStep : 2 },()=>{
-           console.log('step changed to:',this.state.currentStep);
+        //    console.log('step changed to:',this.state.currentStep);
        })        
    }
 
    changeToStep3 = (event) => {
      event.preventDefault();
        this.setState({ currentStep : 3 },()=>{
-           console.log('step changed to:',this.state.currentStep);
+        //    console.log('step changed to:',this.state.currentStep);
        })        
    }
 
 
-   // profile picture upload
-
-   handleFileUpload = (event) => {
-    event.preventDefault()
-    // console.log(event.target.files[0])
-    const fileInput = event.target.files[0]
-    const fileURL = event.target.value;
-    // const reader = new FileReader();
-    // const processedURL = reader.readAsDataURL(file)
-    // reader.onloadend = function(e){        
-    //          this.setState({
-    //              img : [reader.result]
-    //          })                       
-    //   }    
-    this.setState({fileInput: fileInput , fileURL: fileURL },()=>{console.log(this.state)} )      
-   }
 
    //Send data to service
    handleFormSubmit = (event) => {
-    //    event.preventDefault();
-       console.log(this.state)
-       this.props.history.push('/home')
+    //    event.preventDefault();       
+       const User = {
+                      firstName : this.state.firstName,
+                      lastName : this.state.lastName,
+                      email : this.state.email,
+                      password : this.state.password,
+                    }
+       console.log(User,'Registered user details');
+       this.setState({
+                        firstName : '',
+                        lastName : '',
+                        email : '',
+                        password : '',
+                    })
+       this.props.history.push('/admin/about-brand')
    }
 
 
@@ -142,14 +132,13 @@ class Login extends React.Component {
                                        showPasswordEyeClassName={ this.state.passwordIsVisible }
                                        handleStepChange={ this.handleStepChange }
                                        handleCheckboxSelect={ this.handleCheckboxSelect }
+                                       handleFormSubmit={ this.handleFormSubmit }
                                     />
 
                                         :
                                        
                                         
-                                    <Step3 
-                                       handleFileUpload={ this.handleFileUpload }  
-                                       handleFormSubmit={ this.handleFormSubmit }
+                                    <Step3                                     
                                     />                                   
                                     }
                                 </form>                   
