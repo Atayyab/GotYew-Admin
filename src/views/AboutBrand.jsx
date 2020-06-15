@@ -10,6 +10,7 @@ import { UserCard } from "components/UserCard/UserCard.jsx";
 
 
 import Button from "components/CustomButton/CustomButton.jsx";
+import { statesData,citiesData } from '../variables/Variables'
 
 // import avatar from "assets/img/brands/levis.jpg";
 // import banner from "assets/img/brands/Flex-HomeBanner-1.jpg";
@@ -59,7 +60,11 @@ class TableList extends Component {
                   // { id: 2020, name :'socks'},
                 ],
     modalIsOpen : false,
-    formName : ''
+    formName : '',
+    selState : null,
+    selCity : [],
+    state : statesData.states ,        
+    city : citiesData.cities,
   }
 
   componentDidMount() {
@@ -515,6 +520,48 @@ openModal = () => {
   });      
 } 
 
+handleDropdownChange = event =>{
+  const {name, value} = event
+  this.setState({
+  [name]: value
+  },()=>{
+      // console.log(this.state)
+  })   
+   
+}
+
+handleStateSelect=(e)=>{
+        
+  const selectedValue = parseInt(e.target.value)       
+      
+   this.setState({selState: selectedValue},()=>{
+
+      const stateCity=this.state&&this.state.city.filter(c => c.stateId === this.state.selState);
+    
+        this.setState({selCity: stateCity},()=>{
+            // console.log(this.state.selCity)
+        })          
+        
+    })
+    let index = e.nativeEvent.target.selectedIndex;    
+    let stateName = e.nativeEvent.target[index].text        
+    console.log(stateName)
+    this.handleDropdownChange({  name: 'state', value: stateName  })
+            
+}
+
+
+handleCitySelect=(e)=>{        
+    let index = e.nativeEvent.target.selectedIndex;    
+    let cityName = e.nativeEvent.target[index].text        
+    console.log(cityName)
+    this.handleDropdownChange({  name: 'city', value: cityName  })
+    console.log('state:', this.state.state, 'city:', this.state.city)
+}
+
+
+
+
 
   render() {
     const formError = this.state.error = false ? 'Please fill all of the fields' : ''
@@ -751,12 +798,40 @@ openModal = () => {
                           name:"brandType"
                         }
                       ]}
-                    />                     
+                    />
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label className="text-grey-color float-label">Enter State</label>
+                            <select className="form-control" onChange={ e =>{this.handleStateSelect(e) }} >
+                                    <option>Select State</option>                
+                                {
+                                    statesData.map((state)=>{     
+                                        return (
+                                        <option value={state.id} key={state.id} name="state">{state.name}</option>
+                                        )
+                                    })                    
+                                }                        
+                            </select>
+                        </div>  
+                    </div>                  
+                    <div className="col-md-6">
+                          <label className="text-grey-color float-label">Enter City</label>
+                            <select className="form-control" onChange={ e=>{this.handleCitySelect(e)} }> 
+                                        <option>Select City</option>                                               
+                                    {   
+                                    this.state&&this.state.selCity.map((city)=>{                                                        
+                                        return (
+                                            <option value={city.id} key={city.id}>{city.name}</option>
+                                            )                                                                           
+                                    })                                                         
+                                    } 
+                            </select> 
+                    </div>                  
                     <FormInputs
                       ncols={["col-md-12"]}
                       properties={[
                         {
-                          label: "Adress",
+                          label: "Address",
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "Brand Adress",
@@ -833,7 +908,7 @@ openModal = () => {
                             bsClass="form-control"
                             name="brandDescription"
                             placeholder="Here can be your description"
-                            defaultValue= {this.state.vendor.description}
+                            defaultValue={this.state.vendor.description}
                           />
                         </FormGroup>
                       </Col>
