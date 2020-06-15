@@ -233,6 +233,7 @@ class EditCoupon extends Component {
 				});	
 			}
 		  }
+		  console.log(sizeObj, " - ", this.state.product)
 		} 
 	handleSmallWidth(e) {
 		  this.setState({
