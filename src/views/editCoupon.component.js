@@ -107,11 +107,19 @@ class EditCoupon extends Component {
 			'x-access-token': localStorage.getItem("jwtToken")
 		  }
       axios.get('http://3.123.184.89:5000/admin/product_by_id?id='+this.props.match.params.id, {
+    //   axios.get('http://localhost:5000/admin/product_by_id?id='+this.props.match.params.id, {
 		headers : headers
 	  })
           .then(async (response) => {
 			console.log(this.props.match.params)
 			console.log(response.data)
+			if(response.data.product[0].size.length < 1){
+				response.data.product[0].size = this.state.product.size;
+				response.data.product[0].size[0].product_id = response.data.product[0].product_id;
+				response.data.product[0].size[1].product_id = response.data.product[0].product_id;
+				response.data.product[0].size[2].product_id = response.data.product[0].product_id;
+				response.data.product[0].size[3].product_id = response.data.product[0].product_id;
+			}
               this.setState({ 
                 product: response.data.product[0]
 			});
@@ -202,13 +210,14 @@ class EditCoupon extends Component {
 
 	handleSmallQuantity(e) {
 		
+		var val = e.target.value
 		  this.setState({
-			  smallQuantity : e.target.value
+			  smallQuantity : val
 		  });	
 		  var sizeObj = this.state.product.size
 		  for(var i = 0; i < this.state.product.size.length ; i++){
 			if(this.state.product.size[i].type == "small"){
-				sizeObj[i].quantity = e.target.value
+				sizeObj[i].quantity = val
 				this.setState({
 					product : {...this.state.product,
 						size : sizeObj
@@ -217,15 +226,17 @@ class EditCoupon extends Component {
 			}
 		  }
 		}
-	handleSmallLength(e) {
-			  console.log(this.state.product)
-			  this.setState({
-			  smallLength : e.target.value
+	async handleSmallLength(e) {
+		var val = e.target.value
+		
+			 await this.setState({
+			  smallLength : val
 		  });
 		  var sizeObj = this.state.product.size
+		  console.log(sizeObj)
 		  for(var i = 0; i < this.state.product.size.length ; i++){
 			if(this.state.product.size[i].type == "small"){
-				sizeObj[i].length = e.target.value
+				sizeObj[i].length = val
 				this.setState({
 					product : {...this.state.product,
 						size : sizeObj
@@ -548,6 +559,7 @@ class EditCoupon extends Component {
 		  }
 		  
 			await axios.post('http://3.123.184.89:5000/admin/edit_product', fd, {
+			// await axios.post('http://localhost:5000/admin/edit_product', fd, {
 				headers : headers
 			  })
 				.then(res => console.log(res.data));
