@@ -16,6 +16,8 @@ class Login extends React.Component {
      firstName: '',
      lastName: '',    
      email: '',
+     state:'',
+     city:'',
      password: '',
    }
 
@@ -77,6 +79,8 @@ class Login extends React.Component {
                       firstName : this.state.firstName,
                       lastName : this.state.lastName,
                       email : this.state.email,
+                      state : this.state.state,
+                      city : this.state.city,
                       password : this.state.password,
                     }
        console.log(User,'Registered user details');
@@ -84,6 +88,8 @@ class Login extends React.Component {
                         firstName : '',
                         lastName : '',
                         email : '',
+                        state : '',
+                        city : '',
                         password : '',
                     })
        this.props.history.push('/admin/about-brand')
