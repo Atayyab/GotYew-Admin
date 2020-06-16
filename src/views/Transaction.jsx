@@ -79,7 +79,7 @@ class TransactionHistory extends React.Component{
                                              <td>{trans.Remaining}</td>
                                              <td>{trans.Transfered}</td>
                                              <td>{trans.Date}</td>
-                                             <td><img className="transaction-img" src={trans.Picture} alt="transaction slip"/></td>                                             
+                                             <td><a href={trans.Picture} target="_blank"><img className="transaction-img" src={trans.Picture} alt="transaction slip"/></a></td>
                                          </tr>                                         
                                     })
                                 }
