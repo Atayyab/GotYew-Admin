@@ -583,12 +583,18 @@ class AddCoupon extends Component {
 					</div>          
 					<div className="form-group">
 						<label>Category</label>
-						<input 
+						{/* <input 
 	                      type="text" 
 	                      className="form-control" 
 	                      value={this.state.product.product_category}
 	                      onChange={this.onChangeCategory}
-	                      />
+	                      /> */}
+						  
+						  <select className="form-control" id="exampleFormControlSelect1" onChange = {this.onChangeCategory} value = {this.state.product.product_category || "men"}>
+						<option value ="men">men</option>
+						<option value ="women">women</option>
+						<option value ="kids">kids</option>
+						</select>
 					</div>
 					<div className="form-group">
 	                    <label>Amount</label>
