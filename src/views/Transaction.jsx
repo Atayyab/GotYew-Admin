@@ -28,27 +28,21 @@ class TransactionHistory extends React.Component{
                 <StatsCard
                     bigIcon={<i className="pe-7s-server text-warning" />}
                     statsText="Total Earned"
-                    statsValue={`$${this.state.TotalEarned}`}
-                    statsIcon={<i className="fa fa-refresh" />}
-                    statsIconText="Last Month"
+                    statsValue={`$${this.state.TotalEarned}`} 
                 />
                 </Col>
                 <Col lg={4} sm={6}>
                 <StatsCard
                     bigIcon={<i className="pe-7s-wallet text-success" />}
                     statsText="Total Transfered"
-                    statsValue={`$${this.state.TotalTransfered}`}
-                    statsIcon={<i className="fa fa-calendar-o" />}
-                    statsIconText="Last Month"
+                    statsValue={`$${this.state.TotalTransfered}`} 
                 />
                 </Col>
                 <Col lg={4} sm={6}>
                 <StatsCard
                     bigIcon={<i className="pe-7s-graph1 text-danger" />}
                     statsText="Total Remaining"
-                    statsValue={`$${this.state.TotalRemaining}`}
-                    statsIcon={<i className="fa fa-clock-o" />}
-                    statsIconText="Last Month"
+                    statsValue={`$${this.state.TotalRemaining}`} 
                 />
                 </Col>
                 </Row>

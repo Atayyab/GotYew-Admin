@@ -15,6 +15,22 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
+.text-center{
+  text-align: center;
+}
+.displayBlock{
+  display: block !important;
+}
+.user-avatar{
+  margin: 18px auto;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+.theme-btn{
+  margin: 10px;
+}
 #login-area {
     height: 100vh;
     background: #314755;  /* fallback for old browsers */
@@ -67,6 +83,31 @@ background: linear-gradient(to right, #26a0da, #314755); /* W3C, IE 10+/ Edge, F
 .user-full-details tbody tr span{
    cursor: pointer;
 }
+.user-full-details-image-holder{
+  text-align: center;
+}
+.user-full-details-image-holder .user-avatar {
+  margin: 15% auto;
+}
+.user-full-details-name {
+  margin: 0 0 10px 0;
+}
+.user-full-details {
+  border-left: 2px solid #1dc7ea;
+  padding: 0 0 0 10px;
+}
+.user-full-details tr{  
+  border: none !important;
+}
+.user-full-details tr td{  
+  padding: 5px 10px !important;  
+  font-size: 18px;  
+  border-bottom: 1px solid #e7e7e7;
+  background: #fff;
+}
+.user-full-details tr td label{  
+  margin: 0;
+}
 .modal2{
   top: 30%;
 }
@@ -115,6 +156,21 @@ background: linear-gradient(to right, #26a0da, #314755); /* W3C, IE 10+/ Edge, F
     font-size: 13px;
 }
 
+.search-box form input {
+  display: inline-block;
+}
+.search-box form input:nth-child(2) {
+  float: right;
+  width: 20%;
+  background: #1dc7ea;
+  color: #fff;
+}
+.search-box input.form-control.search-field-table {
+  width: 38%;
+}
+.search-box .form-group{
+  text-align: right;
+}
 #map{
     position:relative;
     width:100%;

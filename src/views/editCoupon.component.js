@@ -107,7 +107,7 @@ class EditCoupon extends Component {
 			'x-access-token': localStorage.getItem("jwtToken")
 		  }
       axios.get('http://3.123.184.89:5000/admin/product_by_id?id='+this.props.match.params.id, {
-    //   axios.get('http://localhost:5000/admin/product_by_id?id='+this.props.match.params.id, {
+    //   axios.get('http://3.123.184.89:5000/admin/product_by_id?id='+this.props.match.params.id, {
 		headers : headers
 	  })
           .then(async (response) => {
@@ -559,7 +559,7 @@ class EditCoupon extends Component {
 		  }
 		  
 			await axios.post('http://3.123.184.89:5000/admin/edit_product', fd, {
-			// await axios.post('http://localhost:5000/admin/edit_product', fd, {
+			// await axios.post('http://3.123.184.89:5000/admin/edit_product', fd, {
 				headers : headers
 			  })
 				.then(res => console.log(res.data));

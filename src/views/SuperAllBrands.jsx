@@ -1,8 +1,10 @@
 import React from 'react'
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card";
-import {SuperAll, brands} from 'variables/Variables'
+import { brands} from 'variables/Variables'
 import { UserCard } from "components/UserCard/UserCard.jsx";
+
+import axios from 'axios';
 
 
 
@@ -14,9 +16,27 @@ class SuperAllBrands extends React.Component{
         modal2IsOpen: false,
         clickedData : [],  
         approveBrand : true,   
+        SuperAll : [],
         unapproveBrand : false   
     }
     
+    componentDidMount() {
+    
+        axios.get('http://3.123.184.89:5000/admin/vendor_list')
+            .then(response => {
+              
+        console.log(response.data)
+                this.setState({ 
+                    SuperAll : response.data.data
+                });
+                
+          console.log("this - > ", this.state)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            console.log(this.state)
+      }
 
     closeModal = () => {
         this.setState({ 
@@ -25,11 +45,11 @@ class SuperAllBrands extends React.Component{
       }
 
     openModal = (data) => {
-        // console.log(data)
+        console.log(data)
         //fetching data from uri and populating in state
         this.setState({ 
             modalIsOpen : true,
-            clickedData : brands
+            clickedData : data
         });      
       }
 
@@ -53,6 +73,19 @@ class SuperAllBrands extends React.Component{
 
 
     approveSingleBrand = (data) => {
+        var d = {
+            id : data
+        }
+        axios.post('http://3.123.184.89:5000/admin/vendor_approve', d)
+            .then(response => {
+              
+        console.log(response.data)
+                
+          console.log("this - > ", this.state)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
         // in data there is an id of the brand which is clicked
         console.log(data);
         this.setState({ 
@@ -84,19 +117,19 @@ class SuperAllBrands extends React.Component{
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>Contact no.</th>
+                                    <th>Email</th>
                                     <th>Verification</th>                                                                       
                                 </tr>
                             </thead>
                             <tbody>
                                 {  
                                    
-                                   SuperAll.map((trans,index)=>{
+                                   this.state.SuperAll.map((trans,index)=>{
                                          return <tr key={index}>
                                              <td>{trans.id}</td>
-                                             <td>{trans.userName}</td>
-                                             <td>{trans.number}</td>                                             
-                                             <td>{trans.verifType === 'verified' ? <input type="checkbox" checked={this.state.approveBrand} /> : <input type="checkbox" checked={this.state.unapproveBrand} onChange={(e)=>{this.checkboxChecked(e,trans)}}/>}</td>
+                                             <td>{trans.name}</td>
+                                             <td>{trans.email}</td>                                             
+                                             <td>{trans.status === 'live' ? <input type="checkbox" checked={this.state.approveBrand} /> : <input type="checkbox" checked={this.state.unapproveBrand} onChange={(e)=>{this.checkboxChecked(e,trans)}}/>}</td>
                                              <td><button className="btn btn-info" onClick={()=>{this.openModal(trans)}} >Details</button></td>                                             
                                          </tr>                                         
                                     })
@@ -124,13 +157,13 @@ class SuperAllBrands extends React.Component{
              <div className="row">                                 
                   <Col md={12}>                    
                     <UserCard                  
-                        bgImage={this.state.clickedData.brandBanner}
-                        avatar={this.state.clickedData.brandImg}
-                        name={this.state.clickedData.brandName}
-                        userName={this.state.clickedData.brandType}
+                        bgImage={'https://scx2.b-cdn.net/gfx/news/hires/2018/milkyway.jpg'}
+                        avatar={this.state.clickedData.image}
+                        name={this.state.clickedData.name}
+                        userName={this.state.clickedData.category}
                         description={
                             <span>                                
-                                {this.state.clickedData.brandDesc}     
+                                {this.state.clickedData.description}     
                             </span>
                         }
                         
@@ -145,13 +178,13 @@ class SuperAllBrands extends React.Component{
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{this.state.clickedData.brandAddress}</td>
+                                    <td>{this.state.clickedData.address}</td>
                                     <td>
-                                        <a href={'tel:'+this.state.clickedData.brandContactNum1}>{this.state.clickedData.brandContactNum1}</a>
+                                        <a href={'tel:'+this.state.clickedData.phone_1}>{this.state.clickedData.phone_1}</a>
                                         <br/>
-                                        <a href={'tel:'+this.state.clickedData.brandContactNum2}>{this.state.clickedData.brandContactNum2}</a>
+                                        {/* <a href={'tel:'+this.state.clickedData.brandContactNum2}>{this.state.clickedData.brandContactNum2}</a> */}
                                     </td>
-                                    <td>{this.state.clickedData.brandJoinDate}</td>
+                                    <td>{this.state.clickedData.registered_at}</td>
                                 </tr>
                             </tbody>
                         </Table>                       
@@ -179,7 +212,7 @@ class SuperAllBrands extends React.Component{
                 <div className="col-lg-2">
                 </div>                                           
                 <div className="col-lg-8">
-                   <h3>Are you sure you want to approve <b>{this.state.approveBrand.userName}</b>??</h3>
+                   <h3>Are you sure you want to approve <b>{this.state.approveBrand.name}</b>??</h3>
                 </div>                                           
                 <div className="col-lg-2">
                 </div>                                           

@@ -22,9 +22,11 @@ import Typography from "views/Typography.jsx";
 import Icons from "views/Icons.jsx";
 import AboutBrand from "views/AboutBrand.jsx";
 import Orders from "views/Orders.jsx";
+import OrdersAdmin from "views/OrdersAdmin.jsx";
 import Transaction from "views/Transaction.jsx";
 import Notifications from "views/Notifications.jsx";
 import SuperBrand from "views/SuperBrand.jsx";
+import Payments from "views/Payments.jsx";
 import SuperApprovedBrands from "views/SuperApprovedBrands.jsx";
 import SuperUnapprovedBrands from "views/SuperUnapprovedBrands.jsx";
 import SuperAllBrands from "views/SuperAllBrands.jsx";
@@ -36,8 +38,10 @@ import Documents from "./views/Documents";
 import DocumentsEdit from "./views/DocumentsEdit";
 import Coupons from "./views/Coupons";
 import AddCoupon from './views/addCoupon.component';
+import AddPayment from './views/addPayment.component';
 // import AddCoupon from './views/createCoupon.component';
 import EditCoupon from './views/editCoupon.component';
+import Customers from "views/Customers";
 // import AddCoupon from './views/';
 
 
@@ -99,10 +103,42 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
+    path: "/addPayment",
+    name: "AddPayments",
+    icon: "pe-7s-network",
+    view: false,
+    component: AddPayment,
+    layout: "/admin"
+  },
+  {
     path: "/superbrand",
     name: "Brand",
     icon: "pe-7s-network",
     component: SuperBrand,
+    layout: "/admin",
+    type: 'superAdmin'
+  },
+  {
+    path: "/orders_list",
+    name: "Orders",
+    icon: "pe-7s-scissors",
+    component: OrdersAdmin,
+    layout: "/admin",
+    type: 'superAdmin'
+  },
+  {
+    path: "/customers",
+    name: "Customers",
+    icon: "pe-7s-users",
+    component: Customers,
+    layout: "/admin",
+    type: 'superAdmin'
+  },
+  {
+    path: "/payments",
+    name: "Payments",
+    icon: "pe-7s-graph2",
+    component: Payments,
     layout: "/admin",
     type: 'superAdmin'
   },

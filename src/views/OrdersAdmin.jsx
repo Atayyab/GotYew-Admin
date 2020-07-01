@@ -32,7 +32,7 @@ class Orders extends React.Component{
       'x-access-token': localStorage.getItem("jwtToken")
     }
     
-    axios.get('http://3.123.184.89:5000/admin/orders', {
+    axios.get('http://3.123.184.89:5000/admin/orders_admin', {
       headers : headers
     })
         .then(response => {
@@ -249,12 +249,12 @@ class Orders extends React.Component{
     const date = new Date()      
 
     const modalmenuClass = `modal fade ${this.state.modalIsOpen ? "in show" : "hide"}`;       
-    const orderedPopClass = ` ${this.state.orderedPopClass ? this.state.data.created_at : "✓" }`;                    
-    const confirmedPopClass = ` ${this.state.Confirmed ? this.state.data.confirmed_date : "✓" }`;
-    const cuttingPopClass = ` ${this.state.Cutting ? this.state.data.cutting_date : "✓" }`;
-    const stitchingPopClass = ` ${this.state.Stitching ? this.state.data.stitching_date : "✓" }`;
-    const shippedPopClass = ` ${this.state.Shipped ? this.state.data.shipped_date : "✓" }`;
-    const deliveredPopClass = ` ${this.state.Delivered ? this.state.data.delivery_date : "✓" }`;    
+    const orderedPopClass = ` ${this.state.orderedPopClass ? this.state.data.created_at : "pending" }`;                    
+    const confirmedPopClass = ` ${this.state.Confirmed ? this.state.data.confirmed_date : "pending" }`;
+    const cuttingPopClass = ` ${this.state.Cutting ? this.state.data.cutting_date : "pending" }`;
+    const stitchingPopClass = ` ${this.state.Stitching ? this.state.data.stitching_date : "pending" }`;
+    const shippedPopClass = ` ${this.state.Shipped ? this.state.data.shipped_date : "pending" }`;
+    const deliveredPopClass = ` ${this.state.Delivered ? this.state.data.delivery_date : "pending" }`;    
        return(
         <div className="content">
             <Grid fluid>
@@ -262,7 +262,7 @@ class Orders extends React.Component{
                     <Col md={12}>
                     <Card
                         title="Orders"
-                        category="Here is a list of orders"
+                        category="List of Orders"
                         ctTableFullWidth
                         ctTableResponsive
                         content={
@@ -365,30 +365,31 @@ class Orders extends React.Component{
                     <tbody>
                      <tr>                       
                        <td>Ordered</td>
-                       <td> <span onClick={ ()=>{ if(window.confirm("Are you sure the status of this order is Ordered? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")){this.handleOrderedPopClick()} } }> { orderedPopClass } </span> </td>
-                     </tr>                     
+                       
+                       <td> { orderedPopClass }  </td>  
+                       </tr>                     
                      <tr>                       
                        <td>Confirmed</td> 
-                       <td> 
-                         <span onClick={ () => { if(window.confirm("Are you sure the status of this order is Confirmed? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")){ this.handleConfirmedPopClick() } } }> 
-                           { confirmedPopClass } 
-                         </span> </td>                      
+                       
+                       <td> { confirmedPopClass }  </td>   
+                                               
                      </tr>                     
                      <tr>                       
                        <td>Cutting</td>    
-                       <td> <span onClick={ () =>{ if(window.confirm("Are you sure the status of this order is Cutting? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")) { this.handleCuttingPopClick() } } }> { cuttingPopClass } </span> </td>                                          
-                     </tr>                     
+                       <td>  { cuttingPopClass }  </td>    
+                       
+                       </tr>                     
                      <tr>                       
                        <td>Stitching</td>  
-                       <td> <span onClick={ ()=>{ if(window.confirm("Are you sure the status of this order is Stitching? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")) {this.handleStitchingPopClick()}  } }> { stitchingPopClass } </span> </td>                                            
+                       <td> { stitchingPopClass } </td>                                           
                      </tr>                     
                      <tr>                       
                        <td>Shipped</td>  
-                       <td> <span onClick={  ()=>{  if(window.confirm("Are you sure the status of this order is Shipped? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")){this.handleShippedPopClick()}  }  }> { shippedPopClass } </span> </td>                                                        
+                       <td> { shippedPopClass } </td>                                                      
                      </tr>                     
                      <tr>                       
                        <td>Delivered</td>  
-                       <td> <span onClick={ ()=>{ if(window.confirm("Are you sure the status of this order is Delivered? This willl send a notification to the user and they'll be informed of this. Please note that this action cannot be reverted")){this.handleDeliveredPopClick()} } }> { deliveredPopClass } </span> </td>                                                        
+                       <td> { deliveredPopClass }  </td>                                                        
                      </tr>                     
                      </tbody> 
                    </table>

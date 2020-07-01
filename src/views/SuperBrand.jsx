@@ -27,7 +27,7 @@ class SuperBrand extends Component {
       <div className="content">
         <Grid fluid>
           <Row>
-            <Col lg={4} sm={6}>               
+            <Col lg={6} sm={6}>               
                 <StatsCard
                     bigIcon={<i className="pe-7s-check text-danger-success" />}
                     statsText=""
@@ -35,15 +35,15 @@ class SuperBrand extends Component {
                     statsIconText={<button className="btn btn-info pull-right"><Link to="/admin/superbrandsapproved">View</Link></button>}                    
                 />              
             </Col>
-            <Col lg={4} sm={6}>               
+            {/* <Col lg={4} sm={6}>               
                 <StatsCard
                     bigIcon={<i className="pe-7s-close-circle text-warning" />}
                     statsText=""
                     statsValue="Unapproved"                    
                     statsIconText={<button className="btn btn-info pull-right"><Link to="/admin/superbrandsunapproved">View</Link></button>}                    
                 />              
-            </Col>
-            <Col lg={4} sm={6}>               
+            </Col> */}
+            <Col lg={6} sm={6}>               
                 <StatsCard
                     bigIcon={<i className="pe-7s-albums text-danger" />}
                     statsText=""
