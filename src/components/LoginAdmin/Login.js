@@ -31,6 +31,7 @@ class Login extends React.Component {
             //  console.log(user.email)
             if( email === user.email && password === user.password ){
                 console.log('matched')
+                localStorage.setItem('jwtToken' , "-");
                 this.setState( {credentialError: !this.state.credentialError} )
                 localStorage.setItem('role', "superAdmin");
                 this.props.history.push('/admin/superbrand')
