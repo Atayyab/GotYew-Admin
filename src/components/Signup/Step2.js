@@ -65,12 +65,11 @@ class Step2 extends React.Component{
        }else{
         this.setState({
             error : false,         
-            modalIsOpen : true   
+            // modalIsOpen : true   
         })
         //  console.log('yayy!!')
-        //  this.props.changeToStep3(event)         
-
-       }            
+         this.props.changeToStep3(event)
+       }
     }
 
 
@@ -96,7 +95,7 @@ class Step2 extends React.Component{
                 <div id="createFormSecondSection">
                     <div className="form--container--heading-area create-acc">
                         <h1 className="theme-heading">Create Account</h1>
-                        <p className="text-grey">Sed ut perspiciatis unde omnis iste natus error</p>            
+                        <p className="text-grey">Fill in the details to create account</p>           
                     </div>
                     <p className={showCredentialError}>{ this.state.errorMessage }</p>
                     <div className="form-group">
@@ -118,7 +117,7 @@ class Step2 extends React.Component{
                     <div className="form--container bottom-links">
                         <ul>                            
                             <li className="pull-right"> <Link to="/login">Login</Link></li>
-                        </ul>                
+                        </ul>
                     </div>
 
 

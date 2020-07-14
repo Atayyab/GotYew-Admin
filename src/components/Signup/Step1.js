@@ -25,11 +25,12 @@ class Step1 extends React.Component{
 
     handleStateSelect=(e)=>{
         
-        const selectedValue = parseInt(e.target.value)       
+        const selectedValue = e.target.value      
             
-         this.setState({selState: selectedValue},()=>{
+          console.log(selectedValue.toString())
+          this.setState({selState: selectedValue},()=>{
   
-            const stateCity=this.state&&this.state.city.filter(c => c.stateId === this.state.selState);
+            const stateCity=this.state&&this.state.city.filter(c => c.state === this.state.selState);
           
               this.setState({selCity: stateCity},()=>{
                   // console.log(this.state.selCity)
@@ -89,11 +90,11 @@ render(){
                   <p className={showCredentialError}>{ this.state.errorMessage }</p>
                 <div id="createFormFirstSection">
                     <div className="form-group">
-                            <label className="text-grey-color float-label">FIRST NAME</label>
+                            <label className="text-grey-color float-label">Name</label>
                             <input type="text" className="form-control" name="firstName" value={this.props.firstName} onChange={this.props.handleStepChange} />
                         </div>
                         <div className="form-group">
-                            <label className="text-grey-color float-label">LAST NAME</label>
+                            <label className="text-grey-color float-label">Address</label>
                             <input type="text" className="form-control" name="lastName" value={this.props.lastName} onChange={this.props.handleStepChange} />
                         </div>
                         <div className="form-group">
@@ -103,7 +104,7 @@ render(){
                                 {
                                     statesData.map((state)=>{     
                                         return (
-                                        <option value={state.id} key={state.id} name="state">{state.name}</option>
+                                        <option value={state.name} key={state.id} name="state">{state.name}</option>
                                         )
                                     })                    
                                 }                        

@@ -807,7 +807,7 @@ handleCitySelect=(e)=>{
                                 {
                                     statesData.map((state)=>{     
                                         return (
-                                        <option value={state.id} key={state.id} name="state">{state.name}</option>
+                                        <option value={state.name} key={state.id} name="state">{state.name}</option>
                                         )
                                     })                    
                                 }                        
@@ -841,7 +841,7 @@ handleCitySelect=(e)=>{
                       ]}
                     />
                     <FormInputs
-                      ncols={["col-md-6", "col-md-6"]}
+                      ncols={["col-md-12"]}
                       properties={[
                         {
                           label: "Contact Number",
@@ -851,14 +851,14 @@ handleCitySelect=(e)=>{
                           name:"brandContact1",
                           defaultValue: this.state.vendor.phone_1,
                         },
-                        {
-                          label: "Second Contact Number (Optional)",
-                          type: "number",
-                          bsClass: "form-control",
-                          placeholder: "Number",
-                          name:"brandContact2",
-                          defaultValue: this.state.vendor.phone_2,
-                        }                      
+                        // {
+                        //   label: "Second Contact Number (Optional)",
+                        //   type: "number",
+                        //   bsClass: "form-control",
+                        //   placeholder: "Number",
+                        //   name:"brandContact2",
+                        //   defaultValue: this.state.vendor.phone_2,
+                        // }                      
                       ]}
                     />
                     {/* <FormInputs

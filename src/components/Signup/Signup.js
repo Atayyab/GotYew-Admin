@@ -2,6 +2,7 @@ import React from 'react'
 import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
+import axios from 'axios';
 
 
 
@@ -81,8 +82,20 @@ class Login extends React.Component {
                       email : this.state.email,
                       state : this.state.state,
                       city : this.state.city,
-                      password : this.state.password,
+                      password : this.state.password
                     }
+                    
+		const fd = new FormData();
+			fd.append('firstName', this.state.firstName);
+			fd.append('lastName', this.state.lastName);
+			fd.append('latitude', this.state.location.lat);
+			fd.append('longitude', this.state.location.lng);
+			fd.append('email', this.state.email);
+			fd.append('state', this.state.state);
+			fd.append('city', this.state.city);
+			fd.append('password', this.state.password);
+			axios.post('http://localhost:5000/admin/add_vendor', fd)
+            .then(res => console.log(res.data));
        console.log(User,'Registered user details');
        this.setState({
                         firstName : '',
@@ -92,7 +105,7 @@ class Login extends React.Component {
                         city : '',
                         password : '',
                     })
-       this.props.history.push('/admin/about-brand')
+       this.props.history.push('/authgate/login')
    }
 
 
