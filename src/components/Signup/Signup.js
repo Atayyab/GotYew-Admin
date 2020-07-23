@@ -75,7 +75,8 @@ class Login extends React.Component {
 
    //Send data to service
    handleFormSubmit = (event) => {
-    //    event.preventDefault();       
+    //    event.preventDefault();    
+    console.log("Handle Form Submit")   
        const User = {
                       firstName : this.state.firstName,
                       lastName : this.state.lastName,
@@ -157,7 +158,12 @@ class Login extends React.Component {
                                         :
                                        
                                         
-                                    <Step3                                     
+                                    <Step3        
+                                        currentStep = { this.currentStep }
+                                        changeToStep3 = { this.changeToStep3 }
+                                        handleDropdownChange = {this.handleDropdownChange}             
+                                        handleStepChange={ this.handleStepChange }
+                                        handleFormSubmit={ this.handleFormSubmit }                             
                                     />                                   
                                     }
                                 </form>                   

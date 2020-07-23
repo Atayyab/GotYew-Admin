@@ -119,7 +119,7 @@ const dashboardRoutes = [
     type: 'superAdmin'
   },
   {
-    path: "/orders_list",
+    path: "/orders_list/:id",
     name: "Orders",
     icon: "pe-7s-scissors",
     component: OrdersAdmin,
@@ -135,7 +135,7 @@ const dashboardRoutes = [
     type: 'superAdmin'
   },
   {
-    path: "/payments",
+    path: "/payments/:id",
     name: "Payments",
     icon: "pe-7s-graph2",
     component: Payments,

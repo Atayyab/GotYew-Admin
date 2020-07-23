@@ -168,7 +168,7 @@ class Step3 extends React.Component{
 			// axios.post('http://apis.ifollowinc.com:5000/admin/stickers_new', fd)
 				.then(res => console.log(res.data));
 		
-			this.props.history.push('/admin/stickers');
+			this.props.history.push('/admin/login');
 		}
   	}
 

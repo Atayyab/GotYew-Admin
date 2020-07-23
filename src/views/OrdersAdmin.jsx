@@ -356,7 +356,7 @@ class Orders extends React.Component{
                 <div className="content table-full-width table-responsive item-status-table">
                    <table className="user-full-details table table-striped table-hover">
                    <thead>
-                     <span className="error">Note: Tapping tick mark will send a notification to user about the status of this order.</span>
+                     {/* <span className="error">Note: Tapping tick mark will send a notification to user about the status of this order.</span> */}
                        <tr>
                            <th>Status</th>
                            <th>Date</th>                           
