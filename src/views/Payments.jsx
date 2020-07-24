@@ -73,7 +73,7 @@ class Payments extends Component {
     }
     
     console.log("this - > ", headers)
-    axios.get('http://3.123.184.89:5000/admin/payments', {
+    axios.get('http://3.123.184.89:5000/admin/payments?id='+this.props.match.params.id, {
       headers : headers
     })
         .then(response => {

@@ -32,7 +32,7 @@ class Orders extends React.Component{
       'x-access-token': localStorage.getItem("jwtToken")
     }
     
-    axios.get('http://3.123.184.89:5000/admin/orders_admin', {
+    axios.get('http://3.123.184.89:5000/admin/orders_admin_by_id?id='+this.props.match.params.id, {
       headers : headers
     })
         .then(response => {

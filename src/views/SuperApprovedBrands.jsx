@@ -137,6 +137,11 @@ class SuperApprovedBrands extends React.Component{
                                     </td>
                                     <td>{this.state.clickedData.registered_at}</td>
                                 </tr>
+                                
+                    <tr className="text-center">
+                       <Link to={"/admin/orders_list/"+this.state.clickedData.id} className="btn btn-info btn-fill m-10 btn-padding">Details</Link>
+                       {/* <Link to={"/admin/edit/"+this.props.obj.id} className="btn btn-primary">Edit</Link> */}
+                    </tr> 
                             </tbody>
                         </Table>                       
                     </Col>
