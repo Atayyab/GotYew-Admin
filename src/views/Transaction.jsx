@@ -29,7 +29,7 @@ class TransactionHistory extends React.Component{
     }
     
     console.log("this - > ", headers)
-    axios.get('http://localhost:5000/admin/payments_page', {
+    axios.get('http://3.123.184.89:5000/admin/payments_page', {
       headers : headers
     })
         .then(response => {
