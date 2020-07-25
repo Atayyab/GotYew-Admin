@@ -456,6 +456,17 @@ const allUsers = [
       "options": "hate speech"
   },
   {
+      "id": 1,
+      "user_name": 'Mason Porter',
+      "email":'admin@cultsquare.com',
+      "password":'naviwala123@',
+      "reported_user_name": 'Doris Greene',
+      "date": "2019-12-23 21:44:31",
+      "status": "action taken",
+      "description": "agressive messages sent VIA pvt msg",
+      "options": "hate speech"
+  },
+  {
       "id": 2,
       "user_name": 'Dakota Rice',
       "email":'dakota@email.com',
