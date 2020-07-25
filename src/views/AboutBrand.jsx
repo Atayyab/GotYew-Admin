@@ -64,7 +64,8 @@ class TableList extends Component {
     selState : null,
     selCity : [],
     state : statesData.states ,        
-    city : citiesData.cities,
+    city_list : citiesData.cities,
+    city : ''
   }
 
   componentDidMount() {
@@ -109,7 +110,6 @@ class TableList extends Component {
     var desc = e.target.brandDescription.value;
     const addr = e.target.brandAddress.value;
     const num1 = e.target.brandContact1.value;
-    const num2 = e.target.brandContact2.value;
   //  name === '' || type === ''  || desc === '' || addr === '' || num1 === '' || num2 === '' ? this.setState({error : true}) :   
 
   await this.setState({
@@ -117,16 +117,14 @@ class TableList extends Component {
     brandType: type,
     brandDesc: desc,    
     brandAddress: addr,
-    brandContactNum1 : num1,
-    brandContactNum2 : num2,    
+    brandContactNum1 : num1,  
     error : false,
     vendor: { ...this.state.vendor,
       name : name,
       category : type,
       description : desc,
       address : addr,
-      phone_1 : num1,
-      phone_2 : num2
+      phone_1 : num1
     }
    });
 
@@ -522,24 +520,28 @@ openModal = () => {
 
 handleDropdownChange = event =>{
   const {name, value} = event
+  console.log(event)
   this.setState({
   [name]: value
   },()=>{
-      // console.log(this.state)
+      console.log(this.state)
   })   
    
 }
 
 handleStateSelect=(e)=>{
         
+    let index2 = e.nativeEvent.target.selectedIndex; 
+    let stateName2 = e.nativeEvent.target[index2].text  
   const selectedValue = parseInt(e.target.value)       
       
-   this.setState({selState: selectedValue},()=>{
+    console.log(stateName2)
+   this.setState({selState: stateName2},()=>{
 
-      const stateCity=this.state&&this.state.city.filter(c => c.stateId === this.state.selState);
+      const stateCity=this.state&&this.state.city_list.filter(c => c.state === this.state.selState);
     
-        this.setState({selCity: stateCity},()=>{
-            // console.log(this.state.selCity)
+            this.setState({selCity: stateCity},()=>{
+            console.log(this.state.selCity)
         })          
         
     })
