@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import axios from 'axios'
+
 
 
 class Step2 extends React.Component{
@@ -8,6 +10,7 @@ class Step2 extends React.Component{
         super(props);
         this.state = {
             matchPassword: true,
+            matchEmail: true,
             password: '',
             confirmPassword: '',
             enteredEmail : '',
@@ -18,14 +21,32 @@ class Step2 extends React.Component{
     }    
       
 
-    handleEmail = event => {      
+    handleEmail = async event => {      
          event.preventDefault();  
          const value = event.target.value
+         this.props.handleStepChange(event)
          this.setState({
             enteredEmail: value
          },()=>{            
-            })         
-         this.props.handleStepChange(event)
+            })
+
+
+
+            await axios.get('http://3.123.184.89:5000/admin/check_vendor?email='+value)
+            .then(response => {
+                if(response.data.code == 0)
+                this.setState({ matchEmail : false })
+                else
+                this.setState({ matchEmail : true })
+
+        // console.log(this.props.match.params)
+        console.log(response.data, event)
+        
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+
     }
 
     handlepassword = event => {        
@@ -62,7 +83,16 @@ class Step2 extends React.Component{
              errorMessage : 'Fields are empty. Please fill in all fields'
          })
 
-       }else{
+       }
+       else if (!this.state.matchEmail || !this.state.matchPassword){
+           
+         console.log('fields not valid')         
+         this.setState({
+             error : true,
+             errorMessage : 'Fields are invalid. Please fill in all fields with valid data'
+         })
+       }
+       else{
         this.setState({
             error : false,         
             // modalIsOpen : true   
@@ -86,6 +116,7 @@ class Step2 extends React.Component{
     render(){
 
         const showMatchedPasswordErr = `${ this.state.matchPassword ? 'hide error' : 'show error' }`
+        const showMatchedEmailErr = `${ this.state.matchEmail ? 'hide error' : 'show error' }`
         const showPasswordClassName = `${ this.props.showPasswordClassName ? 'text' : 'password' }`
         const showPasswordEyeClassName = `${ this.props.showPasswordEyeClassName ? 'fa fa-eye password-switch' : 'fa fa-eye-slash password-switch' }`                     
         const showCredentialError = this.state.error ? 'show error' : 'hide error'  
@@ -112,6 +143,7 @@ class Step2 extends React.Component{
                         <input type={showPasswordClassName} className="form-control" name="confirmPassword" value={this.confirmpassword} onChange={event=>{this.handlepasswordMatch(event)}} />                    
                     </div>
                     <p className={showMatchedPasswordErr}>Passwords do not matched</p>
+                    <p className={showMatchedEmailErr}>Email already exist</p>
                     
                     <button className="btn btn-block btn-info" onClick={event=>{this.checkFormEmpty(event)} }>PROCEED</button>
                     <div className="form--container bottom-links">

@@ -60,7 +60,7 @@ class Login extends React.Component {
             this.setState( {credentialError: true, errorText: res.data.message} )
         }
     }).catch(e=>{
-        console.log('not matched')  
+        console.log('not matched')
         this.setState( {credentialError: !this.state.credentialError} )       
         // alert(e)
     })  
@@ -93,18 +93,28 @@ class Login extends React.Component {
        event.preventDefault();
     //    console.log(event.target.email.value)
        const email =  event.target.email.value
-       allUsers.forEach((user)=>{
+
+       axios.get('http://3.123.184.89:5000/admin/forgot_password?email='+event.target.email.value)
+        .then(response => {
+    // console.log(this.props.match.params)
+    console.log(response.data)
+    //   console.log("this - > ", this.state)
+        
+
         //  console.log(user.email)
-        if( email === user.email ){
+        if( response.data.code == 0 ){
             console.log('matched')
-            this.setState( {credentialError: !this.state.credentialError} )
+            this.setState( {credentialError: false} )
             this.setState({ loginUserScreen : !this.state.loginUserScreen })
             this.setState({ forgetPasswordScreen : false })
         }else{
-            console.log('not matched')  
-            this.setState( {credentialError: !this.state.credentialError} )           
+            console.log('not matched')
+            this.setState( {credentialError: true} )           
         }
-    })
+})
+.catch(function (error) {
+    console.log(error);
+})
    }
 
 
