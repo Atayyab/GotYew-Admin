@@ -72,6 +72,7 @@ class Payments extends Component {
       'x-access-token': localStorage.getItem("jwtToken")
     }
     
+    localStorage.setItem('vendor_id' , this.props.match.params.id);
     console.log("this - > ", headers)
     axios.get('http://3.123.184.89:5000/admin/payments?id='+this.props.match.params.id, {
       headers : headers

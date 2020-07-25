@@ -104,7 +104,7 @@ class SuperApprovedBrands extends React.Component{
               </button> 
               <h4 className="modal-title" id="mySmallModalLabel">Details</h4> 
             </div> 
-            <div className="modal-body">
+            <div className="modal-body user-modal-body">
              <div className="row">                                 
                   <Col md={12}>                    
                     <UserCard                  
@@ -139,8 +139,9 @@ class SuperApprovedBrands extends React.Component{
                                 </tr>
                                 
                     <tr className="text-center">
-                       <Link to={"/admin/orders_list/"+this.state.clickedData.id} className="btn btn-info btn-fill m-10 btn-padding">Details</Link>
-                       {/* <Link to={"/admin/edit/"+this.props.obj.id} className="btn btn-primary">Edit</Link> */}
+                    <td> <Link to={"/admin/orders_list/"+this.state.clickedData.id} className="btn btn-info btn-fill m-10 btn-padding">Orders</Link>
+                    </td><td></td><td><Link to={"/admin/payments/"+this.state.clickedData.id} className="btn btn-success btn-fill m-10 btn-padding">Payments</Link>
+                       </td> {/* <Link to={"/admin/edit/"+this.props.obj.id} className="btn btn-primary">Edit</Link> */}
                     </tr> 
                             </tbody>
                         </Table>                       

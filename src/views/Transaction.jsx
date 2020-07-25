@@ -3,18 +3,53 @@ import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import {TransactionData} from 'variables/Variables'
+import axios from 'axios';
 
 
 
 class TransactionHistory extends React.Component{  
     
     state = {
+        payment_list : [],
         TotalEarned : 10500,    
         TotalTransfered : 1345,    
         TotalRemaining : 1345    
     }
     
     
+  componentDidMount() {
+    
+    if(!localStorage.getItem("jwtToken")){
+      // console.log("=====================")
+      this.props.history.push("/")
+    }
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem("jwtToken")
+    }
+    
+    console.log("this - > ", headers)
+    axios.get('http://localhost:5000/admin/payments_page', {
+      headers : headers
+    })
+        .then(response => {
+    // console.log(this.props.match.params)
+    console.log(response.data)
+            this.setState({ 
+              payment_list: response.data.data,
+              TotalEarned : response.data.total,    
+              TotalTransfered : response.data.remaining,    
+              TotalRemaining : response.data.transfered 
+
+             });
+      console.log("this - > ", this.state)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+  }
+
+
 
     
 
@@ -67,13 +102,13 @@ class TransactionHistory extends React.Component{
                             <tbody>
                                 {  
                                    
-                                   TransactionData.map((trans,index)=>{
+                                   this.state.payment_list.map((trans,index)=>{
                                          return <tr key={index}>
-                                             <td>{trans.id}</td>
-                                             <td>{trans.Remaining}</td>
-                                             <td>{trans.Transfered}</td>
-                                             <td>{trans.Date}</td>
-                                             <td><a href={trans.Picture} target="_blank"><img className="transaction-img" src={trans.Picture} alt="transaction slip"/></a></td>
+                                             <td>{index}</td>
+                                             <td>{trans.total_remaining}</td>
+                                             <td>{trans.transfered}</td>
+                                             <td>{trans.date}</td>
+                                             <td><a href={trans.image} target="_blank"><img className="transaction-img" src={trans.image} alt="transaction slip"/></a></td>
                                          </tr>                                         
                                     })
                                 }

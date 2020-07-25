@@ -119,7 +119,7 @@ handleSearch = (txt) =>{
               <form onSubmit={(event)=>{ event.preventDefault(); this.handleSearch(event.target.searchTxt.value) }}>
                 <div className="form-group">
                   <input type="text" id = "searchTxt" className="form-control search-field-table" placeholder="search.."/>
-                  <input type="submit" className="form-control" value="submit"/>
+                  <input type="submit" className="form-control" value="Search"/>
                 </div>                                               
               </form>                      
             </div>  
@@ -179,8 +179,7 @@ handleSearch = (txt) =>{
                     </div>
                     <div className="text-center">
                        <button onClick = {this.blockUser} className="btn btn-danger btn-fill m-10 btn-padding">{ this.state.activeUser.status === "live" ? "Block" : "Unblock" }</button>
-                       {/* <Link to={"/admin/about_mechanic/"+this.state.activeUser.id} className="btn btn-info btn-fill m-10 btn-padding">Details</Link> */}
-                       {/* <Link to={"/admin/edit/"+this.props.obj.id} className="btn btn-primary">Edit</Link> */}
+                       <Link to={"/admin/user_orders_list/"+this.state.activeUser.id} className="btn btn-info btn-fill m-10 btn-padding">Orders</Link>
                     </div> 
                   </div> 
                 </div> 

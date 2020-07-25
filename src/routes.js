@@ -23,6 +23,7 @@ import Icons from "views/Icons.jsx";
 import AboutBrand from "views/AboutBrand.jsx";
 import Orders from "views/Orders.jsx";
 import OrdersAdmin from "views/OrdersAdmin.jsx";
+import OrdersAdminUsers from "views/OrdersAdminUsers.jsx";
 import Transaction from "views/Transaction.jsx";
 import Notifications from "views/Notifications.jsx";
 import SuperBrand from "views/SuperBrand.jsx";
@@ -124,7 +125,15 @@ const dashboardRoutes = [
     icon: "pe-7s-scissors",
     component: OrdersAdmin,
     layout: "/admin",
-    type: 'superAdmin'
+    type: 'superAdmin2'
+  },
+  {
+    path: "/user_orders_list/:id",
+    name: "User Orders",
+    icon: "pe-7s-scissors",
+    component: OrdersAdminUsers,
+    layout: "/admin",
+    type: 'superAdmin2'
   },
   {
     path: "/customers",
@@ -140,7 +149,7 @@ const dashboardRoutes = [
     icon: "pe-7s-graph2",
     component: Payments,
     layout: "/admin",
-    type: 'superAdmin'
+    type: 'superAdmin2'
   },
   {
     path: "/superbrandsapproved",
@@ -204,7 +213,7 @@ const dashboardRoutes = [
     icon: "pe-7s-file",
     component: Documents,
     layout: "/admin",
-    type: 'superAdmin'
+    type: 'superAdmin2'
   },
   {
     path: "/docs/edit",

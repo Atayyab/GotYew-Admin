@@ -83,13 +83,17 @@ class Step3 extends React.Component{
     }
         this.setState({ file: this.fileArray })
         // e.target.files = null
-        console.log(this.fileArray)
+		console.log(this.fileArray)
+		
+		this.props.handleFileChange(fileObj)
     }
 	  onChangeFile(e) {
 	    this.setState({
 			file: e.target.files[0]
 		});
 		console.log(e.target.files[0])
+		
+		this.props.handleFileChange(e)
   	}
 	  onChangeSubscriptionStatus(e) {
 		  this.setState({
@@ -108,6 +112,8 @@ class Step3 extends React.Component{
 			this.setState({
 			  radius: e.target.value
 			});
+			
+			this.props.handleStepChange(e)
 		  }
 	onChangeCode(e) {
 	    this.setState({
@@ -135,6 +141,8 @@ class Step3 extends React.Component{
 	    this.setState({
 			location: loc
 		})
+		
+		this.props.handleChange(loc)
 		console.log(this.state.location , loc)
 	}
 
@@ -164,11 +172,10 @@ class Step3 extends React.Component{
 				fd.append('file', this.state.file[x])
 			}
 			
-				await axios.post('http://localhost:5000/admin/add_vendor', fd)
-			// axios.post('http://apis.ifollowinc.com:5000/admin/stickers_new', fd)
-				.then(res => console.log(res.data));
+			// 	await axios.post('http://localhost:5000/admin/add_vendor', fd)
+			// 	.then(res => console.log(res.data));
 		
-			this.props.history.push('/admin/login');
+			// this.props.history.push('/authgate/login');
 		}
   	}
 
@@ -176,6 +183,7 @@ class Step3 extends React.Component{
     
 	    return (
 	        <div className="container-fluid">
+	            {/* <form onSubmit={()=>{ this.onSubmit() } }> */}
 	            <form onSubmit={()=>{ this.props.handleFormSubmit() } }>
 	            {/* <form onSubmit={this.onSubmit}> */}
 	                {/* <div className="form-group">

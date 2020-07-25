@@ -207,7 +207,8 @@ class AddCoupon extends Component {
 	}
 	async onSubmit(e) {
 		e.preventDefault();
-		console.log("onSubmit state", this.state)
+		var id =  localStorage.getItem("vendor_id").toString()
+		console.log("onSubmit state", id, this.state)
 	    // const obj = {
 		// 	tag: this.state.tag,
 		// 	image: this.state.file
@@ -215,8 +216,9 @@ class AddCoupon extends Component {
 		// console.log(obj)
 		const fd = new FormData();
 		
-		if(this.state.picture){
+		if(this.state.picture.length > 0){
 			fd.append('total_remaining', this.state.product.product_name);
+			// fd.append('id', this.props.match.params.id);
 			fd.append('transfered', this.state.product.product_description);
 			// for(var x = 0; x<this.state.product.size.length; x++) {
 			// 	fd.append('size[]', this.state.product.size[x]);

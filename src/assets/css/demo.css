@@ -155,7 +155,10 @@ background: linear-gradient(to right, #26a0da, #314755); /* W3C, IE 10+/ Edge, F
     color: #aaa;
     font-size: 13px;
 }
-
+.user-modal-body{
+  max-height: 550px;
+  overflow-y: scroll;
+}
 .search-box form input {
   display: inline-block;
 }

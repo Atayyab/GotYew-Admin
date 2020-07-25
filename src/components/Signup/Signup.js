@@ -16,7 +16,9 @@ class Login extends React.Component {
      createUserScreen : false,     
      firstName: '',
      lastName: '',    
+     location: {lat : 0, lng : 0},    
      email: '',
+     file: '',
      state:'',
      city:'',
      password: '',
@@ -56,6 +58,12 @@ class Login extends React.Component {
          
    }
    
+   handleChange = (loc) => {
+	    this.setState({
+			location: loc
+		})
+		
+	}
 
    changeToStep2 = (event) => {
      event.preventDefault();
@@ -72,11 +80,36 @@ class Login extends React.Component {
    }
 
 
+   handleFileChange=(fileObj) =>{
+       
+		console.log(fileObj)
+        var fileArray = []
+        // this.fileObj.push(e.target.files)
+        for (let j = 0; j < fileObj.length; j++) {
+            for (let i = 0; i < fileObj[j].length; i++) {
+            fileArray.push(fileObj[j][i])
+            // this.fileArray.push(URL.createObjectURL(fileObj[j][i]))
+            // console.log(j, " ", i)
+            // console.log(this.state)
+        }
+    }
+    console.log( fileArray)
+        this.setState({ file: fileArray[0] })
+        // e.target.files = null
+		
+    
+  }
+   checkData = () => {
+    console.log(this.state)
+    // setTimeout(function () {
+    //     console.log('boo')
+    //   }, 1000000)
+  }
 
    //Send data to service
-   handleFormSubmit = (event) => {
+   handleFormSubmit = () => {
     //    event.preventDefault();    
-    console.log("Handle Form Submit")   
+    console.log("Handle Form Submit", this.state)   
        const User = {
                       firstName : this.state.firstName,
                       lastName : this.state.lastName,
@@ -91,11 +124,13 @@ class Login extends React.Component {
 			fd.append('lastName', this.state.lastName);
 			fd.append('latitude', this.state.location.lat);
 			fd.append('longitude', this.state.location.lng);
-			fd.append('email', this.state.email);
+            fd.append('email', this.state.email);
+            if(this.state.file)
+            fd.append('file', this.state.file)
 			fd.append('state', this.state.state);
 			fd.append('city', this.state.city);
 			fd.append('password', this.state.password);
-			axios.post('http://localhost:5000/admin/add_vendor', fd)
+			axios.post('http://3.123.184.89:5000/admin/add_vendor', fd)
             .then(res => console.log(res.data));
        console.log(User,'Registered user details');
        this.setState({
@@ -162,6 +197,8 @@ class Login extends React.Component {
                                         currentStep = { this.currentStep }
                                         changeToStep3 = { this.changeToStep3 }
                                         handleDropdownChange = {this.handleDropdownChange}             
+                                        handleChange={ this.handleChange }
+                                        handleFileChange={ this.handleFileChange }
                                         handleStepChange={ this.handleStepChange }
                                         handleFormSubmit={ this.handleFormSubmit }                             
                                     />                                   

@@ -115,7 +115,7 @@ class SuperAllBrands extends React.Component{
                         <Table striped hover>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {/* <th>ID</th> */}
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Verification</th>                                                                       
@@ -126,7 +126,7 @@ class SuperAllBrands extends React.Component{
                                    
                                    this.state.SuperAll.map((trans,index)=>{
                                          return <tr key={index}>
-                                             <td>{trans.id}</td>
+                                             {/* <td>{trans.id}</td> */}
                                              <td>{trans.name}</td>
                                              <td>{trans.email}</td>                                             
                                              <td>{trans.status === 'live' ? <input type="checkbox" checked={this.state.approveBrand} /> : <input type="checkbox" checked={this.state.unapproveBrand} onChange={(e)=>{this.checkboxChecked(e,trans)}}/>}</td>
@@ -153,7 +153,7 @@ class SuperAllBrands extends React.Component{
               </button> 
               <h4 className="modal-title" id="mySmallModalLabel">Details</h4> 
             </div> 
-            <div className="modal-body">
+            <div className="modal-body user-modal-body">
              <div className="row">                                 
                   <Col md={12}>                    
                     <UserCard                  
