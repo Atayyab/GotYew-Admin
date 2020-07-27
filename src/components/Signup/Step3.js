@@ -198,10 +198,16 @@ class Step3 extends React.Component{
 	                <div className="form-group">      
 					
 					<label>Select Address Location </label>
-	  <Map obj= { this.state.location } onSearchLocation = {(loc) => this.onSearchLocation(loc)} onChangeLocation = {(loc) => this.onChangeLocation(loc)} />
-	  
+						
+						   <Map 
+							 obj= { this.state.location } 
+							 onSearchLocation = {(loc) => this.onSearchLocation(loc)} 
+							 onChangeLocation = {(loc) => this.onChangeLocation(loc)} 
+						   />
+							  
 	                </div>
-					
+					<br/>
+					<br/>
 					{/* <div className="form-group">
 	                    <input type="text" 
 	                      className="form-control"
