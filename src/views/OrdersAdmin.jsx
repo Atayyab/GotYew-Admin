@@ -298,8 +298,8 @@ class Orders extends React.Component{
                                              <td>{order.phone}</td>
                                              <td>{order.total_price}</td>
                                              <td>{order.status}</td>
-                                             <td>{order.total_price - 2}</td>
-                                             <td>{2}</td>
+                                             <td>{order.total_price / 100 * 90}</td>
+                                             <td>{order.total_price / 100 * 10}</td>
                                          </tr>                                         
                                     })
                                 }
