@@ -65,7 +65,8 @@ class TableList extends Component {
     selCity : [],
     state : statesData.states ,        
     city_list : citiesData.cities,
-    city : ''
+    city : '',
+    states : ''
   }
 
   componentDidMount() {
@@ -83,6 +84,7 @@ class TableList extends Component {
     console.log(response.data)
             this.setState({ 
               vendor: response.data.vendor, 
+              city: response.data.vendor.city, 
               colors: response.data.colors,
               materials: response.data.materials,
               outfits: response.data.outfits,
@@ -93,12 +95,34 @@ class TableList extends Component {
               sizeType: response.data.sizes
              });
       console.log("this - > ", this.state)
+      this.handleStateLoad(this.state.vendor.country)
+      
         })
         .catch(function (error) {
             console.log(error);
         })
   }
 
+  handleStateLoad = (e)=>{
+        
+    let stateName2 = e   
+      
+    console.log(stateName2)
+   this.setState({selState: stateName2},()=>{
+  
+      const stateCity=this.state&&this.state.city_list.filter(c => c.state === this.state.selState);
+    
+            this.setState({selCity: stateCity},()=>{
+            console.log(this.state.selCity)
+        })          
+        
+    }) 
+    let stateName = e       
+    console.log(stateName)
+    this.handleDropdownChange({  name: 'state', value: stateName  })
+            
+  }
+  
 
  editBrandHandle = async (e) => {
    e.preventDefault();
@@ -118,12 +142,16 @@ class TableList extends Component {
     brandDesc: desc,    
     brandAddress: addr,
     brandContactNum1 : num1,  
+    country : this.state.state,
+    city : this.state.city,
     error : false,
     vendor: { ...this.state.vendor,
       name : name,
       category : type,
       description : desc,
       address : addr,
+      city : this.state.city,
+      country : this.state.state,
       phone_1 : num1
     }
    });
@@ -553,11 +581,12 @@ handleStateSelect=(e)=>{
 }
 
 
-handleCitySelect=(e)=>{        
+handleCitySelect=async (e)=>{    
+  console.log(e)    
     let index = e.nativeEvent.target.selectedIndex;    
     let cityName = e.nativeEvent.target[index].text        
     console.log(cityName)
-    this.handleDropdownChange({  name: 'city', value: cityName  })
+    await this.handleDropdownChange({  name: 'city', value: cityName  })
     console.log('state:', this.state.state, 'city:', this.state.city)
 }
 
@@ -804,22 +833,23 @@ handleCitySelect=(e)=>{
                     <div className="col-md-6">
                         <div className="form-group">
                             <label className="text-grey-color float-label">Enter State</label>
-                            <select className="form-control" onChange={ e =>{this.handleStateSelect(e) }} >
-                                    <option>Select State</option>                
+                            <select className="form-control" onChange={ e =>{this.handleStateSelect(e) }} value = {this.state.selState}>
+                                    <option>Select State</option>
                                 {
-                                    statesData.map((state)=>{     
+                                    statesData.map((state)=>{
                                         return (
                                         <option value={state.name} key={state.id} name="state">{state.name}</option>
                                         )
-                                    })                    
-                                }                        
+                                    })
+                                }
                             </select>
                         </div>  
                     </div>                  
                     <div className="col-md-6">
                           <label className="text-grey-color float-label">Enter City</label>
                             <select className="form-control" onChange={ e=>{this.handleCitySelect(e)} }> 
-                                        <option>Select City</option>                                               
+                            <option value={this.state.city}>{this.state.city}</option>
+                                                                                      
                                     {   
                                     this.state&&this.state.selCity.map((city)=>{                                                        
                                         return (

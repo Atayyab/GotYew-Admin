@@ -133,6 +133,8 @@ class Login extends React.Component {
 			axios.post('http://3.123.184.89:5000/admin/add_vendor', fd)
             .then(res => console.log(res.data));
        console.log(User,'Registered user details');
+       
+       window.alert("Dear "+this.state.firstName+",\nYour account request has been received by CULT SQUARE team, you wil soon receive an email once admin approves your account.")
        this.setState({
                         firstName : '',
                         lastName : '',
@@ -141,6 +143,7 @@ class Login extends React.Component {
                         city : '',
                         password : '',
                     })
+                    
        this.props.history.push('/authgate/login')
    }
 

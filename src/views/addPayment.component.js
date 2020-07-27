@@ -218,7 +218,7 @@ class AddCoupon extends Component {
 		
 		if(this.state.picture.length > 0){
 			fd.append('total_remaining', this.state.product.product_name);
-			// fd.append('id', this.props.match.params.id);
+			fd.append('id', id);
 			fd.append('transfered', this.state.product.product_description);
 			// for(var x = 0; x<this.state.product.size.length; x++) {
 			// 	fd.append('size[]', this.state.product.size[x]);
@@ -234,7 +234,7 @@ class AddCoupon extends Component {
 				.then(res => console.log(res.data));
 		}
 		
-    	this.props.history.push('/admin/payments');
+    	this.props.history.push('/admin/payments/'+id);
   	}
 
   	render() {
@@ -276,7 +276,7 @@ class AddCoupon extends Component {
 	                </div>										
 	                <div className="form-group">
 	                    <input type="submit" 
-	                      value="Add Product" 
+	                      value="Add Payment" 
 						  className="btn btn-primary"
 						  style={{margin: '24px 0 0 0'}}						
 						  />

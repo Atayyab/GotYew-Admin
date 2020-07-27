@@ -70,6 +70,8 @@ class SuperApprovedBrands extends React.Component{
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Total Orders</th>
+                                    <th>Payment Remaining</th>
                                     <th>Verification</th>                                                                       
                                 </tr>
                             </thead>
@@ -80,7 +82,9 @@ class SuperApprovedBrands extends React.Component{
                                          return <tr key={index}>
                                              <td>{trans.id}</td>
                                              <td>{trans.name}</td>
-                                             <td>{trans.email}</td>                                             
+                                             <td>{trans.email}</td>  
+                                             <td>{trans.total_orders}</td>  
+                                             <td>{trans.payment_remaining}</td>                                             
                                              <td><button className="btn btn-info" onClick={()=>{ this.openModal(trans) }} >Details</button></td>
                                          </tr>                                         
                                     })
