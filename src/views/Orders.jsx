@@ -272,6 +272,7 @@ class Orders extends React.Component{
                                     <th>S.no.</th>
                                     <th>User Full Name</th>
                                     <th>Order Date</th>
+                                    <th>Phone</th>
                                     <th>Order Amount</th>
                                     <th>Status</th>
                                     <th>Your Total</th>
@@ -291,9 +292,10 @@ class Orders extends React.Component{
                                         // itemSize:"L"                                 
                                         this.state.orders.map((order,index)=>{
                                          return <tr key={index} onClick={()=>{this.check(order)}}>
-                                             <td>{order.id}</td>
+                                             <td>{index}</td>
                                              <td>{order.user_name}</td>
                                              <td>{order.created_at}</td>
+                                             <td>{order.phone}</td>
                                              <td>{order.total_price}</td>
                                              <td>{order.status}</td>
                                              <td>{order.total_price - 2}</td>
