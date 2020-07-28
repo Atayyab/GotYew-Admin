@@ -98,6 +98,10 @@ render(){
                             <input type="text" className="form-control" name="lastName" value={this.props.lastName} onChange={this.props.handleStepChange} />
                         </div>
                         <div className="form-group">
+                            <label className="text-grey-color float-label">Phone Number</label>
+                            <input type="text" className="form-control" name="phone" value={this.props.phone} onChange={this.props.handleStepChange} />
+                        </div>
+                        <div className="form-group">
                             <label className="text-grey-color float-label">Enter State</label>
                             <select className="form-control" onChange={ e =>{this.handleStateSelect(e) }} >
                                     <option>Select State</option>                

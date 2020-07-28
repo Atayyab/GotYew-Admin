@@ -20,6 +20,7 @@ class Login extends React.Component {
      email: '',
      file: '',
      state:'',
+     phone:'',
      city:'',
      password: '',
    }
@@ -122,6 +123,7 @@ class Login extends React.Component {
 		const fd = new FormData();
 			fd.append('firstName', this.state.firstName);
 			fd.append('lastName', this.state.lastName);
+			fd.append('phone', this.state.phone);
 			fd.append('latitude', this.state.location.lat);
 			fd.append('longitude', this.state.location.lng);
             fd.append('email', this.state.email);
@@ -134,7 +136,7 @@ class Login extends React.Component {
             .then(res => console.log(res.data));
        console.log(User,'Registered user details');
        
-       window.alert("Dear "+this.state.firstName+",\nYour account request has been received by CULT SQUARE team, you wil soon receive an email once admin approves your account.")
+       window.alert("Dear "+this.state.firstName+",\nYour account request has been received by CULT SQUARE team, you will soon receive an email once admin approves your account.")
        this.setState({
                         firstName : '',
                         lastName : '',
