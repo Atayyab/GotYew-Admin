@@ -11,9 +11,9 @@ class TransactionHistory extends React.Component{
     
     state = {
         payment_list : [],
-        TotalEarned : 10500,    
-        TotalTransfered : 1345,    
-        TotalRemaining : 1345    
+        TotalEarned : 0,    
+        TotalTransfered : 0,    
+        TotalRemaining : 0    
     }
     
     

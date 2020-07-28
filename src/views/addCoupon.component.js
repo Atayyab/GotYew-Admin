@@ -74,6 +74,7 @@ class AddCoupon extends Component {
         },	
 			id:'2',
 			name: "name",
+			size_chart : [],
 			description: "description",
 			picture: [],
 			amount: "0",		
@@ -495,10 +496,20 @@ class AddCoupon extends Component {
 		});	
 	  }
   
+	  handlePictures = (e) => {     
+		if( e.target.files.length > 1 ){
+			e.preventDefault()
+			alert("You can only upload a maximum of 1 size chart image");
+			
+		}
+	  this.setState({
+		  size_chart: e.target.files
+	  }, ()=>{ console.log(this.state.size_chart)})
+    }
     handlePicture = (e) => {     
 		if( e.target.files.length > 3 ){
 			e.preventDefault()
-			alert("You can only upload a maximum of 3 files");
+			alert("You can only upload a maximum of 3 images");
 			
 		}
 	  this.setState({
@@ -539,7 +550,13 @@ class AddCoupon extends Component {
 			for(var x = 0; x<this.state.picture.length; x++) {
 				fd.append('file', this.state.picture[x])
 			}
+			if(this.state.size_chart.length > 0){
+				fd.append('file', this.state.size_chart[0])
 			
+				fd.append('is_size_chart', "1");
+			}else
+			fd.append('is_size_chart', "0");
+
 		const headers = {
 			// 'Content-Type': 'application/json',
 			'x-access-token': localStorage.getItem("jwtToken")
@@ -581,21 +598,21 @@ class AddCoupon extends Component {
 	                      onChange={this.onChangeDescription}
 	                      />
 					</div>          
-					<div className="form-group">
-						<label>Category</label>
+					{/* <div className="form-group">
+						<label>Category</label> */}
 						{/* <input 
 	                      type="text" 
 	                      className="form-control" 
 	                      value={this.state.product.product_category}
 	                      onChange={this.onChangeCategory}
 	                      /> */}
-						  
+{/* 						  
 						  <select className="form-control" id="exampleFormControlSelect1" onChange = {this.onChangeCategory} value = {this.state.product.product_category || "men"}>
 						<option value ="men">men</option>
 						<option value ="women">women</option>
 						<option value ="kids">kids</option>
 						</select>
-					</div>
+					</div> */}
 					<div className="form-group">
 	                    <label>Amount</label>
 	                    <input type="text" 
@@ -610,6 +627,14 @@ class AddCoupon extends Component {
 						  className="form-control"	  
 						  multiple="multiple"                    
 	                      onChange={this.handlePicture}
+	                      />
+	                </div>
+					<div className="form-group">
+	                    <label>Picture</label>
+	                    <input type="file" 
+						  className="form-control"	  
+						  multiple="multiple"                    
+	                      onChange={this.handlePictures}
 	                      />
 	                </div>
 					<div className="col-md-3">
@@ -634,7 +659,7 @@ class AddCoupon extends Component {
 							disabled={this.state.quantityCheck}
 							value={this.state.smallQuantity}
 							/>
-							<label>Length</label>
+							{/* <label>Length</label>
 							<input type="text" 
 							className="form-control"	  						                      
 							onChange={this.handleSmallLength}	
@@ -654,7 +679,7 @@ class AddCoupon extends Component {
 							onChange={this.handleSmallHeight}	
 							disabled={this.state.quantityCheck}
 							value={this.state.smallHeight}					
-							/>
+							/> */}
 						</div>
 						<div className={mediumClass}>
 						<h4>Enter Medium Size Details Below</h4>
@@ -665,7 +690,7 @@ class AddCoupon extends Component {
 							disabled={this.state.quantityCheck}
 							value={this.state.mediumQuantity}
 							/>
-							<label>Length</label>
+							{/* <label>Length</label>
 							<input type="text" 
 							className="form-control"	  						                      
 							onChange={this.handleMediumLength}	
@@ -685,7 +710,7 @@ class AddCoupon extends Component {
 							onChange={this.handleMediumHeight}	
 							disabled={this.state.quantityCheck}
 							value={this.state.mediumHeight}						
-							/>
+							/> */}
 						</div>
 						<div className={largeClass}>
 						<h4>Enter Large Size Details Below</h4>
@@ -696,7 +721,7 @@ class AddCoupon extends Component {
 							disabled={this.state.quantityCheck}
 							value={this.state.largeQuantity}
 							/>
-							<label>Length</label>
+							{/* <label>Length</label>
 							<input type="text" 
 							className="form-control"	  						                      
 							onChange={this.handleLargeLength}	
@@ -716,7 +741,7 @@ class AddCoupon extends Component {
 							onChange={this.handleLargeHeight}	
 							disabled={this.state.quantityCheck}
 							value={this.state.largeHeight}						
-							/>
+							/> */}
 						</div>
 						<div className={xlargeClass}>
 						<h4>Enter Extra Large Size Details Below</h4>
@@ -727,7 +752,7 @@ class AddCoupon extends Component {
 							disabled={this.state.quantityCheck}
 							value={this.state.xlargeQuantity}
 							/>
-							<label>Length</label>
+							{/* <label>Length</label>
 							<input type="text" 
 							className="form-control"	  						                      
 							onChange={this.handlexLargeLength}	
@@ -747,7 +772,7 @@ class AddCoupon extends Component {
 							onChange={this.handlexLargeHeight}	
 							disabled={this.state.quantityCheck}
 							value={this.state.xlargeHeight}						
-							/>
+							/> */}
 						</div>
 					</div>										
 	                <div className="form-group">

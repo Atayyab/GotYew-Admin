@@ -18,14 +18,14 @@ import { statesData,citiesData } from '../variables/Variables'
 class TableList extends Component {
 
   state={
-    brandName: 'Levis',
-    brandType: 'Clothing Brand',
-    brandDesc: "Levi Strauss Co. is an American clothing company known worldwide for its Levi's brand of denim jeans. It was founded in May 1853,",
+    brandName: 'Loading Brand Name...',
+    brandType: 'Loading Brand Type...',
+    brandDesc: "Loading Brand Description...",
     brandImg: 'https://res.cloudinary.com/bsqp-tech/image/upload/v1591329551/gxu85xcvjwout4mzxob8.png',
     brandBanner: 'https://scx2.b-cdn.net/gfx/news/hires/2018/milkyway.jpg',
     uploadedBrandImg: [],
     uploadedBrandBannerImg: [],
-    brandAddress: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
+    brandAddress: 'Brand Address',
     brandContactNum1 : '123456',
     brandContactNum2 : '654321',
     vendor: {}, 

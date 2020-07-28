@@ -36,6 +36,7 @@ class SuperApprovedBrands extends React.Component{
       }
 
     closeModal = () => {
+        console.log(this.state.clickedData)
         this.setState({ 
             modalIsOpen : false, 
             clickedData : []
@@ -115,7 +116,7 @@ class SuperApprovedBrands extends React.Component{
                         bgImage={'https://scx2.b-cdn.net/gfx/news/hires/2018/milkyway.jpg'}
                         avatar={this.state.clickedData.image}
                         name={this.state.clickedData.name}
-                        userName={this.state.clickedData.category}
+                        userName={this.state.clickedData.city +", "+this.state.clickedData.country}
                         description={
                             <span>                                
                                 {this.state.clickedData.description}     
@@ -124,7 +125,10 @@ class SuperApprovedBrands extends React.Component{
                         
                         /> 
                         <Table striped hover>
-                            <thead>
+                            <thead><tr>
+                    <td><b>Total Orders : </b>{this.state.clickedData.total_orders}</td>
+                    <td><b>Pending Payment :</b></td><td> {this.state.clickedData.payment_remaining}</td>
+                                </tr>
                                 <tr>
                                     <th>Address</th>
                                     <th>Contact No.</th>                                            

@@ -161,7 +161,7 @@ class SuperAllBrands extends React.Component{
                         bgImage={'https://scx2.b-cdn.net/gfx/news/hires/2018/milkyway.jpg'}
                         avatar={this.state.clickedData.image}
                         name={this.state.clickedData.name}
-                        userName={this.state.clickedData.category}
+                        userName={this.state.clickedData.city +", "+this.state.clickedData.country}
                         description={
                             <span>                                
                                 {this.state.clickedData.description}     

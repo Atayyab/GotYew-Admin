@@ -169,11 +169,15 @@ handleSearch = (txt) =>{
                           <p>Id: {this.state.activeUser.id}</p>                    
                           <p>Name: {this.state.activeUser.name}</p>               
                           <p style={this.state.activeUser.status === "live" ? {} : { color: 'red' }}>Status: {this.state.activeUser.status}</p>                    
+                                         
+                          <p>Phone : {this.state.activeUser.total_orders || 0}</p>   
+                          <p>Total Orders : {this.state.activeUser.phone}</p> 
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <p>Gender: {this.state.activeUser.gender}</p>                    
                           <p>Points : {this.state.activeUser.points}</p>     
                           <p>Email: {this.state.activeUser.email}</p>      
+                          <p>Amount Spent: {this.state.activeUser.total_amount_spent || 0}</p>      
                         </div>                                                                          
                       </div>                                                          
                     </div>
