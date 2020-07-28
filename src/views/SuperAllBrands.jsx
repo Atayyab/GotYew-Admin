@@ -90,8 +90,9 @@ class SuperAllBrands extends React.Component{
         console.log(data);
         this.setState({ 
             modal2IsOpen : false,                      
-            unapproveBrand : true
+            // unapproveBrand : true
         });
+        window.location.reload();
     }  
     
 
