@@ -41,7 +41,7 @@ class Login extends React.Component {
    
    loginCheck =(event)=>{
     event.preventDefault()
-    axios.post("http://3.123.184.89:5000/users/login_vendor",{
+    axios.post("http://localhost:5000/users/login_vendor",{
         email: event.target.email.value,
         password: event.target.password.value
     }).then(res=>{
@@ -94,7 +94,7 @@ class Login extends React.Component {
     //    console.log(event.target.email.value)
        const email =  event.target.email.value
 
-       axios.get('http://3.123.184.89:5000/admin/forgot_password?email='+event.target.email.value)
+       axios.get('http://localhost:5000/admin/forgot_password?email='+event.target.email.value)
         .then(response => {
     // console.log(this.props.match.params)
     console.log(response.data)

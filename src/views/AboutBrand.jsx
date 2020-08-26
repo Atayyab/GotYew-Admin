@@ -16,7 +16,7 @@ import { statesData,citiesData } from '../variables/Variables'
 // import banner from "assets/img/brands/Flex-HomeBanner-1.jpg";
 
 class TableList extends Component {
-
+  // 122.248.241.130
   state={
     brandName: 'Loading Brand Name...',
     brandType: 'Loading Brand Type...',
@@ -76,7 +76,7 @@ class TableList extends Component {
     }
     
     console.log("this - > ", headers)
-    axios.get('http://3.123.184.89:5000/admin/dashboard', {
+    axios.get('http://localhost:5000/admin/dashboard', {
       headers : headers
     })
         .then(response => {
@@ -84,15 +84,7 @@ class TableList extends Component {
     console.log(response.data)
             this.setState({ 
               vendor: response.data.vendor, 
-              city: response.data.vendor.city, 
-              colors: response.data.colors,
-              materials: response.data.materials,
-              outfits: response.data.outfits,
-              sizes: response.data.sizes,
-              color: response.data.colors,
-              materialType: response.data.materials,
-              outfitType: response.data.outfits,
-              sizeType: response.data.sizes
+              city: response.data.vendor.city
              });
       console.log("this - > ", this.state)
       this.handleStateLoad(this.state.vendor.country)
@@ -157,7 +149,7 @@ class TableList extends Component {
    });
 
 
-      await axios.post('http://3.123.184.89:5000/users/update_profile_vendor', this.state.vendor)
+      await axios.post('http://localhost:5000/users/update_profile_vendor', this.state.vendor)
 	        .then(res => console.log(res.data));
 }
 
@@ -167,7 +159,7 @@ HandleDPUploadImage =async (e) => {
   const fd = new FormData();
   fd.append('image', e.target.files[0], e.target.files[0].name);
   var image = this.state.vendor.image;
-  await axios.post('http://3.123.184.89:5000/users/upload', fd)
+  await axios.post('http://localhost:5000/users/upload', fd)
   .then(res => image = res.data.image);
    this.setState({
      uploadedBrandImg: image,
@@ -191,7 +183,7 @@ handleOutfitType = (e) =>{
         id : this.state.vendor.id,
         name : e.target.outfitType.value
       }
-      axios.post('http://3.123.184.89:5000/admin/add_outfit', data)
+      axios.post('http://localhost:5000/admin/add_outfit', data)
       .then(res => console.log(res.data));
       e.target.outfitType.value = ''
 }
@@ -203,7 +195,7 @@ onDeleteHandle() {
   var data = {
     id : id
   }
-  axios.post('http://3.123.184.89:5000/admin/delete_outfit', data)
+  axios.post('http://localhost:5000/admin/delete_outfit', data)
   .then(res => console.log(res.data));
   this.setState({
     outfitType: this.state.outfitType.filter(item => {
@@ -233,7 +225,7 @@ updateEditOutfitType(e) {
     list_id : this.state.defaultOutfitEditId,
     name : e.target.EditoutfitType.value
   }
-  axios.post('http://3.123.184.89:5000/admin/edit_outfit', data)
+  axios.post('http://localhost:5000/admin/edit_outfit', data)
   .then(res => console.log(res.data));
 
   console.log(this.state.defaultOutfitEditId,'State item id')
@@ -262,7 +254,7 @@ handleMaterialType = (e) =>{
         id : this.state.vendor.id,
         name : e.target.materialType.value
       }
-      axios.post('http://3.123.184.89:5000/admin/add_material', data)
+      axios.post('http://localhost:5000/admin/add_material', data)
       .then(res => console.log(res.data));
       e.target.materialType.value = ''
       console.log('handleMaterialType');
@@ -274,7 +266,7 @@ onDeleteMaterialHandle() {
   var data = {
     id : id
   }
-  axios.post('http://3.123.184.89:5000/admin/delete_material', data)
+  axios.post('http://localhost:5000/admin/delete_material', data)
   .then(res => console.log(res.data));
          
   this.setState({
@@ -306,7 +298,7 @@ updateEditMaterialType(e) {
     list_id : this.state.defaultMaterialEditId,
     name : e.target.EditmaterialType.value
   }
-  axios.post('http://3.123.184.89:5000/admin/edit_material', data)
+  axios.post('http://localhost:5000/admin/edit_material', data)
   .then(res => console.log(res.data));
   let id = arguments[0];
   console.log(this.state.defaultMaterialEditId,'State item id')
@@ -335,7 +327,7 @@ handleSizeType = (e) =>{
         id : this.state.vendor.id,
         name : e.target.sizeType.value
       }
-      axios.post('http://3.123.184.89:5000/admin/add_size', data)
+      axios.post('http://localhost:5000/admin/add_size', data)
       .then(res => console.log(res.data));
       e.target.sizeType.value = ''
       console.log('handleSizeType');
@@ -348,7 +340,7 @@ onDeleteSizeHandle() {
   var data = {
     id : id
   }
-  axios.post('http://3.123.184.89:5000/admin/delete_size', data)
+  axios.post('http://localhost:5000/admin/delete_size', data)
   .then(res => console.log(res.data));
   this.setState({
     sizeType: this.state.sizeType.filter(item => {
@@ -381,7 +373,7 @@ updateEditSizeType(e) {
     list_id : this.state.defaultSizeEditId,
     name : e.target.EditsizeType.value
   }
-  axios.post('http://3.123.184.89:5000/admin/edit_size', data)
+  axios.post('http://localhost:5000/admin/edit_size', data)
   .then(res => console.log(res.data));
   let id = arguments[0];
   console.log(this.state.defaultSizeEditId,'State item id')
@@ -466,7 +458,7 @@ handleColor = (e) =>{
         id : this.state.vendor.id,
         name : e.target.color.value
       }
-      axios.post('http://3.123.184.89:5000/admin/add_color', data)
+      axios.post('http://localhost:5000/admin/add_color', data)
       .then(res => console.log(res.data));
       e.target.color.value = ''
       console.log('handleType');
@@ -479,7 +471,7 @@ onDeleteColorHandle() {
   var data = {
     id : id
   }
-  axios.post('http://3.123.184.89:5000/admin/delete_color', data)
+  axios.post('http://localhost:5000/admin/delete_color', data)
   .then(res => console.log(res.data));
   this.setState({
     color: this.state.color.filter(item => {
@@ -510,7 +502,7 @@ updateEditColor(e) {
     list_id : this.state.defaultColorEditId,
     name : e.target.EditColor.value
   }
-  axios.post('http://3.123.184.89:5000/admin/edit_color', data)
+  axios.post('http://localhost:5000/admin/edit_color', data)
   .then(res => console.log(res.data));
 
 
@@ -631,7 +623,7 @@ handleCitySelect=async (e)=>{
                     </ul>
                 }
               />
-              <Card
+              {/* <Card
                 title="Outfit type"
                 category=""
                 ctTableFullWidth
@@ -674,7 +666,7 @@ handleCitySelect=async (e)=>{
                        </td>
                        <td width="10%">
                         <button className="btn btn-sm btn-info" onClick={()=>{this.handleEditOutfitType(outfit.id, outfit.name)}}>Edit</button>                     
-                        {/* <button className="btn btn-sm btn-info" onClick={()=>{this.openModal(outfit.id, outfit.name)}}>Edit</button> */}
+                        <button className="btn btn-sm btn-info" onClick={()=>{this.openModal(outfit.id, outfit.name)}}>Edit</button>
                        </td>
                        <td width="10%">
                        <button className="btn btn-sm btn-danger" onClick={()=>{this.onDeleteHandle(outfit.id)}}>Delete</button>
@@ -686,10 +678,10 @@ handleCitySelect=async (e)=>{
                    </table>                
                  </div>                                   
                 }
-              />
+              /> */}
               
               
-              <Card
+              {/* <Card
                 title="Size type"
                 category=""
                 ctTableFullWidth
@@ -743,7 +735,7 @@ handleCitySelect=async (e)=>{
                    </table>                
                  </div>                                   
                 }
-              />
+              /> */}
               {/* <Card
                 title="Type"
                 category=""
@@ -952,7 +944,7 @@ handleCitySelect=async (e)=>{
                   </form>
                 }
               />
-              <Card
+              {/* <Card
                 title="Material type"
                 category=""
                 ctTableFullWidth
@@ -1062,7 +1054,7 @@ handleCitySelect=async (e)=>{
                    </table>                
                  </div>                                   
                 }
-              />
+              /> */}
 
             </Col>
           </Row>

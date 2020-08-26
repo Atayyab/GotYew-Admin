@@ -1,33 +1,19 @@
 import React , { Component } from 'react';
 import axios from 'axios';
-
+import { Grid, Row, Col, FormGroup, ControlLabel, FormControl, Badge } from "react-bootstrap";
+import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+import Card from "components/Card/Card.jsx";
 class AddCoupon extends Component {
 	constructor(props) {		
 	    super(props);		
 		this.onChangeName = this.onChangeName.bind(this);
 		this.onChangeDescription = this.onChangeDescription.bind(this);
 		this.onChangeAmount = this.onChangeAmount.bind(this);
-	    this.onChangeSize = this.onChangeSize.bind(this);
-	    this.handleSmallQuantity = this.handleSmallQuantity.bind(this); 
-	    this.handleSmallLength = this.handleSmallLength.bind(this);
-	    this.handleSmallWidth = this.handleSmallWidth.bind(this);
-	    this.handleSmallHeight = this.handleSmallHeight.bind(this);
-		this.handleMediumQuantity = this.handleMediumQuantity.bind(this);
-		this.handleMediumLength = this.handleMediumLength.bind(this);
-	    this.handleMediumWidth = this.handleMediumWidth.bind(this);
-	    this.handleMediumHeight = this.handleMediumHeight.bind(this);   
-		this.handleLargeQuantity = this.handleLargeQuantity.bind(this);
-		this.handleLargeLength = this.handleLargeLength.bind(this);
-	    this.handleLargeWidth = this.handleLargeWidth.bind(this);
-	    this.handleLargeHeight = this.handleLargeHeight.bind(this);	    
-		this.handlexLargeQuantity = this.handlexLargeQuantity.bind(this);
-		this.handlexLargeLength = this.handlexLargeLength.bind(this);
-	    this.handlexLargeWidth = this.handlexLargeWidth.bind(this);
-	    this.handlexLargeHeight = this.handlexLargeHeight.bind(this);	    
-	    
+		
+		
 	    this.onSubmit = this.onSubmit.bind(this);
 
-	    this.state = {	
+	    this.state = {	 inputs: ['input-0'] ,
 			product : {
             "product_id": -1,
             "product_image": "",
@@ -36,45 +22,12 @@ class AddCoupon extends Component {
             "product_sub_category": "",
             "product_price": "",
             "status": "",
-            "product_description": "",
-            "size": [
-                {
-                    "product_id": "",
-                    "type": "small",
-                    "length": "0-0",
-                    "width": "0-0",
-                    "height": "0-0",
-                    "quantity": 0
-                },
-                {
-                    "product_id": "",
-                    "type": "medium",
-                    "length": "0-0",
-                    "width": "0-0",
-                    "height": "0-0",
-                    "quantity": 0
-                },
-                {
-                    "product_id": "",
-                    "type": "large",
-                    "length": "0-0",
-                    "width": "0-0",
-                    "height": "0-0",
-                    "quantity": 0
-                },
-                {
-                    "product_id": "",
-                    "type": "xl",
-                    "length": "0-0",
-                    "width": "0-0",
-                    "height": "0-0",
-                    "quantity": 0
-                }
-            ]
+            "product_description": ""
         },	
 			id:'2',
 			name: "name",
 			size_chart : [],
+			variants : [],
 			description: "description",
 			picture: [],
 			amount: "0",		
@@ -104,6 +57,7 @@ class AddCoupon extends Component {
 
   	componentDidMount() {
 			console.log(this.state.product);
+			console.log(this.state);
 		  
 	// 	const headers = {
 	// 		'Content-Type': 'application/json',
@@ -161,306 +115,25 @@ class AddCoupon extends Component {
 		  
     }
 
+	handleVariant = (e) =>{
+		e.preventDefault()
+		this.setState({
+		  variants : [...this.state.variants,{id: Date.now(), name : e.target.variants.value, var_value : e.target.var_value.value}]        
+		})
+		// var data = {
+		//   id : this.state.vendor.id,
+		//   name : e.target.variants.value
+		// }
+		// axios.post('http://localhost:5000/admin/add_color', data)
+		// .then(res => console.log(res.data));
+		e.target.color.value = ''
+		console.log('handleVariants', this.state);
+
+  }
+  
 
 	
-
-    onChangeSize(e) {		
-		e.target.value === "Small" ? this.setState({ 
-											 smallClass : true ,
-											 mediumClass : false ,
-											 largeClass : false ,
-											 xlargeClass : false ,
-											 quantityCheck : false
-
-											}) :
-		e.target.value === "Medium" ? this.setState({ 
-  											 smallClass : false ,
-											 mediumClass : true ,
-											 largeClass : false ,
-											 xlargeClass : false ,
-											 quantityCheck : false 
-											}) : 
-		e.target.value === "xLarge" ? this.setState({ 
-  											 smallClass : false ,
-											 mediumClass : false ,
-											 largeClass : false ,
-											 xlargeClass : true ,
-											 quantityCheck : false 
-											}) : 
-		e.target.value === "Large" ? this.setState({
-											 smallClass : false ,
-											 mediumClass : false ,
-											 largeClass : true , 
-											 xlargeClass : false ,
-											 quantityCheck : false 
-											}) : 
-											this.setState({ 
-												smallClass : false ,
-												mediumClass : false ,
-												largeClass : false ,
-												xlargeClass : false ,
-											 	quantityCheck : true 
-											})		
-  	}
-
-	handleSmallQuantity(e) {
-		
-		  this.setState({
-			  smallQuantity : e.target.value
-		  });	
-		  var sizeObj = this.state.product.size
-		  for(var i = 0; i < this.state.product.size.length ; i++){
-			if(this.state.product.size[i].type == "small"){
-				sizeObj[i].quantity = e.target.value
-				this.setState({
-					product : {...this.state.product,
-						size : sizeObj
-					}
-				});	
-			}
-		  }
-		}
-	handleSmallLength(e) {
-			  console.log(this.state.product)
-			  this.setState({
-			  smallLength : e.target.value
-		  });
-		  var sizeObj = this.state.product.size
-		  for(var i = 0; i < this.state.product.size.length ; i++){
-			if(this.state.product.size[i].type == "small"){
-				sizeObj[i].length = e.target.value
-				this.setState({
-					product : {...this.state.product,
-						size : sizeObj
-					}
-				});	
-			}
-		  }
-		} 
-	handleSmallWidth(e) {
-		  this.setState({
-			  smallWidth : e.target.value
-		  });  
-		  var sizeObj = this.state.product.size
-		  for(var i = 0; i < this.state.product.size.length ; i++){
-			if(this.state.product.size[i].type == "small"){
-				sizeObj[i].width = e.target.value
-				this.setState({
-					product : {...this.state.product,
-						size : sizeObj
-					}
-				});	
-			}
-		  }
-		}
-	handleSmallHeight(e) {
-		  this.setState({
-			  smallHeight : e.target.value
-		  }); 
-		  var sizeObj = this.state.product.size
-		  for(var i = 0; i < this.state.product.size.length ; i++){
-			if(this.state.product.size[i].type == "small"){
-				sizeObj[i].height = e.target.value
-				this.setState({
-					product : {...this.state.product,
-						size : sizeObj
-					}
-				});	
-			}
-		  }
-		}
-	handleMediumQuantity(e) {
-		  this.setState({
-			  mediumQuantity : e.target.value
-		  });	
-		  var sizeObj = this.state.product.size
-		  for(var i = 0; i < this.state.product.size.length ; i++){
-			if(this.state.product.size[i].type == "medium"){
-				sizeObj[i].quantity = e.target.value
-				this.setState({
-					product : {...this.state.product,
-						size : sizeObj
-					}
-				});	
-			}
-		  }
-		}
-	handleMediumLength(e) {
-			this.setState({
-				mediumLength : e.target.value
-			});
-			var sizeObj = this.state.product.size
-			for(var i = 0; i < this.state.product.size.length ; i++){
-			  if(this.state.product.size[i].type == "medium"){
-				  sizeObj[i].length = e.target.value
-				  this.setState({
-					  product : {...this.state.product,
-						  size : sizeObj
-					  }
-				  });	
-			  }
-			}
-		} 
-	handleMediumWidth(e) {
-			this.setState({
-				mediumWidth : e.target.value
-			}); 	
-			var sizeObj = this.state.product.size
-			for(var i = 0; i < this.state.product.size.length ; i++){
-			  if(this.state.product.size[i].type == "medium"){
-				  sizeObj[i].width = e.target.value
-				  this.setState({
-					  product : {...this.state.product,
-						  size : sizeObj
-					  }
-				  });	
-			  }
-			}		
-		}
-	handleMediumHeight(e) {
-		this.setState({
-			mediumHeight : e.target.value
-		}); 
-		var sizeObj = this.state.product.size
-		for(var i = 0; i < this.state.product.size.length ; i++){
-		  if(this.state.product.size[i].type == "medium"){
-			  sizeObj[i].height = e.target.value
-			  this.setState({
-				  product : {...this.state.product,
-					  size : sizeObj
-				  }
-			  });	
-		  }
-		}
-	}
-	handleLargeQuantity(e) {
-		this.setState({
-			largeQuantity : e.target.value
-		});	
-		var sizeObj = this.state.product.size
-		for(var i = 0; i < this.state.product.size.length ; i++){
-		  if(this.state.product.size[i].type == "large"){
-			  sizeObj[i].quantity = e.target.value
-			  this.setState({
-				  product : {...this.state.product,
-					  size : sizeObj
-				  }
-			  });	
-		  }
-		}
-	}
-	handleLargeLength(e) {
-		this.setState({
-			largeLength : e.target.value
-		});
-		var sizeObj = this.state.product.size
-		for(var i = 0; i < this.state.product.size.length ; i++){
-		  if(this.state.product.size[i].type == "large"){
-			  sizeObj[i].length = e.target.value
-			  this.setState({
-				  product : {...this.state.product,
-					  size : sizeObj
-				  }
-			  });	
-		  }
-		}
-	} 
-	handleLargeWidth(e) {
-		this.setState({
-			largeWidth : e.target.value
-		}); 
-		var sizeObj = this.state.product.size
-		for(var i = 0; i < this.state.product.size.length ; i++){
-		  if(this.state.product.size[i].type == "large"){
-			  sizeObj[i].width = e.target.value
-			  this.setState({
-				  product : {...this.state.product,
-					  size : sizeObj
-				  }
-			  });	
-		  }
-		}
-	}
-	handleLargeHeight(e) {
-		this.setState({
-			largeHeight : e.target.value
-		}); 
-		var sizeObj = this.state.product.size
-		for(var i = 0; i < this.state.product.size.length ; i++){
-		  if(this.state.product.size[i].type == "large"){
-			  sizeObj[i].height = e.target.value
-			  this.setState({
-				  product : {...this.state.product,
-					  size : sizeObj
-				  }
-			  });	
-		  }
-		}
-		}
-		handlexLargeQuantity(e) {
-			this.setState({
-				largeQuantity : e.target.value
-			});	
-			var sizeObj = this.state.product.size
-			for(var i = 0; i < this.state.product.size.length ; i++){
-			  if(this.state.product.size[i].type == "xl"){
-				  sizeObj[i].quantity = e.target.value
-				  this.setState({
-					  product : {...this.state.product,
-						  size : sizeObj
-					  }
-				  });	
-			  }
-			}
-		}
-		handlexLargeLength(e) {
-			this.setState({
-				largeLength : e.target.value
-			});
-			var sizeObj = this.state.product.size
-			for(var i = 0; i < this.state.product.size.length ; i++){
-			  if(this.state.product.size[i].type == "xl"){
-				  sizeObj[i].length = e.target.value
-				  this.setState({
-					  product : {...this.state.product,
-						  size : sizeObj
-					  }
-				  });	
-			  }
-			}
-		} 
-		handlexLargeWidth(e) {
-			this.setState({
-				largeWidth : e.target.value
-			}); 
-			var sizeObj = this.state.product.size
-			for(var i = 0; i < this.state.product.size.length ; i++){
-			  if(this.state.product.size[i].type == "xl"){
-				  sizeObj[i].width = e.target.value
-				  this.setState({
-					  product : {...this.state.product,
-						  size : sizeObj
-					  }
-				  });	
-			  }
-			}
-		}
-		handlexLargeHeight(e) {
-			this.setState({
-				largeHeight : e.target.value
-			}); 
-			var sizeObj = this.state.product.size
-			for(var i = 0; i < this.state.product.size.length ; i++){
-			  if(this.state.product.size[i].type == "xl"){
-				  sizeObj[i].height = e.target.value
-				  this.setState({
-					  product : {...this.state.product,
-						  size : sizeObj
-					  }
-				  });	
-			  }
-			}
-		}
+	  
 	onChangeName(e) {
 		// console.log("----",e.target)
 	    // this.setState({
@@ -598,21 +271,21 @@ class AddCoupon extends Component {
 	                      onChange={this.onChangeDescription}
 	                      />
 					</div>          
-					{/* <div className="form-group">
-						<label>Category</label> */}
-						{/* <input 
+					<div className="form-group">
+						<label>Category</label>
+						<input 
 	                      type="text" 
 	                      className="form-control" 
 	                      value={this.state.product.product_category}
 	                      onChange={this.onChangeCategory}
-	                      /> */}
+	                      />
 {/* 						  
 						  <select className="form-control" id="exampleFormControlSelect1" onChange = {this.onChangeCategory} value = {this.state.product.product_category || "men"}>
 						<option value ="men">men</option>
 						<option value ="women">women</option>
 						<option value ="kids">kids</option>
-						</select>
-					</div> */}
+						</select> */}
+					</div>
 					<div className="form-group">
 	                    <label>Amount</label>
 	                    <input type="text" 
@@ -628,153 +301,7 @@ class AddCoupon extends Component {
 						  multiple="multiple"                    
 	                      onChange={this.handlePicture}
 	                      />
-	                </div>
-					<div className="form-group">
-	                    <label>Picture</label>
-	                    <input type="file" 
-						  className="form-control"	  
-						  multiple="multiple"                    
-	                      onChange={this.handlePictures}
-	                      />
-	                </div>
-					<div className="col-md-3">
-						<div className="form-group">
-							<label>Size </label><br/>
-							<select className="form-control" onChange={this.onChangeSize} >
-								<option value="">Select Size</option>
-								<option value="Small">Small</option>
-								<option value="Medium">Medium</option>
-								<option value="Large">Large</option>
-								<option value="xLarge">XL</option>
-							</select>
-						</div>
-					</div>					
-					<div className="col-md-9">						
-						<div className={smallClass}>
-						<h4>Enter Small Size Details Below</h4>
-							<label>Quantity</label>
-							<input type="number" 
-							className="form-control"	  						                      
-							onChange={this.handleSmallQuantity}
-							disabled={this.state.quantityCheck}
-							value={this.state.smallQuantity}
-							/>
-							{/* <label>Length</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handleSmallLength}	
-							disabled={this.state.quantityCheck}
-							value={this.state.smallLength}						
-							/>							
-							<label>Width</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handleSmallWidth}	
-							disabled={this.state.quantityCheck}
-							value={this.state.smallWidth}						
-							/>
-							<label>Height</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handleSmallHeight}	
-							disabled={this.state.quantityCheck}
-							value={this.state.smallHeight}					
-							/> */}
-						</div>
-						<div className={mediumClass}>
-						<h4>Enter Medium Size Details Below</h4>
-						<label>Quantity</label>
-						    <input type="number" 
-							className="form-control"	  						                      
-							onChange={this.handleMediumQuantity}
-							disabled={this.state.quantityCheck}
-							value={this.state.mediumQuantity}
-							/>
-							{/* <label>Length</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handleMediumLength}	
-							disabled={this.state.quantityCheck}
-							value={this.state.mediumLength}						
-							/>							
-							<label>Width</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handleMediumWidth}	
-							disabled={this.state.quantityCheck}
-							value={this.state.mediumWidth}						
-							/>
-							<label>Height</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handleMediumHeight}	
-							disabled={this.state.quantityCheck}
-							value={this.state.mediumHeight}						
-							/> */}
-						</div>
-						<div className={largeClass}>
-						<h4>Enter Large Size Details Below</h4>
-						    <label>Quantity</label>
-						    <input type="number" 
-							className="form-control"	  						                      
-							onChange={this.handleLargeQuantity}
-							disabled={this.state.quantityCheck}
-							value={this.state.largeQuantity}
-							/>
-							{/* <label>Length</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handleLargeLength}	
-							disabled={this.state.quantityCheck}
-							value={this.state.largeLength}						
-							/>							
-							<label>Width</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handleLargeWidth}	
-							disabled={this.state.quantityCheck}
-							value={this.state.largeWidth}						
-							/>
-							<label>Height</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handleLargeHeight}	
-							disabled={this.state.quantityCheck}
-							value={this.state.largeHeight}						
-							/> */}
-						</div>
-						<div className={xlargeClass}>
-						<h4>Enter Extra Large Size Details Below</h4>
-						    <label>Quantity</label>
-						    <input type="number" 
-							className="form-control"	  						                      
-							onChange={this.handlexLargeQuantity}
-							disabled={this.state.quantityCheck}
-							value={this.state.xlargeQuantity}
-							/>
-							{/* <label>Length</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handlexLargeLength}	
-							disabled={this.state.quantityCheck}
-							value={this.state.xlargeLength}						
-							/>							
-							<label>Width</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handlexLargeWidth}	
-							disabled={this.state.quantityCheck}
-							value={this.state.xlargeWidth}						
-							/>
-							<label>Height</label>
-							<input type="text" 
-							className="form-control"	  						                      
-							onChange={this.handlexLargeHeight}	
-							disabled={this.state.quantityCheck}
-							value={this.state.xlargeHeight}						
-							/> */}
-						</div>
-					</div>										
+	                </div>						
 	                <div className="form-group">
 	                    <input type="submit" 
 	                      value="Add Product" 
@@ -783,8 +310,94 @@ class AddCoupon extends Component {
 						  />
 	                </div>
 	            </form>
+
+				<Card
+                title="Variants"
+                category=""
+                ctTableFullWidth
+                ctTableResponsive
+                content={                   
+                  <div>
+                    <Col md={12}>
+					  <button onClick={ () => this.appendInput() } className="btn btn-success btn-sm">
+						   Add Variant Option
+					   </button>  
+                   <form onSubmit={(e)=>{this.handleVariant(e)}}>
+				   {/* <form> */}
+                   <FormInputs
+                      ncols={["col-md-12"]}
+                      properties={[
+                        {
+                          label: "Add Variants",
+                          type: "text",
+                          bsClass: "form-control",
+                          placeholder: "enter variant",
+                          name:"variants",
+                          defaultValue:""
+                        },                        
+                      ]}
+					  /> 
+					   {this.state.inputs.map(input => <FormInputs key = {input}
+                      ncols={["col-md-6", "col-md-6"]}
+						properties={[
+						  {
+							label: "Variant Values",
+							type: "text",
+							bsClass: "form-control",
+							placeholder: "enter variant value",
+							name:"color",
+							defaultValue:""
+						  },         {
+							label: "Variant Price",
+							type: "text",
+							bsClass: "form-control",
+							placeholder: "enter variant price",
+							name:"color",
+							defaultValue:""
+						  },                 
+						]}
+						/>)}       
+					
+                    <input type="submit" className="btn btn-success btn-sm" value="submit"/>
+                    
+                   </form>    
+                   </Col>
+                   <Col md={12}>                   
+                   </Col>
+                   <table className="table table-striped table-hover">
+                   <thead>
+                       <tr>
+                       <th>Type</th>
+                       <th>Actions</th>
+                       </tr>
+                     </thead>
+                     <tbody>               
+                   {this.state.variants.map((pro,index)=>{
+                     return <tr  key={pro.id}>
+                       <td width="80%">
+                       <h5>{pro.name}</h5>
+                       </td>
+                       <td width="10%">
+                        <button className="btn btn-sm btn-info" onClick={()=>{this.handleEditColor(pro.id, pro.name)}}>Edit</button>                     
+                       </td>
+                       <td width="10%">
+                       <button className="btn btn-sm btn-danger" onClick={()=>{this.onDeleteColorHandle(pro.id)}}>Delete</button>
+                       </td>
+                     </tr>
+                   })
+                   }                      
+                   </tbody>
+                   </table>                
+                 </div>                                   
+                }
+              /> 
+			  
 	        </div>
 	    )
-  	}
+	  }
+	  appendInput() {
+        var newInput = `input-${this.state.inputs.length}`;
+        this.setState(prevState => ({ inputs: prevState.inputs.concat([newInput]) }));
+    }
 }
 export default AddCoupon;
